@@ -1,8 +1,6 @@
+import IntroSection from "../features/IntroSection";
+
 const Homepage = () => {
-  return (
-    <div>
-      <h1>Homepage</h1>
-    </div>
-  );
+  return <IntroSection />;
 };
 export default Homepage;

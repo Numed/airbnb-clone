@@ -5,13 +5,13 @@ import Loader from "../../components/Loader";
 import Homepage from "../../pages/Home";
 
 const App = () => (
-  <Router basename="/e-commerce">
-              <Suspense fallback={<Loader />}>
-                <Routes>
-                  <Route path="/" element={<Homepage />} />
-                </Routes>
-              </Suspense>
-            </Router>
+  <Router>
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+      </Routes>
+    </Suspense>
+  </Router>
 );
 
 export default App;
