@@ -11,6 +11,8 @@ module.exports = {
       },
       backgroundImage: {
         intro: "url('img/intro.png')",
+        bannerFlights: "url('img/banner/banner-flight.png')",
+        bannerHotels: "url('img/banner/banner-hotels.png')",
       },
     },
   },

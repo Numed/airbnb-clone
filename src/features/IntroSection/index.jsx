@@ -1,6 +1,8 @@
 import { tripCards } from "../Contants";
+import IntroBanner from "./IntroBanner";
 import IntroHeader from "./IntroHeader";
 import IntroSearch from "./IntroSearch";
+import IntroReviews from "./IntroReviews";
 
 const IntroSection = () => {
   return (
@@ -17,7 +19,7 @@ const IntroSection = () => {
           </h4>
         </div>
         <IntroSearch />
-        <div className="w-full h-auto mt-20 flex items-center justify-center flex-col">
+        <section className="w-full h-auto mt-20 flex items-center justify-center flex-col p-8">
           <div className="flex items-center justify-between w-full">
             <div>
               <h3 className="text-3xl font-semibold text-black">
@@ -31,7 +33,7 @@ const IntroSection = () => {
               See more places
             </button>
           </div>
-          <div className="grid grid-cols-3 mt-8 w-full gap-8">
+          <section className="grid grid-cols-3 mt-8 w-full gap-8">
             {tripCards.map(({ id, img, alt, title }) => (
               <div
                 key={id}
@@ -52,8 +54,10 @@ const IntroSection = () => {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
+          </section>
+          <IntroBanner />
+          <IntroReviews />
+        </section>
       </div>
     </section>
   );

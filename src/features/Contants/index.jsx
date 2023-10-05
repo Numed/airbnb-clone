@@ -8,9 +8,6 @@ import trip7 from "../../img/trips/trip-7.png";
 import trip8 from "../../img/trips/trip-8.png";
 import trip9 from "../../img/trips/trip-9.png";
 
-import banner1 from "../../img/banner/banner-flight.png";
-import banner2 from "../../img/banner/banner-hotels.png";
-
 import review1 from "../../img/reviews/review-1.png";
 import review2 from "../../img/reviews/review-2.png";
 import review3 from "../../img/reviews/review-3.png";
@@ -69,24 +66,6 @@ export const tripCards = [
     img: trip9,
     title: "Dubai, UAE",
     alt: "trip9",
-  },
-];
-
-export const bannerCards = [
-  {
-    id: 1,
-    title: "Flights",
-    description:
-      "Search Flights & Places Hire to our most popular destinations",
-    img: banner1,
-    alt: "Flights image",
-  },
-  {
-    id: 2,
-    title: "Hotels",
-    description: "Search hotels & Places Hire to our most popular destinations",
-    img: banner2,
-    alt: "Hotels image",
   },
 ];
 
