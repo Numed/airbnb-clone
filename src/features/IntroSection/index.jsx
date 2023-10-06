@@ -3,6 +3,7 @@ import IntroBanner from "./IntroBanner";
 import IntroHeader from "./IntroHeader";
 import IntroSearch from "./IntroSearch";
 import IntroReviews from "./IntroReviews";
+import Footer from "../../components/Footer";
 
 const IntroSection = () => {
   return (
@@ -58,6 +59,7 @@ const IntroSection = () => {
           <IntroBanner />
           <IntroReviews />
         </section>
+        <Footer />
       </div>
     </section>
   );
