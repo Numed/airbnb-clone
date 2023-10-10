@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <header className="w-full flex justify-between items-center p-8 bg-white">
       <div className="text-sm flex items-center space-x-8">
-        <NavLink className="text-blackishGreen font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all">
+        <NavLink to="/flights" className="text-blackishGreen font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all">
           <MdFlight size="1.5em" className="mr-1" />
           Find Flight
         </NavLink>
