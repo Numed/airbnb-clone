@@ -15,7 +15,10 @@ const IntroHeader = () => {
           <MdFlight size="1.5em" className="mr-1" />
           Find Flight
         </NavLink>
-        <NavLink className="text-white font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all">
+        <NavLink
+          to="/appartaments"
+          className="text-white font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all"
+        >
           <IoBed size="1.5em" className="mr-1" />
           Find Stays
         </NavLink>

@@ -12,6 +12,7 @@ module.exports = {
       backgroundImage: {
         intro: "url('img/intro/intro.png')",
         flightIntro: "url('img/intro/intro-1.png')",
+        apartmentIntro: "url('img/intro/intro-2.png')",
         bannerFlights: "url('img/banner/banner-flight.png')",
         bannerHotels: "url('img/banner/banner-hotels.png')",
         tripFlightMelbour: "url('img/flight-trips/trip1.png')",

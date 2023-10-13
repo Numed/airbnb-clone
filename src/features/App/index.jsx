@@ -6,6 +6,7 @@ import Homepage from "../../pages/Home";
 import SigninIn from "../../pages/SignIn";
 import SignUp from "../../pages/SignUp";
 import Flights from "../../pages/Flights";
+import Appartaments from "../../pages/Apartments";
 
 const App = () => (
   <Router>
@@ -15,6 +16,7 @@ const App = () => (
         <Route path="/sign-in" element={<SigninIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/flights" element={<Flights />} />
+        <Route path="/appartaments" element={<Appartaments />} />
       </Routes>
     </Suspense>
   </Router>
