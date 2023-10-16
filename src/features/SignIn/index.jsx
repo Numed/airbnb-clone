@@ -10,7 +10,9 @@ const SigninContainer = () => {
     <section className="flex items-center justify-center">
       <div className="flex items-center justify-center space-x-28">
         <div>
-          <img className="mb-16" src={logo} alt="logo" />
+          <Link to="/" className="flex h-auto w-auto">
+            <img className="mb-16" src={logo} alt="logo" />
+          </Link>
           <div>
             <h2 className="text-black text-4xl mb-4 font-bold">Login</h2>
             <h3 className="text-blackishGreen/75 text-base mb-12">

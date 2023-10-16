@@ -8,3 +8,12 @@ export const useRecentSearch = create((set) => ({
     }));
   },
 }));
+
+export const useActiveUser = create((set) => ({
+  user: null,
+  setUser: (newUser) => {
+    set((state) => ({
+      user: [...state.user, newUser],
+    }));
+  },
+}));
