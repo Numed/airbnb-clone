@@ -4,6 +4,7 @@ import { MdFlight } from "react-icons/md";
 import { IoBed } from "react-icons/io5";
 
 import { cn } from "../../../utils";
+import DatePickerWithRange from "../../../components/DatePicker";
 
 const IntroSearch = () => {
   const [activeButton, setActiveButton] = useState("Flights");
@@ -39,21 +40,27 @@ const IntroSearch = () => {
           </div>
         </div>
         <div className="flex items-center space-x-6 mt-12">
-          <fieldset className="border border-black rounded-md p-2">
+          <fieldset className="border border-blackishGreen rounded-md p-2">
             <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
             <input />
           </fieldset>
-          <fieldset className="border border-black rounded-md p-2">
-            <legend className="bg-white p-2 text-sm ml-2">Trip</legend>
-            <input />
+          <fieldset className="border border-blackishGreen rounded-md p-2">
+            <legend className="bg-white p-2 text-sm ml-0">Trip</legend>
+            <select
+              id="trip"
+              class="border-none outline-none bg-transparent pr-10"
+            >
+              <option value="return">Return</option>
+              <option value="stay">Stay</option>
+            </select>
           </fieldset>
-          <fieldset className="border border-black rounded-md p-2">
+          <fieldset className="border border-blackishGreen rounded-md p-2">
             <legend className="bg-white p-2 text-sm ml-2">
               Depart- Return
             </legend>
-            <input />
+            <DatePickerWithRange />
           </fieldset>
-          <fieldset className="border border-black rounded-md p-2">
+          <fieldset className="border border-blackishGreen rounded-md p-2">
             <legend className="bg-white p-2 text-sm ml-2">
               Passenger - Class
             </legend>
