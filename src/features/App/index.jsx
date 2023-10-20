@@ -7,6 +7,7 @@ import SigninIn from "../../pages/SignIn";
 import SignUp from "../../pages/SignUp";
 import Flights from "../../pages/Flights";
 import Appartaments from "../../pages/Apartments";
+import Profile from "../../pages/Profile";
 
 const App = () => (
   <Router>
@@ -17,6 +18,7 @@ const App = () => (
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/flights" element={<Flights />} />
         <Route path="/appartaments" element={<Appartaments />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Suspense>
   </Router>

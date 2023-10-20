@@ -7,7 +7,7 @@ import {
 } from "react-icons/bi";
 
 import subscribePhoto from "../../img/footer-icon.png";
-import logoWhite from "../../img/logo/logo-white.png";
+import logoWhite from "../../img/logo/footer-logo.png";
 
 const Footer = () => {
   return (
