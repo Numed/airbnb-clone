@@ -7,10 +7,10 @@ import Footer from "../../components/Footer";
 
 const IntroSection = () => {
   return (
-    <section className="w-full h-full p-8">
+    <section className="w-full h-full">
       <div className="h-screen bg-intro bg-center bg-no-repeat bg-cover rounded-xl ">
-        <IntroHeader />
-        <div className="w-full h-auto flex flex-col items-center justify-center my-20">
+          <IntroHeader />
+        <div className="w-full h-auto flex flex-col items-center justify-center my-20 p-8">
           <h3 className="text-5xl font-bold text-white">Helping Others</h3>
           <h2 className="text-white font-bold text-[5rem] mt-1">
             Live & Travel
@@ -20,7 +20,7 @@ const IntroSection = () => {
           </h4>
         </div>
         <IntroSearch />
-        <section className="w-full h-auto mt-20 flex items-center justify-center flex-col p-8">
+        <section className="w-full h-auto mt-20 flex items-center justify-center flex-col p-8 ">
           <div className="flex items-center justify-between w-full">
             <div>
               <h3 className="text-3xl font-semibold text-black">
