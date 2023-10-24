@@ -1,4 +1,5 @@
 import { FaPaperPlane } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const IntroBanner = () => {
   return (
@@ -9,10 +10,13 @@ const IntroBanner = () => {
           <h3 className="text-lg text-white mb-4 max-w-[24.5rem] text-center">
             Search Flights & Places Hire to our most popular destinations
           </h3>
-          <button className="flex items-center text-sm text-blackishGreen bg-mintGreen p-4 hover:text-white transition-all mb-6">
+          <Link
+            to="/search-flights"
+            className="flex items-center text-sm text-blackishGreen bg-mintGreen p-4 hover:text-white transition-all mb-6"
+          >
             <FaPaperPlane className="mr-1" size="1rem" />
             Show flights
-          </button>
+          </Link>
         </div>
       </div>
       <div className="w-full h-auto bg-bannerHotels bg-center bg-no-repeat bg-contain rounded-xl">
@@ -21,10 +25,13 @@ const IntroBanner = () => {
           <h3 className="text-lg text-white mb-4 max-w-[24.5rem] text-center">
             Search hotels & Places Hire to our most popular destinations
           </h3>
-          <button className="flex items-center text-sm text-blackishGreen bg-mintGreen p-4 hover:text-white transition-all mb-6">
+          <Link
+            to="/search-apps"
+            className="flex items-center text-sm text-blackishGreen bg-mintGreen p-4 hover:text-white transition-all mb-6"
+          >
             <FaPaperPlane className="mr-1" size="1rem" />
             Show hotels
-          </button>
+          </Link>
         </div>
       </div>
     </section>

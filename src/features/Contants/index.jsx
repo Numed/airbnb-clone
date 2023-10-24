@@ -12,6 +12,11 @@ import review1 from "../../img/reviews/review-1.png";
 import review2 from "../../img/reviews/review-2.png";
 import review3 from "../../img/reviews/review-3.png";
 
+import flights1 from "../../img/searchFlights/flight1.png";
+import flights2 from "../../img/searchFlights/flight2.png";
+import flights3 from "../../img/searchFlights/flight3.png";
+import flights4 from "../../img/searchFlights/flight4.png";
+
 export const tripCards = [
   {
     id: 1,
@@ -102,5 +107,40 @@ export const reviewsCards = [
     rating: 5,
     author: "Eliot",
     position: "Weave Studios – Kai Tak",
+  },
+];
+
+export const flightCards = [
+  {
+    id: 1,
+    img: flights1,
+    rating: "4.5",
+    ratingText: "Very Good",
+    price: "$104",
+    alt: "Emirates Airlines",
+  },
+  {
+    id: 2,
+    img: flights2,
+    rating: "4.5",
+    ratingText: "Very Good",
+    price: "$120",
+    alt: "Flydubai Airlines",
+  },
+  {
+    id: 3,
+    img: flights3,
+    rating: "4.5",
+    ratingText: "Very Good",
+    price: "$130",
+    alt: "Qatar Airways",
+  },
+  {
+    id: 4,
+    img: flights4,
+    rating: "4.5",
+    ratingText: "Very Good",
+    price: "$97",
+    alt: "Etihad Airways",
   },
 ];

@@ -1,7 +1,7 @@
 import FlightHeader from "./Header";
 import FlightsSearch from "./Search";
-
 import globalMap from "../../img/map.png";
+import { Link } from "react-router-dom";
 
 const FlightsContainer = () => {
   return (
@@ -57,9 +57,12 @@ const FlightsContainer = () => {
                 <h5 className="text-white text-2xl font-semibold">$ 700</h5>
               </div>
             </div>
-            <button className="p-4 w-full flex items-center justify-center bg-mintGreen/70 mt-4 hover:bg-mintGreen">
+            <Link
+              to="/search-flights"
+              className="p-4 w-full flex items-center justify-center bg-mintGreen/70 mt-4 hover:bg-mintGreen"
+            >
               Book Flight
-            </button>
+            </Link>
           </div>
           <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightParis">
             <div>
@@ -71,9 +74,12 @@ const FlightsContainer = () => {
                 <h5 className="text-white text-2xl font-semibold">$ 600</h5>
               </div>
             </div>
-            <button className="p-4 w-full flex items-center justify-center bg-mintGreen/70 mt-4 hover:bg-mintGreen">
+            <Link
+              to="/search-flights"
+              className="p-4 w-full flex items-center justify-center bg-mintGreen/70 mt-4 hover:bg-mintGreen"
+            >
               Book Flight
-            </button>
+            </Link>
           </div>
           <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightLondon">
             <div>
@@ -85,9 +91,12 @@ const FlightsContainer = () => {
                 <h5 className="text-white text-2xl font-semibold">$ 350</h5>
               </div>
             </div>
-            <button className="p-4 w-full flex items-center justify-center bg-mintGreen/70 mt-4 hover:bg-mintGreen">
+            <Link
+              to="/search-flights"
+              className="p-4 w-full flex items-center justify-center bg-mintGreen/70 mt-4 hover:bg-mintGreen"
+            >
               Book Flight
-            </button>
+            </Link>
           </div>
           <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightColumbia">
             <div>
@@ -100,9 +109,12 @@ const FlightsContainer = () => {
                 </div>
                 <h5 className="text-white text-2xl font-semibold">$ 700</h5>
               </div>
-              <button className="p-4 w-full flex items-center justify-center bg-mintGreen/70 mt-4 hover:bg-mintGreen">
+              <Link
+                to="/search-flights"
+                className="p-4 w-full flex items-center justify-center bg-mintGreen/70 mt-4 hover:bg-mintGreen"
+              >
                 Book Flight
-              </button>
+              </Link>
             </div>
           </div>
         </div>

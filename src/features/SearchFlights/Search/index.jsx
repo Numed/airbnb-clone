@@ -10,7 +10,7 @@ const Search = () => {
   const [classType, setClassType] = useState("Economy");
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-[90%] h-auto mx-auto p-2 flex-col shadow-md my-12">
-      <div className="flex items-center space-x-6 mt-12">
+      <div className="flex items-center space-x-6">
         <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem]">
           <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
           <input />
