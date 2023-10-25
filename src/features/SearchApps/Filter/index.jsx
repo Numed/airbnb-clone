@@ -3,23 +3,8 @@ import { Link } from "react-router-dom";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-import {
-  flightMarks,
-  timeToValue,
-  valueToTime,
-} from "../../../utils/flightMarks";
-
 const Filter = () => {
-  const [value, setValue] = useState([
-    timeToValue("12:15am"),
-    timeToValue("2:30pm"),
-  ]);
   const [price, setPrice] = useState([60, 1200]);
-
-  const filteredMarks = value.reduce((obj, val) => {
-    obj[val] = flightMarks[val];
-    return obj;
-  }, {});
 
   return (
     <div className="w-1/5">
@@ -42,24 +27,6 @@ const Filter = () => {
               />
             </details>
           </div>
-        </div>
-        <div className="border-t border-gray-300 pt-4">
-          <details>
-            <summary className="text-base font-bold text-blackishGreen">
-              Departure Time
-            </summary>
-            <Slider
-              className="mt-6"
-              range
-              allowCross={false}
-              defaultValue={[0, 10]}
-              marks={filteredMarks}
-              draggableTrack
-              tipFormatter={valueToTime}
-              value={value}
-              onChange={setValue}
-            />
-          </details>
         </div>
         <div className="border-t border-gray-300 pt-4">
           <details>
@@ -97,24 +64,24 @@ const Filter = () => {
         <div className="border-t border-gray-300 pt-4">
           <details>
             <summary className="text-base font-bold text-blackishGreen">
-              Airlines
+              Freebies
             </summary>
             <div className="mt-6 flex flex-col items-start justify-center">
               <label>
                 <input type="checkbox" className="mr-2" />
-                Round trip
+                Free breakfast
               </label>
               <label>
                 <input type="checkbox" className="mr-2" />
-                On Way
+                Free parking
               </label>
               <label>
                 <input type="checkbox" className="mr-2" />
-                Multi-City
+                Free airport shuttle
               </label>
               <label>
                 <input type="checkbox" className="mr-2" />
-                My Dates Are Flexible
+                Free cancellation
               </label>
             </div>
           </details>
@@ -122,24 +89,24 @@ const Filter = () => {
         <div className="border-t border-gray-300 pt-4">
           <details>
             <summary className="text-base font-bold text-blackishGreen">
-              Trips
+              Amenities
             </summary>
             <div className="mt-6 flex flex-col items-start justify-center">
               <label>
                 <input type="checkbox" className="mr-2" />
-                Round trip
+                24hr front desk
               </label>
               <label>
                 <input type="checkbox" className="mr-2" />
-                On Way
+                Air-conditioned
               </label>
               <label>
                 <input type="checkbox" className="mr-2" />
-                Multi-City
+                Grill zone
               </label>
               <label>
                 <input type="checkbox" className="mr-2" />
-                My Dates Are Flexible
+                Fitness
               </label>
             </div>
           </details>

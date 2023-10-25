@@ -97,3 +97,20 @@ export const flightMarks = {
   98: "11:45pm",
   100: "12pm",
 };
+
+export const valueToTime = (value) => {
+  const hours = Math.floor(value / 4);
+  const minutes = (value % 4) * 15;
+  const period = hours >= 12 ? "pm" : "am";
+  return `${hours === 0 ? "12" : hours}:${
+    minutes === 0 ? "00" : minutes
+  } ${period}`;
+};
+
+export const timeToValue = (time) => {
+  const [hoursMinutes, period] = time.split(" ");
+  let [hours, minutes] = hoursMinutes.split(":");
+  hours = hours === "12" ? 0 : Number(hours);
+  const value = period === "pm" ? hours + 12 : hours;
+  return value * 4 + Number(minutes) / 15;
+};

@@ -115,3 +115,13 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.rc-slider-track {
+  background-color: #121 !important;
+}
+
+.rc-slider-handle {
+  border-color: #8DD3BB !important;
+  background-color: #8DD3BB !important;
+  opacity: 1 !important;
+}

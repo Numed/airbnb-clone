@@ -17,6 +17,11 @@ import flights2 from "../../img/searchFlights/flight2.png";
 import flights3 from "../../img/searchFlights/flight3.png";
 import flights4 from "../../img/searchFlights/flight4.png";
 
+import apps1 from "../../img/searchApps/apps-1.png";
+import apps2 from "../../img/searchApps/apps-2.png";
+import apps3 from "../../img/searchApps/apps-3.png";
+import apps4 from "../../img/searchApps/apps-4.png";
+
 export const tripCards = [
   {
     id: 1,
@@ -140,6 +145,49 @@ export const flightCards = [
     img: flights4,
     rating: "4.5",
     ratingText: "Very Good",
+    price: "$97",
+    alt: "Etihad Airways",
+  },
+];
+
+export const appsCards = [
+  {
+    id: 1,
+    img: apps1,
+    rating: "4.5",
+    ratingText: "Very Good",
+    title: "CVK Park Bosphorus Hotel Istanbul",
+    location: "Gümüssuyu Mah. Inönü Cad. No:8, Istanbul 34437y",
+    price: "$104",
+    alt: "Emirates Airlines",
+  },
+  {
+    id: 2,
+    img: apps2,
+    rating: "4.5",
+    ratingText: "Very Good",
+    title: "Eresin Hotels Sultanahmet - Boutique Class",
+    location: "Kucukayasofya No. 40 Sultanahmet, Istanbul 34022",
+    price: "$120",
+    alt: "Flydubai Airlines",
+  },
+  {
+    id: 3,
+    img: apps3,
+    rating: "4.5",
+    ratingText: "Very Good",
+    title: "Eresin Hotels Sultanahmet - Boutique Class",
+    location: "Kucukayasofya No. 40 Sultanahmet, Istanbul 34022",
+    price: "$130",
+    alt: "Qatar Airways",
+  },
+  {
+    id: 4,
+    img: apps4,
+    rating: "4.5",
+    ratingText: "Very Good",
+    title: "Eresin Hotels Sultanahmet - Boutique Class",
+    location: "Kucukayasofya No. 40 Sultanahmet, Istanbul 34022",
     price: "$97",
     alt: "Etihad Airways",
   },

@@ -10,6 +10,8 @@ import Appartaments from "../../pages/Apartments";
 import Profile from "../../pages/Profile";
 import SearchFlights from "../../pages/SearchFlights";
 import SinglePageFlights from "../../pages/SingleFlights";
+import SearchApps from "../../pages/SearchApps";
+import SinglePageApps from "../../pages/SingleApps";
 
 const App = () => (
   <Router>
@@ -23,6 +25,8 @@ const App = () => (
         <Route path="/profile" element={<Profile />} />
         <Route path="/search-flights" element={<SearchFlights />} />
         <Route path="/flights/:flightId" element={<SinglePageFlights />} />
+        <Route path="/search-appartaments" element={<SearchApps />} />
+        <Route path="/appartaments/:flightId" element={<SinglePageApps />} />
       </Routes>
     </Suspense>
   </Router>

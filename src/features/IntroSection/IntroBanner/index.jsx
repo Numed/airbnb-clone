@@ -26,7 +26,7 @@ const IntroBanner = () => {
             Search hotels & Places Hire to our most popular destinations
           </h3>
           <Link
-            to="/search-apps"
+            to="/search-appartaments"
             className="flex items-center text-sm text-blackishGreen bg-mintGreen p-4 hover:text-white transition-all mb-6"
           >
             <FaPaperPlane className="mr-1" size="1rem" />
