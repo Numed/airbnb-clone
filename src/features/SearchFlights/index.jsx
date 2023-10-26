@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
+import { AiOutlineHeart } from "react-icons/ai";
+
 import Search from "./Search";
 import Filter from "./Filter";
 import { flightCards } from "../Contants";
-import { Link } from "react-router-dom";
-import { AiOutlineHeart } from "react-icons/ai";
 
 const SearchFlightsContainer = () => {
   return (
@@ -12,19 +13,19 @@ const SearchFlightsContainer = () => {
         <Filter />
         <div className="flex flex-col items-start justify-start w-4/5 ml-6">
           <div className="flex items-start justify-start w-full bg-white space-x-6 rounded-xl">
-            <button className="flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
+            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
               Cheapest
               <span className="text-sm text-blackishGreen/40">
                 $99 | 2h 18m
               </span>
             </button>
-            <button className="flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
+            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
               Best
               <span className="text-sm text-blackishGreen/40">
                 $120 | 1h 30m
               </span>
             </button>
-            <button className="flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4">
+            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4">
               Quickest
               <span className="text-sm text-blackishGreen/40">
                 $99 | 1h 18m

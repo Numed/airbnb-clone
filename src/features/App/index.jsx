@@ -12,6 +12,7 @@ import SearchFlights from "../../pages/SearchFlights";
 import SinglePageFlights from "../../pages/SingleFlights";
 import SearchApps from "../../pages/SearchApps";
 import SinglePageApps from "../../pages/SingleApps";
+import Favorite from "../../pages/Favorite";
 
 const App = () => (
   <Router>
@@ -27,6 +28,7 @@ const App = () => (
         <Route path="/flights/:flightId" element={<SinglePageFlights />} />
         <Route path="/search-appartaments" element={<SearchApps />} />
         <Route path="/appartaments/:flightId" element={<SinglePageApps />} />
+        <Route path="/favorite" element={<Favorite />} />
       </Routes>
     </Suspense>
   </Router>

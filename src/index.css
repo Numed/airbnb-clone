@@ -125,3 +125,13 @@ body {
   background-color: #8DD3BB !important;
   opacity: 1 !important;
 }
+
+::-webkit-scrollbar{
+  background-color: rgba(17, 34, 17, 70);
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #76b39e;
+  border-radius: 6px;
+}

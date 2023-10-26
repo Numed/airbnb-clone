@@ -33,7 +33,7 @@ const Header = () => {
       {user !== null ? (
         <div className="text-sm flex items-center space-x-8">
           <NavLink
-            to="/favorites"
+            to="/favorite"
             className="text-blackishGreen font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all"
           >
             <AiFillHeart size="1.5em" className="mr-1" />

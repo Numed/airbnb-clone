@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaPaperPlane, FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 import { cn } from "../../../utils";
 import DatePickerWithRange from "../../../components/DatePicker";

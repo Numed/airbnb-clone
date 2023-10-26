@@ -64,8 +64,8 @@ const SearchAppsContainer = () => {
                       <div className="flex items-start justify-start w-full h-full">
                         <div className="w-full flex items-start justify-start space-x-6">
                           <div>
-                            <div className="max-w-[18.5rem]">
-                              <h3 className="text-xl font-bold text-blackishGreen mb-4">
+                            <div className="w-full h-full">
+                              <h3 className="text-xl font-bold text-blackishGreen mb-4 max-w-[19rem]">
                                 {title}
                               </h3>
                               <p className="text-sm text-blackishGreen/50 mb-4 flex items-baseline justify-start">
@@ -73,20 +73,28 @@ const SearchAppsContainer = () => {
                               </p>
                             </div>
                             <div className="flex items-start justify-start">
-                              <div className="flex items-start justify-start">
-                                <AiFillStar className="text-red-300" />
-                                <AiFillStar className="text-red-300" />
-                                <AiFillStar className="text-red-300" />
-                                <AiFillStar className="text-red-300" />
-                                <AiFillStar className="text-red-300" />5 Starts
-                                Hotel
+                              <div className="flex items-center justify-center text-sm text-blackishGreen">
+                                <AiFillStar className="text-red-300 w-4 h-4" />
+                                <AiFillStar className="text-red-300 w-4 h-4" />
+                                <AiFillStar className="text-red-300 w-4 h-4" />
+                                <AiFillStar className="text-red-300 w-4 h-4" />
+                                <AiFillStar className="text-red-300 w-4 h-4 mr-1" />
+                                5 Starts Hotel
                               </div>
-                              <div className="flex items-start justify-start">
-                                <span className="flex items-start justify-start">
-                                  <BsFillCupFill /> 20+
-                                </span>{" "}
+                              <div className="flex items-start justify-start text-blackishGreen ml-8">
+                                <span className="font-semibold text-blackishGreen flex items-center justify-start">
+                                  <BsFillCupFill className="mx-2" /> 20+
+                                </span>
                                 Aminities
                               </div>
+                            </div>
+                            <div className="my-4">
+                              <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
+                                {rating}
+                              </span>
+                              <span className="ml-2 text-xs text-blackishGreen font-bold">
+                                {ratingText}
+                              </span>
                             </div>
                           </div>
                         </div>
