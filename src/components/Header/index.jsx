@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { MdFlight } from "react-icons/md";
-import { IoBed, IoChevronDownSharp } from "react-icons/io5";
+import { IoBed, IoChevronDownSharp, IoLogOut } from "react-icons/io5";
 import { AiFillHeart } from "react-icons/ai";
+import { BsFillPersonFill } from "react-icons/bs";
 import { NavLink, Link } from "react-router-dom";
 
 import logo from "../../img/logo/logo.png";
@@ -8,7 +10,8 @@ import profile from "../../img/profile.png";
 import { useActiveUser } from "../../store";
 
 const Header = () => {
-  const { user } = useActiveUser();
+  const [isOpen, setIsOpen] = useState(false);
+  const { user, setUser } = useActiveUser();
   return (
     <header className="w-full flex justify-between items-center p-8 bg-white">
       <div className="text-sm flex items-center space-x-8">
@@ -42,14 +45,34 @@ const Header = () => {
           <span className="mx-4">|</span>
           <NavLink
             to="/profile"
-            className="text-blackishGreen font-semibold flex items-center cursor-pointer"
+            className="text-blackishGreen font-semibold flex items-center cursor-pointer relative"
           >
             <div className="relative mr-1">
               <img src={profile} alt="Profile Avatar" />
-              <button className="absolute bottom-0 right-0 flex items-center justify-center bg-red-400 w-3 h-3 rounded-full">
+              <button
+                className="absolute bottom-0 right-0 flex items-center justify-center bg-red-400 w-3 h-3 rounded-full"
+                onClick={() => setIsOpen(!isOpen)}
+              >
                 <IoChevronDownSharp />
               </button>
             </div>
+            {isOpen && (
+              <div className="space-y-3 bg-white absolute z-10 top-12 left-0 p-4 border border-blackishGreen/40 rounded-lg">
+                <NavLink
+                  to="/profile"
+                  className="flex items-center justify-center"
+                >
+                  <BsFillPersonFill className="w-4 h-4 scale-105 mr-2" />
+                  Profile
+                </NavLink>
+                <button
+                  className="flex items-center justify-center"
+                  onClick={() => setUser(null)}
+                >
+                  <IoLogOut className="w-4 h-4 scale-105 mr-2" /> Logout
+                </button>
+              </div>
+            )}
             John D.
           </NavLink>
         </div>

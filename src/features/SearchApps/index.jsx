@@ -13,16 +13,16 @@ const SearchAppsContainer = () => {
       <div className="flex items-start justify-between px-[6.5rem]">
         <Filter />
         <div className="flex flex-col items-start justify-start w-4/5 ml-6">
-          <div className="flex items-start justify-start w-full bg-white space-x-6 rounded-xl">
-            <button className="flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
+          <div className=" flex items-start justify-start w-full bg-white space-x-6 rounded-xl">
+            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
               Hotels
               <span className="text-sm text-blackishGreen/40">298 places</span>
             </button>
-            <button className="flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
+            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
               Motels
               <span className="text-sm text-blackishGreen/40">137 places</span>
             </button>
-            <button className="flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4">
+            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4">
               Resorts
               <span className="text-sm text-blackishGreen/40">72 places</span>
             </button>

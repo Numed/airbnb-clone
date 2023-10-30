@@ -9,8 +9,8 @@ import Calendar from "../Calendar";
 
 const DatePickerWithRange = ({ className }) => {
   const [date, setDate] = useState({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
+    from: new Date(2023, 9, 27),
+    to: addDays(new Date(2023, 9, 30), 3),
   });
 
   return (
@@ -36,7 +36,7 @@ const DatePickerWithRange = ({ className }) => {
                 format(date.from, "dd LLL y")
               )
             ) : (
-              <span>Pick a date</span>
+              <span className="text-blackishGreen">Pick a date</span>
             )}
           </Button>
         </PopoverTrigger>
