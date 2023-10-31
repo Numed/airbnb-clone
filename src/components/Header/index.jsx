@@ -2,7 +2,6 @@ import { useState } from "react";
 import { MdFlight } from "react-icons/md";
 import { IoBed, IoChevronDownSharp, IoLogOut } from "react-icons/io5";
 import { AiFillHeart } from "react-icons/ai";
-import { BsFillPersonFill } from "react-icons/bs";
 import { NavLink, Link } from "react-router-dom";
 
 import logo from "../../img/logo/logo.png";
@@ -58,13 +57,6 @@ const Header = () => {
             </div>
             {isOpen && (
               <div className="space-y-3 bg-white absolute z-10 top-12 left-0 p-4 border border-blackishGreen/40 rounded-lg">
-                <NavLink
-                  to="/profile"
-                  className="flex items-center justify-center"
-                >
-                  <BsFillPersonFill className="w-4 h-4 scale-105 mr-2" />
-                  Profile
-                </NavLink>
                 <button
                   className="flex items-center justify-center"
                   onClick={() => setUser(null)}

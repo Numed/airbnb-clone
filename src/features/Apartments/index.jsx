@@ -3,7 +3,7 @@ import ApartmentsSearch from "./Search";
 import { useRecentSearch } from "../../store";
 
 const ApartmentsContainer = () => {
-  const { recentSearch, setRecentSearch } = useRecentSearch();
+  const { recentSearch } = useRecentSearch();
   return (
     <section className="w-full h-full">
       <ApartmentsHeader />

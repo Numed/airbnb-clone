@@ -28,21 +28,21 @@ const ProfileContainer = () => {
         <div className="mt-8 w-full h-auto flex items-center justify-center">
           <button
             className={cn(
-              activeSection === "Account"
-                ? "underline decoration-4 underline-offset-8 decoration-mintGreen"
-                : "",
+              activeSection === "Account" &&
+                "underline decoration-4 underline-offset-8 decoration-mintGreen",
               "w-1/3 text-base font-semibold text-blackishGreen bg-white rounded-s-xl px-6 py-8"
             )}
+            onClick={() => setActiveSection("Account")}
           >
             Account
           </button>
           <button
             className={cn(
-              activeSection === "History"
-                ? "underline decoration-4 underline-offset-8 decoration-mintGreen"
-                : "",
+              activeSection === "History" &&
+                "underline decoration-4 underline-offset-8 decoration-mintGreen",
               "w-1/3 border-l border-gray-300 text-base font-semibold text-blackishGreen bg-white rounded-e-xl px-6 py-8"
             )}
+            onClick={() => setActiveSection("History")}
           >
             History
           </button>
