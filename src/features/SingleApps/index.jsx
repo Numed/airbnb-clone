@@ -15,7 +15,7 @@ const SingleAppContainer = () => {
       <section className="w-full h-full">
         <Header />
       </section>
-      <section className="border-y border-y-blackishGreen/25 py-12">
+      <section className="border-t border-t-blackishGreen/25 py-12">
         <div className="flex flex-col items-start justify-start">
           <h3 className="mb-4 text-xl font-bold text-blackishGreen">
             Overview
@@ -67,6 +67,116 @@ const SingleAppContainer = () => {
             <h4 className="text-base text-colorText font-bold">Clean Hotel</h4>
           </div>
         </div>
+      </section>
+      <section className="border-t border-t-blackishGreen/25 py-12 w-full h-full">
+        <div className="flex flex-col items-start justify-start w-full h-full">
+          <h3 className="text-xl text-blackishGreen font-bold">Amenities</h3>
+          <div className="flex items-start justify-between w-1/2 mt-8">
+            <ul className="space-y-7 list-disc">
+              <li className="text-base text-blackishGreen font-medium">
+                Outdoor pool
+              </li>
+              <li className="text-base text-blackishGreen font-medium">
+                Indoor pool
+              </li>
+              <li className="text-base text-blackishGreen font-medium">
+                Spa and wellness center
+              </li>
+              <li className="text-base text-blackishGreen font-medium">
+                Restaurant
+              </li>
+              <li className="text-base text-blackishGreen font-medium">
+                Room service
+              </li>
+            </ul>
+            <ul className="space-y-7 list-disc">
+              <li className="text-base text-blackishGreen font-medium">
+                Fitness center
+              </li>
+              <li className="text-base text-blackishGreen font-medium">
+                Bar/Lounge
+              </li>
+              <li className="text-base text-blackishGreen font-medium">
+                Free Wi-Fi
+              </li>
+              <li className="text-base text-blackishGreen font-medium">
+                Tea/coffee machine
+              </li>
+              <li className="text-base text-blackishGreen font-medium">
+                +24 more
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section className="border-t border-t-blackishGreen/25 py-12 w-full h-full">
+        <div className="mb-6 flex items-center justify-between w-full h-auto">
+          <h3 className="text-xl text-blackishGreen font-bold">Reviews</h3>
+          <button className="text-sm text-blackishGreen font-semibold p-4 bg-mintGreen/80 hover:bg-mintGreen transition-colors">
+            Give your review
+          </button>
+        </div>
+        <div className="flex items-start justify-start py-12">
+          <h4 className="text-5xl text-blackishGreen font-bold mr-4">4.5</h4>
+          <h5 className="text-xl text-blackishGreen font-semibold">
+            Very good
+          </h5>
+        </div>
+        <section className="border-t border-t-blackishGreen/25 w-full h-full">
+          <div className="flex flex-col items-center justify-start w-full h-auto border-b border-b-blackishGreen/25">
+            <div className="flex items-start justify-start border-t border-t-blackishGreen/25 py-6">
+              <img src="" alt="Omar's Siphron Avatar" />
+              <div className="w-full">
+                <h3 className="mb-2 text-sm text-blackishGreen font-semibold">
+                  5.0 Amazing
+                  <span className="text-sm text-blackishGreen">
+                    | Omar Siphron
+                  </span>
+                </h3>
+                <p className="text-sm w-full h-auto">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start justify-start border-t border-t-blackishGreen/25 py-6">
+              <img src="" alt="Omar's Siphron Avatar" />
+              <div className="w-full">
+                <h3 className="mb-2 text-sm text-blackishGreen font-semibold">
+                  5.0 Amazing
+                  <span className="text-sm text-blackishGreen">
+                    | Omar Siphron
+                  </span>
+                </h3>
+                <p className="text-sm w-full h-auto">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start justify-start border-t border-t-blackishGreen/25 py-6">
+              <img src="" alt="Omar's Siphron Avatar" />
+              <div className="w-full">
+                <h3 className="mb-2 text-sm text-blackishGreen font-semibold">
+                  5.0 Amazing
+                  <span className="text-sm text-blackishGreen">
+                    | Omar Siphron
+                  </span>
+                </h3>
+                <p className="text-sm w-full h-auto">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
   );
