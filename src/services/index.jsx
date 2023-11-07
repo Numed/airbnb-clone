@@ -52,6 +52,54 @@ export const useRequestService = () => {
     return response;
   };
 
+  const deleteHotel = async (id) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/deleteHotel/${id}`,
+      "DELETE"
+    );
+    return response;
+  };
+
+  const allFlights = async () => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/allFlights`
+    );
+    return response;
+  };
+
+  const flightById = async (id) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/flight/${id}`
+    );
+    return response;
+  };
+
+  const addFlight = async (data) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/addFlight`,
+      "POST",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
+  const deleteFlight = async (id) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/deleteFlight/${id}`,
+      "DELETE"
+    );
+    return response;
+  };
+
+  const updateFlight = async (data, id) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/flight/${id}`,
+      "PUT",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
   return {
     updateApps,
     getAppsByID,
@@ -59,5 +107,11 @@ export const useRequestService = () => {
     signIn,
     signUp,
     addHotel,
+    deleteHotel,
+    allFlights,
+    flightById,
+    addFlight,
+    deleteFlight,
+    updateFlight,
   };
 };

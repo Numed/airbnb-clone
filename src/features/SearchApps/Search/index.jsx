@@ -11,11 +11,11 @@ const Search = () => {
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-[90%] h-auto mx-auto p-2 flex-col shadow-md my-12">
       <div className="flex items-center space-x-6">
-        <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem]">
+        <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem] max-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
           <input />
         </fieldset>
-        <fieldset className="border border-blackishGreen rounded-md p-2">
+        <fieldset className="border border-blackishGreen rounded-md p-2 max-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-0">Trip</legend>
           <select
             id="trip"
@@ -25,12 +25,12 @@ const Search = () => {
             <option value="stay">Stay</option>
           </select>
         </fieldset>
-        <fieldset className="border border-blackishGreen rounded-md p-2">
+        <fieldset className="border border-blackishGreen rounded-md p-2 max-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">Depart- Return</legend>
           <DatePickerWithRange />
         </fieldset>
         <div className="relative">
-          <fieldset className="border border-blackishGreen rounded-md p-2 w-[20rem]">
+          <fieldset className="border border-blackishGreen rounded-md p-4 w-[20rem] max-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Passenger - Class
             </legend>

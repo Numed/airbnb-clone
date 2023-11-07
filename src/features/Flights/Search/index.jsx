@@ -14,11 +14,11 @@ const FlightsSearch = () => {
         Where are you flying?
       </h2>
       <div className="flex items-center space-x-6 mt-12">
-        <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem]">
+        <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem] max-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
           <input />
         </fieldset>
-        <fieldset className="border border-blackishGreen rounded-md p-2">
+        <fieldset className="border border-blackishGreen rounded-md p-2 max-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-0">Trip</legend>
           <select
             id="trip"
@@ -28,12 +28,12 @@ const FlightsSearch = () => {
             <option value="stay">Stay</option>
           </select>
         </fieldset>
-        <fieldset className="border border-blackishGreen rounded-md p-2">
+        <fieldset className="border border-blackishGreen rounded-md p-2 max-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">Depart- Return</legend>
           <DatePickerWithRange />
         </fieldset>
         <div className="relative">
-          <fieldset className="border border-blackishGreen rounded-md p-2 w-[20rem]">
+          <fieldset className="border border-blackishGreen rounded-md p-4 w-[20rem] max-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Passenger - Class
             </legend>

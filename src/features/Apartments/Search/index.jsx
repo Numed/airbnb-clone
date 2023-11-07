@@ -26,19 +26,19 @@ const ApartmentsSearch = () => {
       </h2>
       <div className="flex flex-col items-start justify-start w-full">
         <div className="flex items-center space-x-6 mt-12 w-full">
-          <fieldset className="border border-black rounded-md p-2 flex items-start justify-start">
+          <fieldset className="border border-black rounded-md p-2 flex items-start justify-start max-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Enter Destination
             </legend>
             <BiSolidBed className="mr-2" />
             <input />
           </fieldset>
-          <fieldset className="border border-black rounded-md p-2">
+          <fieldset className="border border-black rounded-md p-2 max-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">Check In</legend>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  variant={"outline"}
+                  variant={"solid"}
                   className={cn(
                     "w-[240px] pl-3 text-left font-normal",
                     !checkIn && "text-muted-foreground"
@@ -62,12 +62,12 @@ const ApartmentsSearch = () => {
               </PopoverContent>
             </Popover>
           </fieldset>
-          <fieldset className="border border-black rounded-md p-2">
+          <fieldset className="border border-black rounded-md p-2 max-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">Check Out</legend>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  variant={"outline"}
+                  variant={"solid"}
                   className={cn(
                     "w-[240px] pl-3 text-left font-normal",
                     !checkOut && "text-muted-foreground"
@@ -92,7 +92,7 @@ const ApartmentsSearch = () => {
             </Popover>
           </fieldset>
           <div className="relative min-w-[20rem]">
-            <fieldset className="border border-black rounded-md p-2">
+            <fieldset className="border border-black rounded-md p-4 max-h-[90px]">
               <legend className="bg-white p-2 text-sm ml-2">
                 Rooms & Guests
               </legend>

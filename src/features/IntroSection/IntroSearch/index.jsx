@@ -62,11 +62,11 @@ const IntroSearch = () => {
         <div className="flex items-center space-x-6 mt-12">
           {activeButton === "Flights" ? (
             <>
-              <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem]">
+              <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem] max-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
                 <input />
               </fieldset>
-              <fieldset className="border border-blackishGreen rounded-md p-2">
+              <fieldset className="border border-blackishGreen rounded-md p-2 max-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-0">Trip</legend>
                 <select
                   id="trip"
@@ -76,14 +76,14 @@ const IntroSearch = () => {
                   <option value="stay">Stay</option>
                 </select>
               </fieldset>
-              <fieldset className="border border-blackishGreen rounded-md p-2">
+              <fieldset className="border border-blackishGreen rounded-md p-2 max-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-2">
                   Depart- Return
                 </legend>
                 <DatePickerWithRange />
               </fieldset>
               <div className="relative">
-                <fieldset className="border border-blackishGreen rounded-md p-2 w-[20rem]">
+                <fieldset className="border border-blackishGreen rounded-md p-4 w-[20rem] max-h-[90px]">
                   <legend className="bg-white p-2 text-sm ml-2">
                     Passenger - Class
                   </legend>
@@ -172,7 +172,7 @@ const IntroSearch = () => {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
-                      variant={"outline"}
+                      variant={"solid"}
                       className={cn(
                         "w-[240px] pl-3 text-left font-normal",
                         !checkIn && "text-muted-foreground"
@@ -201,7 +201,7 @@ const IntroSearch = () => {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
-                      variant={"outline"}
+                      variant={"solid"}
                       className={cn(
                         "w-[240px] pl-3 text-left font-normal",
                         !checkOut && "text-muted-foreground"
