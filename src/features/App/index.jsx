@@ -14,6 +14,7 @@ import SinglePageFlights from "../../pages/SingleFlights";
 import SearchApps from "../../pages/SearchApps";
 import SinglePageApps from "../../pages/SingleApps";
 import Favorite from "../../pages/Favorite";
+import Details from "../../pages/Details";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => {
             <Route path="/search-appartaments" element={<SearchApps />} />
             <Route path="/appartaments/:id" element={<SinglePageApps />} />
             <Route path="/favorite" element={<Favorite />} />
+            <Route path="/details" element={<Details />} />
           </Routes>
         </Suspense>
       </Router>
