@@ -169,7 +169,7 @@ const ProfileContainer = () => {
                               key={id}
                               className="px-4 py-6 bg-white w-full h-auto flex flex-col items-center justify-center rounded-xl mb-8"
                             >
-                              <div className="flex items-start justify-start space-x-6 w-full">
+                              <div className="flex items-start justify-between space-x-6 w-full">
                                 <div>
                                   <img
                                     className="w-full h-full scale-[1.1] mr-8"
@@ -243,14 +243,6 @@ const ProfileContainer = () => {
                                         </div>
                                       </div>
                                     </div>
-                                    <div>
-                                      <h4 className="text-xs text-blackishGreen/75">
-                                        started from
-                                      </h4>
-                                      <h3 className="text-2xl font-bold text-red-300">
-                                        {price}
-                                      </h3>
-                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -321,14 +313,6 @@ const ProfileContainer = () => {
                                           </span>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div>
-                                      <h4 className="text-xs text-blackishGreen/75">
-                                        started from
-                                      </h4>
-                                      <h3 className="text-2xl font-bold text-red-300">
-                                        {price}
-                                      </h3>
                                     </div>
                                   </div>
                                 </div>
