@@ -3,19 +3,47 @@ import { FaSearch } from "react-icons/fa";
 
 import { cn } from "../../../utils";
 import DatePickerWithRange from "../../../components/DatePicker";
+import { IoSwapHorizontal } from "react-icons/io5";
 
 const Search = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [count, setCount] = useState(1);
   const [classType, setClassType] = useState("Economy");
+  const [flights, setFlights] = useState([
+    { id: 1, name: "Kiev" },
+    { id: 2, name: "Lviv" },
+    { id: 3, name: "Odesa" },
+  ]);
+
   return (
-    <div className="bg-white rounded-xl flex justify-start items-start w-[90%] h-auto mx-auto p-2 flex-col shadow-md my-12">
+    <div className="bg-white rounded-xl flex justify-start items-start w-[90%] h-auto mx-auto p-4 flex-col shadow-md my-12">
       <div className="flex items-center space-x-6">
-        <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem] max-h-[90px]">
+        <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem] min-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
-          <input />
+          <div className="flex items-center justify-between pr-4">
+            <div>
+              <select className="appearance-none text-center">
+                {flights.map(({ id, name }) => (
+                  <option key={id} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+              <span className="mx-2 text-blackishGreen text-xl font-semibold">
+                -
+              </span>
+              <select className="appearance-none text-center">
+                {flights.map(({ id, name }) => (
+                  <option key={id} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <IoSwapHorizontal />
+          </div>
         </fieldset>
-        <fieldset className="border border-blackishGreen rounded-md p-2 max-h-[90px]">
+        <fieldset className="border border-blackishGreen rounded-md p-2 min-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-0">Trip</legend>
           <select
             id="trip"
@@ -25,12 +53,12 @@ const Search = () => {
             <option value="stay">Stay</option>
           </select>
         </fieldset>
-        <fieldset className="border border-blackishGreen rounded-md p-2 max-h-[90px]">
+        <fieldset className="border border-blackishGreen rounded-md p-2 min-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">Depart- Return</legend>
           <DatePickerWithRange />
         </fieldset>
         <div className="relative">
-          <fieldset className="border border-blackishGreen rounded-md p-4 w-[20rem] max-h-[90px]">
+          <fieldset className="border border-blackishGreen rounded-md p-4 w-[20rem] min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Passenger - Class
             </legend>

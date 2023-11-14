@@ -3,6 +3,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
 import { addDays, format } from "date-fns";
+import { Link } from "react-router-dom";
 
 import Calendar from "../../../components/Calendar";
 import {
@@ -19,6 +20,12 @@ const ApartmentsSearch = () => {
   const [count, setCount] = useState(1);
   const [rooms, setRooms] = useState(1);
   const [isOpened, setIsOpened] = useState(false);
+  const [apps, setApps] = useState([
+    { id: 1, name: "Istanbul, Turkey" },
+    { id: 2, name: "Sydney, Australia" },
+    { id: 3, name: "Malé, Maldives" },
+  ]);
+
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-[90%] h-auto mx-auto p-8 flex-col shadow-md -translate-y-16">
       <h2 className="text-2xl font-bold text-blackishGreen">
@@ -26,14 +33,22 @@ const ApartmentsSearch = () => {
       </h2>
       <div className="flex flex-col items-start justify-start w-full">
         <div className="flex items-center space-x-6 mt-12 w-full">
-          <fieldset className="border border-black rounded-md p-2 flex items-start justify-start max-h-[90px]">
+          <fieldset className="border border-black rounded-md p-2 flex items-start justify-start min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Enter Destination
             </legend>
-            <BiSolidBed className="mr-2" />
-            <input />
+            <div className="flex items-center justify-start">
+              <BiSolidBed className="mr-2" />
+              <select className="appearance-none text-center">
+                {apps.map(({ id, name }) => (
+                  <option key={id} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </fieldset>
-          <fieldset className="border border-black rounded-md p-2 max-h-[90px]">
+          <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">Check In</legend>
             <Popover>
               <PopoverTrigger asChild>
@@ -62,7 +77,7 @@ const ApartmentsSearch = () => {
               </PopoverContent>
             </Popover>
           </fieldset>
-          <fieldset className="border border-black rounded-md p-2 max-h-[90px]">
+          <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">Check Out</legend>
             <Popover>
               <PopoverTrigger asChild>
@@ -92,7 +107,7 @@ const ApartmentsSearch = () => {
             </Popover>
           </fieldset>
           <div className="relative min-w-[20rem]">
-            <fieldset className="border border-black rounded-md p-4 max-h-[90px]">
+            <fieldset className="border border-black rounded-md p-4 min-h-[90px]">
               <legend className="bg-white p-2 text-sm ml-2">
                 Rooms & Guests
               </legend>
@@ -152,10 +167,13 @@ const ApartmentsSearch = () => {
         </div>
       </div>
       <div className="w-full flex justify-end mt-4">
-        <button className="flex items-center text-sm text-blackishGreen bg-mintGreen p-4 hover:text-white transition-all">
+        <Link
+          to="/search-appartaments"
+          className="flex items-center text-sm text-blackishGreen bg-mintGreen p-4 hover:text-white transition-all"
+        >
           <FaPaperPlane className="mr-1" size="1rem" />
           Show Places
-        </button>
+        </Link>
       </div>
     </div>
   );

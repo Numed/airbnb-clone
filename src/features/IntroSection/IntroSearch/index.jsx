@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import { MdFlight } from "react-icons/md";
-import { IoBed } from "react-icons/io5";
+import { IoBed, IoSwapHorizontal } from "react-icons/io5";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
 import { addDays, format } from "date-fns";
@@ -26,6 +26,16 @@ const IntroSearch = () => {
   const [checkOut, setCheckOut] = useState(addDays(new Date(), 2));
   const [guess, setGuess] = useState(1);
   const [rooms, setRooms] = useState(1);
+  const [flights, setFlights] = useState([
+    { id: 1, name: "Kiev" },
+    { id: 2, name: "Lviv" },
+    { id: 3, name: "Odesa" },
+  ]);
+  const [apps, setApps] = useState([
+    { id: 1, name: "Istanbul, Turkey" },
+    { id: 2, name: "Sydney, Australia" },
+    { id: 3, name: "Malé, Maldives" },
+  ]);
 
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-[90%] h-auto mx-auto p-8 flex-col shadow-md">
@@ -62,11 +72,32 @@ const IntroSearch = () => {
         <div className="flex items-center space-x-6 mt-12">
           {activeButton === "Flights" ? (
             <>
-              <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem] max-h-[90px]">
+              <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem] min-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
-                <input />
+                <div className="flex items-center justify-between pr-4">
+                  <div>
+                    <select className="appearance-none text-center">
+                      {flights.map(({ id, name }) => (
+                        <option key={id} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="mx-2 text-blackishGreen text-xl font-semibold">
+                      -
+                    </span>
+                    <select className="appearance-none text-center">
+                      {flights.map(({ id, name }) => (
+                        <option key={id} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <IoSwapHorizontal />
+                </div>
               </fieldset>
-              <fieldset className="border border-blackishGreen rounded-md p-2 max-h-[90px]">
+              <fieldset className="border border-blackishGreen rounded-md p-2 min-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-0">Trip</legend>
                 <select
                   id="trip"
@@ -76,14 +107,14 @@ const IntroSearch = () => {
                   <option value="stay">Stay</option>
                 </select>
               </fieldset>
-              <fieldset className="border border-blackishGreen rounded-md p-2 max-h-[90px]">
+              <fieldset className="border border-blackishGreen rounded-md p-2 min-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-2">
                   Depart- Return
                 </legend>
                 <DatePickerWithRange />
               </fieldset>
               <div className="relative">
-                <fieldset className="border border-blackishGreen rounded-md p-4 w-[20rem] max-h-[90px]">
+                <fieldset className="border border-blackishGreen rounded-md p-4 w-[20rem] min-h-[90px]">
                   <legend className="bg-white p-2 text-sm ml-2">
                     Passenger - Class
                   </legend>
@@ -160,14 +191,22 @@ const IntroSearch = () => {
             </>
           ) : (
             <>
-              <fieldset className="border border-black rounded-md p-2 flex items-start justify-start">
+              <fieldset className="border border-black rounded-md p-2 flex items-center justify-start min-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-2">
                   Enter Destination
                 </legend>
-                <BiSolidBed className="mr-2" />
-                <input />
+                <div className="flex items-center justify-start">
+              <BiSolidBed className="mr-2" />
+              <select className="appearance-none text-center">
+                {apps.map(({ id, name }) => (
+                  <option key={id} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
               </fieldset>
-              <fieldset className="border border-black rounded-md p-2">
+              <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-2">Check In</legend>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -196,7 +235,7 @@ const IntroSearch = () => {
                   </PopoverContent>
                 </Popover>
               </fieldset>
-              <fieldset className="border border-black rounded-md p-2">
+              <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-2">Check Out</legend>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -226,7 +265,7 @@ const IntroSearch = () => {
                 </Popover>
               </fieldset>
               <div className="relative min-w-[20rem]">
-                <fieldset className="border border-black rounded-md p-2">
+                <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
                   <legend className="bg-white p-2 text-sm ml-2">
                     Rooms & Guests
                   </legend>
