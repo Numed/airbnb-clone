@@ -17,3 +17,17 @@ export const useActiveUser = create((set) => ({
     }));
   },
 }));
+
+export const useOpenMenu = create((set) => ({
+  isOpenMenu: false,
+  setIsOpenMenu: (state) => {
+    set({ isOpenMenu: state });
+  },
+}));
+
+export const useOpenModal = create((set) => ({
+  isOpenModal: false,
+  setOpenedModal: (state) => {
+    set({ isOpenModal: state });
+  },
+}));

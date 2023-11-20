@@ -69,7 +69,7 @@ const IntroSearch = () => {
             </button>
           </div>
         </div>
-        <div className="flex items-center space-x-6 mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 xl:space-x-6 xl:flex xl:items-center mt-12">
           {activeButton === "Flights" ? (
             <>
               <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem] min-h-[90px]">
@@ -196,15 +196,15 @@ const IntroSearch = () => {
                   Enter Destination
                 </legend>
                 <div className="flex items-center justify-start">
-              <BiSolidBed className="mr-2" />
-              <select className="appearance-none text-center">
-                {apps.map(({ id, name }) => (
-                  <option key={id} value={name}>
-                    {name}
-                  </option>
-                ))}
-              </select>
-            </div>
+                  <BiSolidBed className="mr-2" />
+                  <select className="appearance-none text-center">
+                    {apps.map(({ id, name }) => (
+                      <option key={id} value={name}>
+                        {name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </fieldset>
               <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-2">Check In</legend>

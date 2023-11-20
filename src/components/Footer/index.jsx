@@ -11,8 +11,8 @@ import logoWhite from "../../img/logo/footer-logo.png";
 
 const Footer = () => {
   return (
-    <footer className="w-full h-auto bg-mintGreen mt-36 p-16">
-      <section className="-translate-y-32 translate-x-56 flex item-center justify-center w-2/3 rounded-3xl bg-mintGreen/50 shadow-md p-6">
+    <footer className="w-full h-auto bg-mintGreen mt-36 p-12 xl:p-16">
+      <section className="w-full translate-x-0 -translate-y-32 xl:translate-x-56 flex item-center justify-center xl:w-2/3 rounded-3xl bg-mintGreen/50 shadow-md p-6">
         <div className="flex items-center justify-between w-[77.5rem] h-auto">
           <div>
             <h3 className="text-blackishGreen text-4xl font-bold w-1/2">
@@ -28,20 +28,20 @@ const Footer = () => {
               </span>
               <div className="mt-4">
                 <input
-                  className="p-4 text-colorText text-base rounded-tl rounded-bl w-2/3"
+                  className="p-4 text-colorText text-base rounded-tl rounded-bl w-full sm:w-2/3"
                   type="email"
                   placeholder="Your email address"
                 />
-                <button className="bg-blackishGreen/90 hover:bg-blackishGreen transition-colors text-sm px-4 py-5 text-white ml-4 rounded-md">
+                <button className="bg-blackishGreen/90 hover:bg-blackishGreen transition-colors text-sm px-4 py-5 text-white mt-2 sm:ml-4 sm:mt-0 rounded-md">
                   Subscribe
                 </button>
               </div>
             </div>
           </div>
-          <img src={subscribePhoto} alt="Mail" />
+          <img className="hidden sm:block" src={subscribePhoto} alt="Mail" />
         </div>
       </section>
-      <div className="w-full flex items-center justify-start space-x-12">
+      <div className="flex-col sm:flex-row w-full flex items-baseline sm:items-center justify-start space-y-8  sm:space-x-12 sm:space-y-0">
         <div>
           <img src={logoWhite} alt="Footer logo" />
           <div className="flex items-center justify-start mt-6 space-x-3">

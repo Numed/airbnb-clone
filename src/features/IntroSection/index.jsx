@@ -9,13 +9,13 @@ const IntroSection = () => {
   return (
     <section className="w-full h-full">
       <div className="h-screen bg-intro bg-center bg-no-repeat bg-cover rounded-xl ">
-          <IntroHeader />
-        <div className="w-full h-auto flex flex-col items-center justify-center my-20 p-8">
+        <IntroHeader />
+        <div className="w-full h-auto flex flex-col items-center justify-center my-20 px-2 sm:p-8">
           <h3 className="text-5xl font-bold text-white">Helping Others</h3>
-          <h2 className="text-white font-bold text-[5rem] mt-1">
+          <h2 className="text-white font-bold text-[2.5rem] sm:text-[5rem] mt-1">
             Live & Travel
           </h2>
-          <h4 className="text-white font-semibold text-lg mt-4">
+          <h4 className="text-white font-semibold text-2xl sm:text-lg mt-4">
             Special offers to suit your plan
           </h4>
         </div>
@@ -34,7 +34,7 @@ const IntroSection = () => {
               See more places
             </button>
           </div>
-          <section className="grid grid-cols-3 mt-8 w-full gap-8">
+          <section className="grid grid-cols-1 sm:grid-cols-3 mt-8 w-full gap-8">
             {tripCards.map(({ id, img, alt, title }) => (
               <div
                 key={id}
