@@ -7,11 +7,14 @@ import { SigninSchema } from "./validationSchema";
 
 const SigninContainer = () => {
   return (
-    <section className="flex items-center justify-center">
+    <section className="mt-10 lg:mt-0 flex items-center justify-center">
       <div className="flex items-center justify-center space-x-28">
         <div>
-          <Link to="/" className="flex h-auto w-auto">
-            <img className="mb-16" src={logo} alt="logo" />
+          <Link
+            to="/"
+            className="items-center justify-center sm:justify-start flex h-auto w-auto"
+          >
+            <img className="mb-8 xl:mb-16" src={logo} alt="logo" />
           </Link>
           <div>
             <h2 className="text-black text-4xl mb-4 font-bold">Login</h2>
@@ -82,7 +85,7 @@ const SigninContainer = () => {
           </div>
         </div>
         <img
-          className="w-[38.5rem] h-[51rem] scale-75"
+          className="hidden sm:block sm:h-full sm:scale-100 sm:w-[45%] lg:w-1/2 xl:w-[38.5rem] h-[51rem] scale-75"
           src={signInPicture}
           alt="Sign In"
         />

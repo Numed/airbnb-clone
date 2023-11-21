@@ -7,18 +7,21 @@ import { SignupSchema } from "./validationSchema";
 
 const SignupContainer = () => {
   return (
-    <section className="flex items-center justify-center py-4">
+    <section className="mt-10 lg:mt-0 flex items-center justify-center py-4">
       <img
-        className="w-[38.5rem] h-[51rem] mr-10"
+        className="hidden xl:block xl:h-full xl:scale-100 lg:w-[40%] xl:w-[38.5rem] h-[51rem] mr-10 scale-75"
         src={signInPicture}
         alt="Sign Up"
       />
       <div className="flex items-center justify-center space-x-28">
         <div>
-          <Link to="/" className="flex h-auto w-auto">
-            <img className="mb-16" src={logo} alt="logo" />
+          <Link
+            to="/"
+            className="flex items-center justify-center sm:justify-start h-auto w-auto"
+          >
+            <img className="mb-8 xl:mb-16" src={logo} alt="logo" />
           </Link>
-          <div>
+          <div className="px-5 sm:px-0">
             <h2 className="text-black text-4xl mb-4 font-bold">Sign up</h2>
             <h3 className="text-blackishGreen/75 text-base mb-12">
               Let&apos;s get you all st up so you can access your personal
@@ -41,8 +44,8 @@ const SignupContainer = () => {
               >
                 {(props) => (
                   <Form>
-                    <div className="flex items-center space-x-2">
-                      <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-1/2">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center space-x-0 sm:space-x-2">
+                      <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
                         First Name
                         <Field
                           className="text-base text-black mt-2 min-w-[18.5rem] p-2"
@@ -51,7 +54,7 @@ const SignupContainer = () => {
                           placeholder="Your Name"
                         />
                       </label>
-                      <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-1/2">
+                      <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
                         Last Name
                         <Field
                           className="text-base text-black mt-2 min-w-[18.5rem] p-2"
@@ -61,8 +64,8 @@ const SignupContainer = () => {
                         />
                       </label>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-1/2">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center space-x-0 sm:space-x-2">
+                      <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
                         Email
                         <Field
                           className="text-base text-black mt-2 min-w-[18.5rem] p-2"
@@ -71,7 +74,7 @@ const SignupContainer = () => {
                           placeholder="Your email"
                         />
                       </label>
-                      <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-1/2">
+                      <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
                         Phone Number
                         <Field
                           className="text-base text-black mt-2 min-w-[18.5rem] p-2"
