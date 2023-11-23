@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { PiTimerFill } from "react-icons/pi";
 import { IoAirplane, IoWifi, IoTimeOutline } from "react-icons/io5";
 import {
@@ -8,8 +10,22 @@ import {
 import SingleFlightHeader from "./Header";
 import flightBanen from "../../img/flight-example.png";
 import partner from "../../img/searchFlights/flight1.png";
+import { useRequestService } from "../../services";
+import { notifyError } from "../../utils/notifications";
 
 const SingleFlightsContainer = () => {
+  let { id } = useParams();
+  const { getFlightById } = useRequestService();
+  const [flight, setFlight] = useState({});
+
+  useEffect(() => {
+    return () => {
+      getFlightById(id)
+        .then((res) => setFlight(res))
+        .catch((err) => notifyError(err));
+    };
+  }, []);
+
   return (
     <main className="flex items-center justify-center flex-col w-full h-full px-[6.5rem]">
       <section className="w-full h-full">

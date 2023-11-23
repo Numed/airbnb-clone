@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
+
 import FlightHeader from "./Header";
 import FlightsSearch from "./Search";
 import globalMap from "../../img/map.png";
-import { Link } from "react-router-dom";
 
 const FlightsContainer = () => {
   return (

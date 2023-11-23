@@ -1,20 +1,38 @@
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BsStars } from "react-icons/bs";
 
 import { useRequestService } from "../../services";
 import Header from "./Header";
+import { notifyError } from "../../utils/notifications";
+import appBanner from "../../img/app-example.png";
+import ava from "../../img/profile/ava.png";
 
 const SingleAppContainer = () => {
   let { id } = useParams();
   const { getAppsByID } = useRequestService();
-  //   const { isLoading, error, date } = useQuery(getAppsByID(id));
-  //   const { title, geo, rating, ratingText, price } = date;
+  const [app, setApp] = useState({});
+
+  useEffect(() => {
+    return () => {
+      getAppsByID(id)
+        .then((res) => setApp(res))
+        .catch((err) => notifyError(err));
+    };
+  }, [id]);
+
   return (
     <main className="flex items-center justify-center flex-col w-full h-full px-[6.5rem]">
       <section className="w-full h-full">
         <Header />
       </section>
+      <div className="w-full h-full my-5">
+        <img
+          className="w-1/2 h-full rounded-3xl"
+          src={appBanner}
+          alt="Appartament"
+        />
+      </div>
       <section className="border-t border-t-blackishGreen/25 py-12">
         <div className="flex flex-col items-start justify-start">
           <h3 className="mb-4 text-xl font-bold text-blackishGreen">
@@ -124,13 +142,17 @@ const SingleAppContainer = () => {
         </div>
         <section className="border-t border-t-blackishGreen/25 w-full h-full">
           <div className="flex flex-col items-center justify-start w-full h-auto border-b border-b-blackishGreen/25">
-            <div className="flex items-start justify-start border-t border-t-blackishGreen/25 py-6">
-              <img src="" alt="Omar's Siphron Avatar" />
+            <div className="flex items-center justify-start border-t border-t-blackishGreen/25 py-6">
+              <img
+                className="w-10 h-10 mr-2"
+                src={ava}
+                alt="Omar's Siphron Avatar"
+              />
               <div className="w-full">
                 <h3 className="mb-2 text-sm text-blackishGreen font-semibold">
                   5.0 Amazing
                   <span className="text-sm text-blackishGreen">
-                    | Omar Siphron
+                    <span className="mx-2">|</span> Omar Siphron
                   </span>
                 </h3>
                 <p className="text-sm w-full h-auto">
@@ -141,13 +163,17 @@ const SingleAppContainer = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-start justify-start border-t border-t-blackishGreen/25 py-6">
-              <img src="" alt="Omar's Siphron Avatar" />
+            <div className="flex items-center justify-start border-t border-t-blackishGreen/25 py-6">
+              <img
+                className="w-10 h-10 mr-2"
+                src={ava}
+                alt="Omar's Siphron Avatar"
+              />
               <div className="w-full">
                 <h3 className="mb-2 text-sm text-blackishGreen font-semibold">
                   5.0 Amazing
                   <span className="text-sm text-blackishGreen">
-                    | Omar Siphron
+                    <span className="mx-2">|</span> Omar Siphron
                   </span>
                 </h3>
                 <p className="text-sm w-full h-auto">
@@ -158,13 +184,17 @@ const SingleAppContainer = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-start justify-start border-t border-t-blackishGreen/25 py-6">
-              <img src="" alt="Omar's Siphron Avatar" />
+            <div className="flex items-center justify-start border-t border-t-blackishGreen/25 py-6">
+              <img
+                className="w-10 h-10 mr-2"
+                src={ava}
+                alt="Omar's Siphron Avatar"
+              />
               <div className="w-full">
                 <h3 className="mb-2 text-sm text-blackishGreen font-semibold">
                   5.0 Amazing
                   <span className="text-sm text-blackishGreen">
-                    | Omar Siphron
+                    <span className="mx-2">|</span> Omar Siphron
                   </span>
                 </h3>
                 <p className="text-sm w-full h-auto">

@@ -1,11 +1,20 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineHeart } from "react-icons/ai";
 
 import Search from "./Search";
 import Filter from "./Filter";
 import { flightCards } from "../Contants";
+import { useRequestService } from "../../services";
 
 const SearchFlightsContainer = () => {
+  const { getAllFlights } = useRequestService();
+  const [flights, setFlights] = useState(flightCards);
+
+  useEffect(() => {
+    return () => getAllFlights().then((el) => setFlights(el));
+  }, []);
+
   return (
     <section className="w-full h-full">
       <Search />
@@ -46,7 +55,7 @@ const SearchFlightsContainer = () => {
             </h5>
           </div>
           <div className="mt-6 w-full h-full">
-            {flightCards.map(({ id, img, rating, price, ratingText, alt }) => (
+            {flights.map(({ id, img, rating, price, ratingText, alt }) => (
               <div
                 key={id}
                 className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"

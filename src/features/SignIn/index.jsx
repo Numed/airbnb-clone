@@ -4,8 +4,16 @@ import { Link } from "react-router-dom";
 import logo from "../../img/logo/logo.png";
 import signInPicture from "../../img/sign-in/img.png";
 import { SigninSchema } from "./validationSchema";
+import { notifyError } from "../../utils/notifications";
+import { useRequestService } from "../../services";
 
 const SigninContainer = () => {
+  const { signIn } = useRequestService();
+  const onSubmit = (data) => {
+    signIn(data)
+      .then((el) => console.log(el))
+      .catch((err) => notifyError(err));
+  };
   return (
     <section className="mt-10 lg:mt-0 flex items-center justify-center">
       <div className="flex items-center justify-center space-x-28">
@@ -28,7 +36,8 @@ const SigninContainer = () => {
                   password: "",
                 }}
                 onSubmit={(values, actions) => {
-                  console.log(values);
+                  onSubmit(values);
+                  actions.resetForm();
                 }}
                 validationSchema={SigninSchema}
               >

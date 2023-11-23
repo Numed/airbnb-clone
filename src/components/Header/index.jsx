@@ -83,13 +83,13 @@ const Header = () => {
           <div className="text-sm hidden sm:flex items-center space-x-8">
             <NavLink
               to="/sign-in"
-              className="text-blackishGreen font-semibold flex items-center rounded-lg px-6 py-4 transition-all hover:bg-white hover:text-white"
+              className="text-blackishGreen font-semibold flex items-center rounded-lg px-6 py-4 transition-all hover:bg-blackishGreen hover:text-white"
             >
               Sign In
             </NavLink>
             <NavLink
               to="/sign-up"
-              className="text-white blackishGreen-semibold flex items-center rounded-lg px-6 py-4 transition-all hover:bg-white hover:text-white"
+              className="text-blackishGreen font-semibold flex items-center rounded-lg px-6 py-4 transition-all hover:bg-blackishGreen hover:text-white"
             >
               Sign Up
             </NavLink>

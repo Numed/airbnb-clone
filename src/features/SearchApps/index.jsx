@@ -1,12 +1,21 @@
-import Search from "./Search";
-import Filter from "./Filter";
-import { appsCards } from "../Contants";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 import { BsFillCupFill } from "react-icons/bs";
 import { ImLocation2 } from "react-icons/im";
 
+import Search from "./Search";
+import Filter from "./Filter";
+import { appsCards } from "../Contants";
+import { useRequestService } from "../../services";
+
 const SearchAppsContainer = () => {
+  const { getAllApps } = useRequestService();
+  const [apps, setApps] = useState(appsCards);
+
+  useEffect(() => {
+    return () => getAllApps().then((el) => setApps(el));
+  }, []);
   return (
     <section className="w-full h-full">
       <Search />

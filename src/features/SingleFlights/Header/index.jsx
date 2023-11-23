@@ -1,5 +1,6 @@
 import { AiOutlineHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { ImLocation2 } from "react-icons/im";
+import { Link } from "react-router-dom";
 
 const SingleFlightHeader = () => {
   return (
@@ -30,9 +31,12 @@ const SingleFlightHeader = () => {
           <button className="p-3 border border-mintGreen hover:bg-mintGreen text-center text-blackishGreen font-medium mr-4 transition-colors">
             <AiOutlineShareAlt />
           </button>
-          <button className="text-sm text-blackishGreen font-semibold bg-mintGreen/90 hover:bg-mintGreen py-3 px-10 text-center rounded-sm transition-colors">
+          <Link
+            to="/details"
+            className="text-sm text-blackishGreen font-semibold bg-mintGreen/90 hover:bg-mintGreen py-3 px-10 text-center rounded-sm transition-colors"
+          >
             Book now
-          </button>
+          </Link>
         </div>
       </div>
     </div>

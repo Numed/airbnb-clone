@@ -4,6 +4,7 @@ import { IoSwapHorizontal } from "react-icons/io5";
 
 import { cn } from "../../../utils";
 import DatePickerWithRange from "../../../components/DatePicker";
+import { Link } from "react-router-dom";
 
 const FlightsSearch = () => {
   const [isOpened, setIsOpened] = useState(false);
@@ -133,10 +134,13 @@ const FlightsSearch = () => {
         </div>
       </div>
       <div className="w-full flex justify-end mt-4">
-        <button className="flex items-center text-sm text-blackishGreen bg-mintGreen p-4 hover:text-white transition-all">
+        <Link
+          to="/search-flights"
+          className="flex items-center text-sm text-blackishGreen bg-mintGreen p-4 hover:text-white transition-all"
+        >
           <FaPaperPlane className="mr-1" size="1rem" />
           Show flights
-        </button>
+        </Link>
       </div>
     </div>
   );

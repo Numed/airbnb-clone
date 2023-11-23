@@ -3,28 +3,6 @@ import { useHttp } from "../hooks";
 export const useRequestService = () => {
   const { request } = useHttp();
 
-  const updateApps = async (data, id) => {
-    const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}//hotels/hotel/${id}`,
-      "PUT",
-      JSON.stringify(data)
-    );
-    return response;
-  };
-
-  const getAppsByID = async (id) => {
-    const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/hotel/${id}`
-    );
-    return response;
-  };
-  const getApps = async () => {
-    const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/allHotels`
-    );
-    return response;
-  };
-
   const signIn = async (data) => {
     const response = await request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/auth/signin`,
@@ -43,7 +21,30 @@ export const useRequestService = () => {
     return response;
   };
 
-  const addHotel = async (data) => {
+  const updateApps = async (data, id) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}//hotels/hotel/${id}`,
+      "PUT",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
+  const getAppsByID = async (id) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/hotel/${id}`
+    );
+    return response;
+  };
+
+  const getAllApps = async () => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/allHotels`
+    );
+    return response;
+  };
+
+  const addApps = async (data) => {
     const response = await request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/addHotel`,
       "POST",
@@ -52,7 +53,7 @@ export const useRequestService = () => {
     return response;
   };
 
-  const deleteHotel = async (id) => {
+  const deleteApps = async (id) => {
     const response = await request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/deleteHotel/${id}`,
       "DELETE"
@@ -60,16 +61,9 @@ export const useRequestService = () => {
     return response;
   };
 
-  const allFlights = async () => {
+  const getAllFlights = async () => {
     const response = await request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/allFlights`
-    );
-    return response;
-  };
-
-  const flightById = async (id) => {
-    const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/flight/${id}`
     );
     return response;
   };
@@ -83,10 +77,9 @@ export const useRequestService = () => {
     return response;
   };
 
-  const deleteFlight = async (id) => {
+  const getFlightById = async (id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/deleteFlight/${id}`,
-      "DELETE"
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/flight/${id}`
     );
     return response;
   };
@@ -100,16 +93,24 @@ export const useRequestService = () => {
     return response;
   };
 
+  const deleteFlight = async (id) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/deleteFlight/${id}`,
+      "DELETE"
+    );
+    return response;
+  };
+
   return {
     updateApps,
     getAppsByID,
-    getApps,
+    getAllApps,
     signIn,
     signUp,
-    addHotel,
-    deleteHotel,
-    allFlights,
-    flightById,
+    addApps,
+    deleteApps,
+    getAllFlights,
+    getFlightById,
     addFlight,
     deleteFlight,
     updateFlight,

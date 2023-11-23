@@ -4,8 +4,16 @@ import { Link } from "react-router-dom";
 import logo from "../../img/logo/logo.png";
 import signInPicture from "../../img/sign-in/img.png";
 import { SignupSchema } from "./validationSchema";
+import { useRequestService } from "../../services";
+import { notifyError } from "../../utils/notifications";
 
 const SignupContainer = () => {
+  const { signUp } = useRequestService();
+  const onSubmit = (data) => {
+    signUp(data)
+      .then((el) => console.log(el))
+      .catch((err) => notifyError(err));
+  };
   return (
     <section className="mt-10 lg:mt-0 flex items-center justify-center py-4">
       <img
@@ -38,7 +46,8 @@ const SignupContainer = () => {
                   confirmPassword: "",
                 }}
                 onSubmit={(values, actions) => {
-                  console.log(values);
+                  onSubmit(values);
+                  actions.resetForm();
                 }}
                 validationSchema={SignupSchema}
               >
@@ -129,7 +138,7 @@ const SignupContainer = () => {
                       <div className="flex justify-between mt-4">
                         <h3 className="text-sm font-semibold text-blackishGreen w-full text-center">
                           Already have an account?{" "}
-                          <Link className="text-red-400" href="/sign-in">
+                          <Link className="text-red-400" to="/sign-in">
                             Sign in
                           </Link>
                         </h3>
