@@ -26,16 +26,23 @@ const IntroSearch = () => {
   const [checkOut, setCheckOut] = useState(addDays(new Date(), 2));
   const [guess, setGuess] = useState(1);
   const [rooms, setRooms] = useState(1);
-  const [flights, setFlights] = useState([
+  const [flights] = useState([
     { id: 1, name: "Kiev" },
     { id: 2, name: "Lviv" },
     { id: 3, name: "Odesa" },
   ]);
-  const [apps, setApps] = useState([
+  const [fromFlight, setFromFlight] = useState(flights[0].name);
+  const [toFlight, setToFlight] = useState("");
+  const [apps] = useState([
     { id: 1, name: "Istanbul, Turkey" },
     { id: 2, name: "Sydney, Australia" },
     { id: 3, name: "Malé, Maldives" },
   ]);
+
+  const reverseFlights = () => {
+    setFromFlight(toFlight);
+    setToFlight(fromFlight);
+  };
 
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-[90%] h-auto mx-auto p-8 flex-col shadow-md">
@@ -72,29 +79,43 @@ const IntroSearch = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 xl:space-x-6 xl:flex xl:items-center mt-12">
           {activeButton === "Flights" ? (
             <>
-              <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem] min-h-[90px]">
+              <fieldset className="border border-blackishGreen rounded-md p-2 w-full lg:w-[20rem] min-h-[90px]">
                 <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
                 <div className="flex items-center justify-between pr-4">
                   <div>
-                    <select className="appearance-none text-center">
-                      {flights.map(({ id, name }) => (
-                        <option key={id} value={name}>
-                          {name}
-                        </option>
-                      ))}
+                    <select
+                      className="appearance-none text-center"
+                      value={fromFlight}
+                      onChange={(el) => setFromFlight(el.target.value)}
+                    >
+                      {flights
+                        .filter((el) => el.name !== toFlight)
+                        .map(({ id, name }) => (
+                          <option key={id} value={name}>
+                            {name}
+                          </option>
+                        ))}
                     </select>
                     <span className="mx-2 text-blackishGreen text-xl font-semibold">
                       -
                     </span>
-                    <select className="appearance-none text-center">
-                      {flights.map(({ id, name }) => (
-                        <option key={id} value={name}>
-                          {name}
-                        </option>
-                      ))}
+                    <select
+                      className="appearance-none text-center"
+                      value={toFlight}
+                      onChange={(el) => setToFlight(el.target.value)}
+                    >
+                      {flights
+                        .filter((el) => el.name !== fromFlight)
+                        .map(({ id, name }) => (
+                          <option key={id} value={name}>
+                            {name}
+                          </option>
+                        ))}
                     </select>
                   </div>
-                  <IoSwapHorizontal />
+                  <button onClick={() => reverseFlights()}>
+                    <IoSwapHorizontal className="w-6 h-6" />
+                  </button>
                 </div>
               </fieldset>
               <fieldset className="border border-blackishGreen rounded-md p-2 min-h-[90px]">
@@ -114,7 +135,7 @@ const IntroSearch = () => {
                 <DatePickerWithRange />
               </fieldset>
               <div className="relative">
-                <fieldset className="border border-blackishGreen rounded-md p-4 w-[20rem] min-h-[90px]">
+                <fieldset className="border border-blackishGreen rounded-md p-4 w-full lg:w-[20rem] min-h-[90px]">
                   <legend className="bg-white p-2 text-sm ml-2">
                     Passenger - Class
                   </legend>
@@ -213,7 +234,7 @@ const IntroSearch = () => {
                     <Button
                       variant={"solid"}
                       className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
+                        "w-full sm:w-[240px] pl-3 text-left font-normal",
                         !checkIn && "text-muted-foreground"
                       )}
                     >
@@ -242,7 +263,7 @@ const IntroSearch = () => {
                     <Button
                       variant={"solid"}
                       className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
+                        "w-full sm:w-[240px] pl-3 text-left font-normal",
                         !checkOut && "text-muted-foreground"
                       )}
                     >
@@ -264,7 +285,7 @@ const IntroSearch = () => {
                   </PopoverContent>
                 </Popover>
               </fieldset>
-              <div className="relative min-w-[20rem]">
+              <div className="relative w-full sm:min-w-[20rem]">
                 <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
                   <legend className="bg-white p-2 text-sm ml-2">
                     Rooms & Guests
@@ -274,7 +295,7 @@ const IntroSearch = () => {
                   </button>
                 </fieldset>
                 {isOpened && (
-                  <div className="bg-white rounded-xl h-auto w-fit absolute left-0 top-[5.5rem] shadow-md p-6 min-w-[20rem]">
+                  <div className="bg-white rounded-xl h-auto w-full lg:w-fit absolute left-0 top-[5.5rem] shadow-md p-6 min-w-0 sm:min-w-[20rem]">
                     <div className="space-y-6">
                       <div className="flex items-center justify-between">
                         <h3 className="text-lg text-gray-400">Guests</h3>

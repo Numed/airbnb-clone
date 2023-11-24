@@ -10,44 +10,65 @@ const FlightsSearch = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [count, setCount] = useState(1);
   const [classType, setClassType] = useState("Economy");
-  const [flights, setFlights] = useState([
+  const [flights] = useState([
     { id: 1, name: "Kiev" },
     { id: 2, name: "Lviv" },
     { id: 3, name: "Odesa" },
   ]);
+  const [fromFlight, setFromFlight] = useState(flights[0].name);
+  const [toFlight, setToFlight] = useState("");
+
+  const reverseFlights = () => {
+    setFromFlight(toFlight);
+    setToFlight(fromFlight);
+  };
 
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-[90%] h-auto mx-auto p-8 flex-col shadow-md -translate-y-16">
       <h2 className="text-2xl font-bold text-blackishGreen">
         Where are you flying?
       </h2>
-      <div className="flex items-center space-x-6 mt-12">
-        <fieldset className="border border-blackishGreen rounded-md p-2  w-[20rem] min-h-[90px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:flex xl:items-center sm:gap-5 xl:space-x-6 mt-12">
+        <fieldset className="border border-blackishGreen rounded-md p-2 w-full  sm:w-[20rem] min-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
           <div className="flex items-center justify-between pr-4">
             <div>
-              <select className="appearance-none text-center">
-                {flights.map(({ id, name }) => (
-                  <option key={id} value={name}>
-                    {name}
-                  </option>
-                ))}
+              <select
+                className="appearance-none text-center"
+                value={fromFlight}
+                onChange={(el) => setFromFlight(el.target.value)}
+              >
+                {flights
+                  .filter((flight) => flight.name !== toFlight)
+                  .map(({ id, name }) => (
+                    <option key={id} value={name}>
+                      {name}
+                    </option>
+                  ))}
               </select>
               <span className="mx-2 text-blackishGreen text-xl font-semibold">
                 -
               </span>
-              <select className="appearance-none text-center">
-                {flights.map(({ id, name }) => (
-                  <option key={id} value={name}>
-                    {name}
-                  </option>
-                ))}
+              <select
+                className="appearance-none text-center"
+                value={toFlight}
+                onChange={(el) => setToFlight(el.target.value)}
+              >
+                {flights
+                  .filter((flight) => flight.name !== fromFlight)
+                  .map(({ id, name }) => (
+                    <option key={id} value={name}>
+                      {name}
+                    </option>
+                  ))}
               </select>
             </div>
-            <IoSwapHorizontal />
+            <button onClick={() => reverseFlights()}>
+              <IoSwapHorizontal className="w-6 h-6" />
+            </button>
           </div>
         </fieldset>
-        <fieldset className="border border-blackishGreen rounded-md p-2 min-h-[90px]">
+        <fieldset className="border border-blackishGreen rounded-md p-2 w-full min-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-0">Trip</legend>
           <select
             id="trip"
@@ -57,12 +78,12 @@ const FlightsSearch = () => {
             <option value="stay">Stay</option>
           </select>
         </fieldset>
-        <fieldset className="border border-blackishGreen rounded-md p-2 min-h-[90px]">
+        <fieldset className="border border-blackishGreen rounded-md p-2 w-full min-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">Depart- Return</legend>
           <DatePickerWithRange />
         </fieldset>
         <div className="relative">
-          <fieldset className="border border-blackishGreen rounded-md p-4 w-[20rem] min-h-[90px]">
+          <fieldset className="border border-blackishGreen rounded-md p-4 w-full sm:w-[20rem] min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Passenger - Class
             </legend>

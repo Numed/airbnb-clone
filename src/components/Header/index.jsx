@@ -17,6 +17,7 @@ const Header = () => {
       <div className="hidden sm:flex text-sm items-center space-x-8">
         <NavLink
           to="/flights"
+          onClick={() => setOpenedModal(false)}
           className="text-blackishGreen font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all"
         >
           <MdFlight size="1.5em" className="mr-1" />
@@ -24,13 +25,14 @@ const Header = () => {
         </NavLink>
         <NavLink
           to="/appartaments"
+          onClick={() => setOpenedModal(false)}
           className="text-blackishGreen font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all"
         >
           <IoBed size="1.5em" className="mr-1" />
           Find Stays
         </NavLink>
       </div>
-      <Link to="/">
+      <Link to="/" onClick={() => setOpenedModal(false)}>
         <img src={logo} alt="Logo golobe" />
       </Link>
       <div>
@@ -44,6 +46,7 @@ const Header = () => {
           <div className="text-sm hidden sm:flex items-center space-x-8">
             <NavLink
               to="/favorite"
+              onClick={() => setOpenedModal(false)}
               className="text-blackishGreen font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all"
             >
               <AiFillHeart size="1.5em" className="mr-1" />
@@ -52,6 +55,7 @@ const Header = () => {
             <span className="mx-4 text-blackishGreen">|</span>
             <NavLink
               to="/profile"
+              onClick={() => setOpenedModal(false)}
               className="text-blackishGreen font-semibold flex items-center cursor-pointer relative"
             >
               <div
@@ -83,12 +87,14 @@ const Header = () => {
           <div className="text-sm hidden sm:flex items-center space-x-8">
             <NavLink
               to="/sign-in"
+              onClick={() => setOpenedModal(false)}
               className="text-blackishGreen font-semibold flex items-center rounded-lg px-6 py-4 transition-all hover:bg-blackishGreen hover:text-white"
             >
               Sign In
             </NavLink>
             <NavLink
               to="/sign-up"
+              onClick={() => setOpenedModal(false)}
               className="text-blackishGreen font-semibold flex items-center rounded-lg px-6 py-4 transition-all hover:bg-blackishGreen hover:text-white"
             >
               Sign Up

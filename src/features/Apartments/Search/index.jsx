@@ -20,11 +20,12 @@ const ApartmentsSearch = () => {
   const [count, setCount] = useState(1);
   const [rooms, setRooms] = useState(1);
   const [isOpened, setIsOpened] = useState(false);
-  const [apps, setApps] = useState([
+  const [apps] = useState([
     { id: 1, name: "Istanbul, Turkey" },
     { id: 2, name: "Sydney, Australia" },
     { id: 3, name: "Malé, Maldives" },
   ]);
+  const [selectedApp, setSelectedApp] = useState(apps[0]);
 
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-[90%] h-auto mx-auto p-8 flex-col shadow-md -translate-y-16">
@@ -32,14 +33,22 @@ const ApartmentsSearch = () => {
         Where are you flying?
       </h2>
       <div className="flex flex-col items-start justify-start w-full">
-        <div className="flex items-center space-x-6 mt-12 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg: items-center gap-4 lg:space-x-6 mt-12 w-full">
           <fieldset className="border border-black rounded-md p-2 flex items-start justify-start min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Enter Destination
             </legend>
             <div className="flex items-center justify-start">
               <BiSolidBed className="mr-2" />
-              <select className="appearance-none text-center">
+              <select
+                className="appearance-none text-center"
+                value={selectedApp.name}
+                onChange={(e) => {
+                  setSelectedApp(
+                    apps.find(({ name }) => name === e.target.value)
+                  );
+                }}
+              >
                 {apps.map(({ id, name }) => (
                   <option key={id} value={name}>
                     {name}

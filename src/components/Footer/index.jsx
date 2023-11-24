@@ -11,7 +11,7 @@ import logoWhite from "../../img/logo/footer-logo.png";
 
 const Footer = () => {
   return (
-    <footer className="w-full h-auto bg-mintGreen mt-36 p-12 xl:p-16">
+    <footer className="w-full h-auto bg-mintGreen mt-36 p-4 sm:p-12 xl:p-16">
       <section className="w-full translate-x-0 -translate-y-32 xl:translate-x-56 flex item-center justify-center xl:w-2/3 rounded-3xl bg-mintGreen/50 shadow-md p-6">
         <div className="flex items-center justify-between w-[77.5rem] h-auto">
           <div>
@@ -38,10 +38,10 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <img className="hidden sm:block" src={subscribePhoto} alt="Mail" />
+          <img className="hidden lg:block" src={subscribePhoto} alt="Mail" />
         </div>
       </section>
-      <div className="flex-col sm:flex-row w-full flex items-baseline sm:items-center justify-start space-y-8  sm:space-x-12 sm:space-y-0">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row items-baseline lg:items-center justify-start space-y-8  lg:space-x-12 lg:space-y-0">
         <div>
           <img src={logoWhite} alt="Footer logo" />
           <div className="flex items-center justify-start mt-6 space-x-3">

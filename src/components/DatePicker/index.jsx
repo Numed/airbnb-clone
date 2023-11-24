@@ -9,8 +9,8 @@ import Calendar from "../Calendar";
 
 const DatePickerWithRange = ({ className }) => {
   const [date, setDate] = useState({
-    from: new Date(2023, 9, 27),
-    to: addDays(new Date(2023, 9, 30), 3),
+    from: new Date(2023, 11, 27),
+    to: addDays(new Date(2023, 11, 30), 3),
   });
 
   return (
@@ -21,7 +21,7 @@ const DatePickerWithRange = ({ className }) => {
             id="date"
             variant={"solid"}
             className={cn(
-              "w-[300px] justify-start text-left font-normal",
+              "w-full sm:w-[300px] justify-start text-left font-normal",
               !date && "text-gray-50"
             )}
           >

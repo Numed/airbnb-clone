@@ -10,7 +10,7 @@ const FlightsContainer = () => {
       <FlightHeader />
       <FlightsSearch />
       <section className="w-full h-full mt-4">
-        <div className="flex items-center justify-between w-full px-[6.5rem]">
+        <div className="flex items-center justify-between w-full px-2 sm:px-[6.5rem]">
           <div>
             <h3 className="text-3xl font-semibold text-black">
               Let's go places together
@@ -20,7 +20,7 @@ const FlightsContainer = () => {
               trip with us.
             </p>
           </div>
-          <button className="px-4 py-3 text-sm text-blackishGreen border border-mintGreen hover:bg-mintGreen transition-colors">
+          <button className="hidden sm:block px-4 py-3 text-sm text-blackishGreen border border-mintGreen hover:bg-mintGreen transition-colors">
             See more places
           </button>
         </div>
@@ -30,7 +30,7 @@ const FlightsContainer = () => {
           alt="Global map"
         />
         <div className="w-full h-full mt-20">
-          <div className="flex items-center justify-between w-full px-[6.5rem]">
+          <div className="flex items-center justify-between w-full px-2 lg:px-[6.5rem]">
             <div>
               <h3 className="text-3xl font-semibold text-black">
                 Let's go places together
@@ -40,13 +40,13 @@ const FlightsContainer = () => {
                 trip with us.
               </p>
             </div>
-            <button className="px-4 py-3 text-sm text-blackishGreen border border-mintGreen hover:bg-mintGreen transition-colors">
+            <button className="hidden sm:block px-4 py-3 text-sm text-blackishGreen border border-mintGreen hover:bg-mintGreen transition-colors">
               See all
             </button>
           </div>
         </div>
-        <div className="flex gap-4 items-center justify-center mt-10">
-          <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightMelbour">
+        <div className="flex flex-wrap xl:flex-nowrap gap-4 items-center justify-center mt-10">
+          <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightMelbour rounded-md">
             <div>
               <div className="flex w-full items-end justify-between space-x-6">
                 <div>
@@ -65,7 +65,7 @@ const FlightsContainer = () => {
               Book Flight
             </Link>
           </div>
-          <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightParis">
+          <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightParis rounded-md">
             <div>
               <div className="flex w-full items-end justify-between space-x-6">
                 <div>
@@ -82,7 +82,7 @@ const FlightsContainer = () => {
               Book Flight
             </Link>
           </div>
-          <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightLondon">
+          <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightLondon rounded-md">
             <div>
               <div className="flex w-full items-end justify-between space-x-6">
                 <div>
@@ -99,7 +99,7 @@ const FlightsContainer = () => {
               Book Flight
             </Link>
           </div>
-          <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightColumbia">
+          <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightColumbia rounded-md">
             <div>
               <div className="flex w-full items-end justify-between space-x-6">
                 <div>

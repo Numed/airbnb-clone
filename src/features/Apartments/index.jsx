@@ -9,7 +9,7 @@ const ApartmentsContainer = () => {
       <ApartmentsHeader />
       <ApartmentsSearch />
       <div className="px-20">
-        <h3 className="mb-4 text-black text-4xl  font-bold">
+        <h3 className="mb-4 text-black text-2xl lg:text-4xl font-bold">
           Your recent searches
         </h3>
         <div>
@@ -39,7 +39,7 @@ const ApartmentsContainer = () => {
       </div>
       <section className="w-full h-full mt-4">
         <div className="w-full h-full mt-20">
-          <div className="flex items-center justify-between w-full px-[6.5rem]">
+          <div className="flex items-center justify-between w-full px-4 lg:px-[6.5rem]">
             <div>
               <h3 className="text-3xl font-semibold text-black">
                 Fall into travel
@@ -50,12 +50,12 @@ const ApartmentsContainer = () => {
                 to get you to your destination.
               </p>
             </div>
-            <button className="px-4 py-3 text-sm text-blackishGreen border border-mintGreen hover:bg-mintGreen transition-colors">
+            <button className="hidden sm:block px-4 py-3 text-sm text-blackishGreen border border-mintGreen hover:bg-mintGreen transition-colors">
               See all
             </button>
           </div>
         </div>
-        <div className="flex gap-4 items-center justify-center mt-10">
+        <div className="flex flex-wrap lg:flex-nowrap gap-4 items-center justify-center mt-10">
           <div className="w-[18.5rem] h-[21.5rem] p-6 flex flex-col items-center justify-end bg-tripFlightMelbour">
             <div>
               <div className="flex w-full items-end justify-between space-x-6">

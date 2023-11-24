@@ -10,7 +10,7 @@ const IntroSection = () => {
     <section className="w-full h-full p-0 lg:p-5">
       <div className="h-screen bg-intro bg-center bg-no-repeat bg-cover rounded-xl ">
         <IntroHeader />
-        <div className="w-full h-auto flex flex-col items-center justify-center my-20 px-2 sm:p-8">
+        <div className="w-full h-auto text-center  flex flex-col items-center justify-center my-20 px-2 sm:p-8">
           <h3 className="text-5xl font-bold text-white">Helping Others</h3>
           <h2 className="text-white font-bold text-[2.5rem] sm:text-[5rem] mt-1">
             Live & Travel

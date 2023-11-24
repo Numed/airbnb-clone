@@ -16,11 +16,11 @@ const IntroReviews = () => {
           See All
         </button>
       </div>
-      <div className="flex items-center justify-center flex-col sm:flex-row space-y-8 sm:space-x-12">
+      <div className="flex items-center justify-center flex-col lg:flex-row space-y-8 lg:space-x-12">
         {reviewsCards.map(
           ({ id, author, position, img, alt, title, description }) => (
             <div
-              className="relative p-6 w-full sm:w-1/3 h-auto bg-white rounded-3xl after:bg-mintGreen/40 after:content-[''] after:translate-x-1 after:w-full after:h-full after:-z-10 after:absolute after:top-5 after:rounded-3xl after:p-6"
+              className="relative p-6 w-full lg:w-1/3 h-auto bg-white rounded-3xl after:bg-mintGreen/40 after:content-[''] after:translate-x-1 after:w-full after:h-full after:-z-10 after:absolute after:top-5 after:rounded-3xl after:p-6"
               key={id}
             >
               <h3 className="text-2xl text-blackishGreen font-bold">
@@ -38,9 +38,11 @@ const IntroReviews = () => {
                 <AiFillStar size="1.5rem" className="text-yellow-300" />
                 <AiFillStar size="1.5rem" className="text-yellow-300" />
               </span>
-              <h5 className="text-sm text-blackishGreen mb-1">{author}</h5>
+              <h5 className="text-sm text-blackishGreen mb-1 font-bold">
+                {author}
+              </h5>
               <h6 className="text-xs text-blackishGreen/50">{position}</h6>
-              <img className="mt-8" src={img} alt={alt} />
+              <img className="mt-8 w-full" src={img} alt={alt} />
             </div>
           )
         )}
