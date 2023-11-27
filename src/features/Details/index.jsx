@@ -13,17 +13,17 @@ import { useActiveUser } from "../../store";
 import { Link } from "react-router-dom";
 
 const DetailsContent = ({ detail }) => {
-  const [isFlight, setIsFlight] = useState(true);
+  const [isFlight, setIsFlight] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("full-price");
   const { user } = useActiveUser();
 
   return (
-    <main className="flex items-center justify-center flex-col w-full h-full px-[5rem] mt-12">
-      <div className="flex items-center justify-between">
-        <div className="h-full space-y-10 w-[50rem]">
+    <main className="flex items-center justify-center flex-col w-full h-full px-8 sm:px-[5rem] mt-12">
+      <div className="flex items-center lg:items-start justify-between flex-col-reverse px-8 xl:flex-row">
+        <div className="h-full space-y-10 w-full lg:w-[50rem]">
           <section className="bg-white py-8 px-6 rounded-xl space-y-6 w-full">
-            <div className="flex items-center justify-between">
-              <h3 className="text-blackishGreen text-2xl font-bold w-[30rem]">
+            <div className="flex items-center justify-between flex-wrap sm:flex-nowrap">
+              <h3 className="text-blackishGreen text-2xl font-bold w-full sm:w-2/3 lg:w-[30rem]">
                 Superior room - 1 double bed or 2 twin beds
               </h3>
               <h4 className="text-red-400 text-sm font-bold">
@@ -38,9 +38,9 @@ const DetailsContent = ({ detail }) => {
                     <div className="flex items-center justify-center">
                       <div className="w-full h-full space-y-6">
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center justify-start bg-white border border-mintGreen rounded-md px-8 py-6">
+                          <div className="flex items-center justify-start bg-white border border-mintGreen rounded-md p-4 sm:px-8 sm:py-6">
                             <img
-                              className="w-16 h-11"
+                              className="w-16 h-11 object-contain"
                               src={flightPartner}
                               alt="Emirates Airline"
                             />
@@ -53,7 +53,7 @@ const DetailsContent = ({ detail }) => {
                               </h5>
                             </div>
                           </div>
-                          <div className="flex items-center justify-start space-x-6 divide-x-2 divide-gray-300">
+                          <div className="hidden sm:flex items-center justify-start space-x-6 divide-x-2 divide-gray-300">
                             <IoAirplane className="w-8 h-8 pl-2" />
                             <IoWifi className="w-8 h-8 pl-2" />
                             <IoTimeOutline className="w-8 h-8 pl-2" />
@@ -61,9 +61,9 @@ const DetailsContent = ({ detail }) => {
                             <MdOutlineAirlineSeatReclineNormal className="w-8 h-8 pl-2" />
                           </div>
                         </div>
-                        <div className="flex items-center justify-between space-x-12 mt-10">
+                        <div className="flex items-center flex-wrap sm:flex-nowrap justify-center sm:justify-between sm:space-x-12 mt-10">
                           <div className="flex items-center justify-center">
-                            <h3 className="text-2xl text-blackishGreen font-semibold">
+                            <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
                               12:00 pm
                             </h3>
                             <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
@@ -80,7 +80,7 @@ const DetailsContent = ({ detail }) => {
                             </span>
                           </div>
                           <div className="flex items-center justify-center">
-                            <h3 className="text-2xl text-blackishGreen font-semibold">
+                            <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
                               12:00 pm
                             </h3>
                             <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
@@ -97,26 +97,26 @@ const DetailsContent = ({ detail }) => {
                   <div className="flex items-center justify-center">
                     <div className="w-full h-full space-y-6">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center justify-start bg-white border border-mintGreen rounded-md px-8 py-6 w-full">
+                        <div className="flex items-center justify-start flex-wrap sm:flex-nowrap bg-white border border-mintGreen rounded-md p-4 sm:px-8 sm:py-6 w-full">
                           <img
-                            className="w-16 h-11"
+                            className="w-16 h-11 object-contain"
                             src={flightPartner}
                             alt="Emirates Airline"
                           />
                           <div className="ml-6">
-                            <h4 className="text-blackishGreen font-semibold text-2xl">
+                            <h4 className="text-blackishGreen font-semibold text-xl sm:text-2xl">
                               CVK Park Bosphorus Hotel Istanbul
                             </h4>
                             <h5 className="mt-2 text-blackishGreen/6 font-medium text-sm flex items-center justify-start">
-                              <ImLocation2 className="mr-2" /> Gümüssuyu Mah.
-                              Inönü Cad. No:8, Istanbul 34437
+                              <ImLocation2 className="hidden sm:block mr-2" />
+                              Gümüssuyu Mah. Inönü Cad. No:8, Istanbul 34437
                             </h5>
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between space-x-12 mt-10">
+                      <div className="flex items-center justify-center flex-wrap sm:flex-nowrap sm:justify-between space-y-4 sm:space-x-12 mt-10">
                         <div className="flex flex-col items-start justify-start">
-                          <h3 className="text-2xl text-blackishGreen font-semibold">
+                          <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
                             Thursday, Dec 8
                           </h3>
                           <h4 className="text-base font-medium text-blackishGreen/60">
@@ -133,7 +133,7 @@ const DetailsContent = ({ detail }) => {
                           </span>
                         </div>
                         <div className="flex flex-col items-start justify-start">
-                          <h3 className="text-2xl text-blackishGreen font-semibold">
+                          <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
                             Friday, Dec 9
                           </h3>
                           <h4 className="text-base font-medium text-blackishGreen/60">
@@ -182,7 +182,7 @@ const DetailsContent = ({ detail }) => {
                   <h3 className="text-base font-bold text-blackishGreen mb-2">
                     Pay part now, part later
                   </h3>
-                  <h4 className="text-sm text-blackishGreen max-w-[40rem]">
+                  <h4 className="text-sm text-blackishGreen w-4/5 lg:max-w-[40rem]">
                     Pay $207.43 now, and the rest ($207.43) will be
                     automatically charged to the same payment method on Nov 14,
                     2022. No extra fees.
@@ -227,10 +227,10 @@ const DetailsContent = ({ detail }) => {
             )}
           </section>
         </div>
-        <aside className="ml-10 bg-white rounded-xl p-6">
-          <div className="flex items-start justify-start">
+        <aside className="bg-white rounded-xl p-4 sm:p-6 w-full mb-8 xl:ml-10 xl:mb-0">
+          <div className="flex items-start justify-start flex-col sm:flex-row">
             <img
-              className="w-[7.5rem] h-[7.5rem] mr-6"
+              className="w-1/2 h-1/2 mb-2 sm:w-[7.5rem] sm:h-[7.5rem] sm:mr-6 sm:mb-0"
               src={flightPartner}
               alt="Flight Partner"
             />
@@ -238,10 +238,10 @@ const DetailsContent = ({ detail }) => {
               <h4 className="text-blackishGreen/75 text-base font-medium">
                 CVK Park Bosphorus...
               </h4>
-              <h3 className="max-w-[16rem] font-semibold text-xl text-blackishGreen mt-1">
+              <h3 className="max-w-[16rem] font-semibold text-lg sm:text-xl text-blackishGreen mt-1">
                 Superior room - 1 double bed or 2 twin beds
               </h3>
-              <div className="my-4">
+              <div className="hidden sm:block my-4">
                 <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
                   4.5
                 </span>
@@ -251,13 +251,13 @@ const DetailsContent = ({ detail }) => {
               </div>
             </div>
           </div>
-          <div className="border-y border-y-gray-400 p-4">
+          <div className="border-y border-y-gray-400 py-2 sm:p-4">
             <h3 className="text-base text-blackishGreen font-medium">
               Your booking is protected by{" "}
               <span className="font-bold">golobe</span>
             </h3>
           </div>
-          <div className="p-4">
+          <div className="py-2 sm:p-4">
             <h4 className="text-blackishGreen text-base font-semibold mb-4">
               Price details
             </h4>

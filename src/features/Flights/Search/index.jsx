@@ -29,7 +29,7 @@ const FlightsSearch = () => {
         Where are you flying?
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:flex xl:items-center sm:gap-5 xl:space-x-6 mt-12">
-        <fieldset className="border border-blackishGreen rounded-md p-2 w-full  sm:w-[20rem] min-h-[90px]">
+        <fieldset className="border border-blackishGreen rounded-md p-2 w-full lg:w-[20rem] min-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
           <div className="flex items-center justify-between pr-4">
             <div>
@@ -39,7 +39,7 @@ const FlightsSearch = () => {
                 onChange={(el) => setFromFlight(el.target.value)}
               >
                 {flights
-                  .filter((flight) => flight.name !== toFlight)
+                  .filter((el) => el.name !== toFlight)
                   .map(({ id, name }) => (
                     <option key={id} value={name}>
                       {name}
@@ -55,7 +55,7 @@ const FlightsSearch = () => {
                 onChange={(el) => setToFlight(el.target.value)}
               >
                 {flights
-                  .filter((flight) => flight.name !== fromFlight)
+                  .filter((el) => el.name !== fromFlight)
                   .map(({ id, name }) => (
                     <option key={id} value={name}>
                       {name}
@@ -68,7 +68,7 @@ const FlightsSearch = () => {
             </button>
           </div>
         </fieldset>
-        <fieldset className="border border-blackishGreen rounded-md p-2 w-full min-h-[90px]">
+        <fieldset className="border border-blackishGreen rounded-md p-2 min-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-0">Trip</legend>
           <select
             id="trip"
@@ -78,12 +78,12 @@ const FlightsSearch = () => {
             <option value="stay">Stay</option>
           </select>
         </fieldset>
-        <fieldset className="border border-blackishGreen rounded-md p-2 w-full min-h-[90px]">
+        <fieldset className="border border-blackishGreen rounded-md p-2 min-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">Depart- Return</legend>
           <DatePickerWithRange />
         </fieldset>
         <div className="relative">
-          <fieldset className="border border-blackishGreen rounded-md p-4 w-full sm:w-[20rem] min-h-[90px]">
+          <fieldset className="border border-blackishGreen rounded-md p-4 w-full lg:w-[20rem] min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Passenger - Class
             </legend>
