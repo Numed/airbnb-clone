@@ -23,7 +23,7 @@ export const useRequestService = () => {
 
   const updateApps = async (data, id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}//hotels/hotel/${id}`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/${id}`,
       "PUT",
       JSON.stringify(data)
     );
@@ -32,21 +32,21 @@ export const useRequestService = () => {
 
   const getAppsByID = async (id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/hotel/${id}`
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/${id}`
     );
     return response;
   };
 
   const getAllApps = async () => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/allHotels`
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels`
     );
     return response;
   };
 
   const addApps = async (data) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/addHotel`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels`,
       "POST",
       JSON.stringify(data)
     );
@@ -55,22 +55,31 @@ export const useRequestService = () => {
 
   const deleteApps = async (id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/deleteHotel/${id}`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/${id}`,
       "DELETE"
+    );
+    return response;
+  };
+
+  const addReview = async (data) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/reviews`,
+      "POST",
+      JSON.stringify(data)
     );
     return response;
   };
 
   const getAllFlights = async () => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/allFlights`
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights`
     );
     return response;
   };
 
   const addFlight = async (data) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/addFlight`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights`,
       "POST",
       JSON.stringify(data)
     );
@@ -79,14 +88,14 @@ export const useRequestService = () => {
 
   const getFlightById = async (id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/flight/${id}`
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/${id}`
     );
     return response;
   };
 
   const updateFlight = async (data, id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/flight/${id}`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/${id}`,
       "PUT",
       JSON.stringify(data)
     );
@@ -95,8 +104,17 @@ export const useRequestService = () => {
 
   const deleteFlight = async (id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/deleteFlight/${id}`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/${id}`,
       "DELETE"
+    );
+    return response;
+  };
+
+  const addFavorite = async (data) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/favorites`,
+      "POST",
+      JSON.stringify(data)
     );
     return response;
   };
@@ -114,5 +132,7 @@ export const useRequestService = () => {
     addFlight,
     deleteFlight,
     updateFlight,
+    addFavorite,
+    addReview,
   };
 };
