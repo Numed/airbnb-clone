@@ -33,7 +33,7 @@ const ApartmentsSearch = () => {
         Where are you flying?
       </h2>
       <div className="flex flex-col items-start justify-start w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg: items-center gap-4 lg:space-x-6 mt-12 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:space-x-6 mt-12 w-full">
           <fieldset className="border border-black rounded-md p-2 flex items-start justify-start min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Enter Destination

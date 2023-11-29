@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const SingleAppHeader = () => {
   return (
-    <div className="flex items-center justify-between py-12 w-full h-full">
+    <div className="flex items-center justify-between py-12 w-full h-full flex-wrap lg:flex-nowrap">
       <div className="w-full sm:w-2/3">
         <div className="flex items-baseline justify-start flex-wrap ">
           <h3 className="mb-4 font-bold text-2xl">
