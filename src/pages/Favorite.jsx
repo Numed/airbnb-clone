@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
 import { BsFillCupFill } from "react-icons/bs";
 import { ImLocation2 } from "react-icons/im";
 
@@ -46,151 +45,93 @@ const Favorite = () => {
         </div>
         <div className="w-full h-full">
           {active === "Flights" ? (
-            <div className="mt-6 w-full h-full flex flex-col justify-center items-center">
-              {flightCards.map(
-                ({ id, img, rating, price, ratingText, alt }) => (
-                  <div
-                    key={id}
-                    className="px-4 py-6 bg-white w-full h-auto flex flex-col items-center justify-center rounded-xl mb-8"
-                  >
-                    <div className="flex items-start justify-start space-x-6 w-full">
-                      <div>
-                        <img
-                          className="w-full h-full scale-[1.1] mr-8"
-                          src={img}
-                          alt={alt}
-                        />
-                      </div>
-                      <div className="ml-10 flex flex-col items-start justify-start w-full h-full">
-                        <div className="flex items-start justify-between space-x-6 w-full">
-                          <div>
-                            <div className="flex items-start justify-start space-x-6 ">
-                              <div>
-                                <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
-                                  {rating}
+            <div className="mt-6 w-full h-full grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {flightCards.map(({ id, img, rating, ratingText, alt }) => (
+                <div
+                  key={id}
+                  className="px-4 py-6 bg-white w-full h-auto flex flex-col items-center justify-center rounded-xl mb-8"
+                >
+                  <div className="flex items-start justify-between flex-col w-full">
+                    <div>
+                      <img
+                        className="w-full h-full mr-8 rounded-xl"
+                        src={img}
+                        alt={alt}
+                      />
+                    </div>
+                    <div className="flex flex-col items-start justify-start w-full h-full">
+                      <div className="flex items-start justify-between space-x-6 w-full m-0 mt-3">
+                        <div className="flex items-center justify-center">
+                          <div className="flex items-start justify-start flex-col">
+                            <div className="flex items-center justify-center">
+                              <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
+                                {rating}
+                              </span>
+                              <span className="ml-5 text-xs text-blackishGreen font-bold">
+                                {ratingText}
+                              </span>
+                            </div>
+                            <div className="flex flex-col items-start justify-start space-y-3 pb-3 mt-4">
+                              <label className="flex  items-start justify-start">
+                                <div className="flex flex-col items-baseline justify-center">
+                                  <h4 className="text-base text-blackishGreen font-bold">
+                                    12:00pm - 01:28pm
+                                  </h4>
+                                  <h3 className="text-base text-blackishGreen/25 font-bold">
+                                    Emirates
+                                  </h3>
+                                </div>
+                                <span className="mx-10 text-sm text-blackishGreen/80 font-semibold">
+                                  non stop
                                 </span>
-                                <span className="ml-5 text-xs text-blackishGreen font-bold">
-                                  {ratingText}
-                                </span>
-                              </div>
-                              <div className="flex flex-col items-start justify-start space-y-3 pb-3">
-                                <label className="flex  items-start justify-start">
-                                  <input
-                                    className="mt-1 mr-2"
-                                    type="checkbox"
-                                  />
-                                  <div>
-                                    <h4 className="text-base text-blackishGreen font-bold">
-                                      12:00pm - 01:28pm
-                                    </h4>
-                                    <h3 className="text-base text-blackishGreen/25 font-bold">
-                                      Emirates
-                                    </h3>
-                                  </div>
-                                  <span className="mx-10 text-sm text-blackishGreen/80 font-semibold">
-                                    non stop
-                                  </span>
-                                  <div>
-                                    <h4 className="mx-10 text-base text-blackishGreen/80 font-semibold">
-                                      2h 28m
-                                    </h4>
-                                    <h3 className="mx-10 text-sm text-blackishGreen/40">
-                                      EWR-BNA
-                                    </h3>
-                                  </div>
-                                </label>
-                                <label className="flex  items-start justify-start">
-                                  <input
-                                    className="mt-1 mr-2"
-                                    type="checkbox"
-                                  />
-                                  <div>
-                                    <h4 className="text-base text-blackishGreen font-bold">
-                                      12:00pm - 01:28pm
-                                    </h4>
-                                    <h3 className="text-base text-blackishGreen/25 font-bold">
-                                      Emirates
-                                    </h3>
-                                  </div>
-                                  <span className="mx-10 text-sm text-blackishGreen/80 font-semibold">
-                                    non stop
-                                  </span>
-                                  <div>
-                                    <h4 className="mx-10 text-base text-blackishGreen/80 font-semibold">
-                                      2h 28m
-                                    </h4>
-                                    <h3 className="mx-10 text-sm text-blackishGreen/40">
-                                      EWR-BNA
-                                    </h3>
-                                  </div>
-                                </label>
-                              </div>
+                                <div className="flex flex-col items-baseline justify-center">
+                                  <h4 className="m-0 lg:mx-10 text-base text-blackishGreen/80 font-semibold">
+                                    2h 28m
+                                  </h4>
+                                  <h3 className="m-0 lg:mx-10 text-sm text-blackishGreen/40">
+                                    EWR-BNA
+                                  </h3>
+                                </div>
+                              </label>
                             </div>
                           </div>
-                          <div>
-                            <h4 className="text-xs text-blackishGreen/75">
-                              started from
-                            </h4>
-                            <h3 className="text-2xl font-bold text-red-300">
-                              {price}
-                            </h3>
-                          </div>
-                        </div>
-                        <div className="border-t border-t-blackishGreen/25 w-full pt-4 flex items-start justify-start">
-                          <button className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all">
-                            <AiOutlineHeart />
-                          </button>
-                          <Link
-                            className="flex items-center justify-center w-full h-full ml-4 bg-mintGreen text-sm rounded-sm font-semibold text-blackishGreen hover:text-white transition-colors py-4"
-                            to={`/flights/${id}`}
-                          >
-                            View Details
-                          </Link>
                         </div>
                       </div>
                     </div>
                   </div>
-                )
-              )}
+                </div>
+              ))}
             </div>
           ) : (
-            <div className="mt-6 w-full h-full">
+            <div className="mt-6 w-full h-full grid grid-cols-1 gap-5 sm:grid-cols-2">
               {appsCards.map(
-                ({
-                  id,
-                  img,
-                  rating,
-                  price,
-                  ratingText,
-                  location,
-                  title,
-                  alt,
-                }) => (
+                ({ id, img, rating, ratingText, location, title, alt }) => (
                   <div
                     key={id}
                     className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
                   >
-                    <div className="flex w-full items-start justify-start space-x-6">
+                    <div className="flex w-full items-start justify-center sm:space-x-6 flex-wrap lg:no-wrap">
                       <div>
                         <img
-                          className="w-full h-full scale-[1.1] mr-8"
+                          className="w-full h-full mr-8 rounded-xl"
                           src={img}
                           alt={alt}
                         />
                       </div>
-                      <div className="flex items-start justify-start flex-col w-full">
+                      <div className="flex items-start justify-start flex-col w-full mt-4">
                         <div className="flex items-start justify-start w-full h-full">
-                          <div className="w-full flex items-start justify-start space-x-6">
+                          <div className="w-full flex items-start justify-start lg:space-x-6">
                             <div>
                               <div className="w-full h-full">
-                                <h3 className="text-xl font-bold text-blackishGreen mb-4 max-w-[19rem]">
+                                <h3 className="text-xl font-bold text-blackishGreen mb-4 max-w-[15rem] sm:max-w-[19rem]">
                                   {title}
                                 </h3>
-                                <p className="text-sm text-blackishGreen/50 mb-4 flex items-baseline justify-start">
-                                  <ImLocation2 /> {location}
+                                <p className="text-sm text-blackishGreen/50 mb-4 flex items-baseline justify-start max-w-[15rem] sm:max-w-none">
+                                  <ImLocation2 className="hidden sm:block" />{" "}
+                                  {location}
                                 </p>
                               </div>
-                              <div className="flex items-start justify-start">
+                              <div className="flex flex-col sm:flex-row items-end sm:items-start justify-start">
                                 <div className="flex items-center justify-center text-sm text-blackishGreen">
                                   <AiFillStar className="text-red-300 w-4 h-4" />
                                   <AiFillStar className="text-red-300 w-4 h-4" />
@@ -206,7 +147,7 @@ const Favorite = () => {
                                   Aminities
                                 </div>
                               </div>
-                              <div className="my-4">
+                              <div className="my-4 hidden sm:block">
                                 <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
                                   {rating}
                                 </span>
@@ -216,25 +157,6 @@ const Favorite = () => {
                               </div>
                             </div>
                           </div>
-                          <div>
-                            <h4 className="text-xs text-blackishGreen/75">
-                              started from
-                            </h4>
-                            <h3 className="text-2xl font-bold text-red-300">
-                              {price}
-                            </h3>
-                          </div>
-                        </div>
-                        <div className="border-t border-t-blackishGreen/25 w-full pt-4 flex items-start justify-start">
-                          <button className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all">
-                            <AiOutlineHeart />
-                          </button>
-                          <Link
-                            className="flex items-center justify-center w-full h-full ml-4 bg-mintGreen text-sm rounded-sm font-semibold text-blackishGreen hover:text-white transition-colors py-4"
-                            to={`/appartaments/${id}`}
-                          >
-                            View Place
-                          </Link>
                         </div>
                       </div>
                     </div>

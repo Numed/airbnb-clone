@@ -21,7 +21,7 @@ const DetailsContent = ({ detail }) => {
     <main className="flex items-center justify-center flex-col w-full h-full px-8 sm:px-[5rem] mt-12">
       <div className="flex items-center lg:items-start justify-between flex-col-reverse px-8 xl:flex-row">
         <div className="h-full space-y-10 w-full lg:w-[50rem]">
-          <section className="bg-white py-8 px-6 rounded-xl space-y-6 w-full">
+          <section className="bg-white py-0 px-2 sm:py-8 sm:px-6 rounded-xl space-y-6 w-full">
             <div className="flex items-center justify-between flex-wrap sm:flex-nowrap">
               <h3 className="text-blackishGreen text-2xl font-bold w-full sm:w-2/3 lg:w-[30rem]">
                 Superior room - 1 double bed or 2 twin beds
@@ -40,11 +40,11 @@ const DetailsContent = ({ detail }) => {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center justify-start bg-white border border-mintGreen rounded-md p-4 sm:px-8 sm:py-6">
                             <img
-                              className="w-16 h-11 object-contain"
+                              className="w-16 h-11 object-contain mb-4 sm:mb-0"
                               src={flightPartner}
                               alt="Emirates Airline"
                             />
-                            <div className="ml-6">
+                            <div className="sm:ml-6">
                               <h4 className="text-blackishGreen font-semibold text-2xl">
                                 Emirates
                               </h4>
@@ -99,11 +99,11 @@ const DetailsContent = ({ detail }) => {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center justify-start flex-wrap sm:flex-nowrap bg-white border border-mintGreen rounded-md p-4 sm:px-8 sm:py-6 w-full">
                           <img
-                            className="w-16 h-11 object-contain"
+                            className="w-16 h-11 object-contain mb-4 sm:mb-0"
                             src={flightPartner}
                             alt="Emirates Airline"
                           />
-                          <div className="ml-6">
+                          <div className="sm:ml-6">
                             <h4 className="text-blackishGreen font-semibold text-xl sm:text-2xl">
                               CVK Park Bosphorus Hotel Istanbul
                             </h4>
@@ -230,7 +230,7 @@ const DetailsContent = ({ detail }) => {
         <aside className="bg-white rounded-xl p-4 sm:p-6 w-full mb-8 xl:ml-10 xl:mb-0">
           <div className="flex items-start justify-start flex-col sm:flex-row">
             <img
-              className="w-1/2 h-1/2 mb-2 sm:w-[7.5rem] sm:h-[7.5rem] sm:mr-6 sm:mb-0"
+              className="w-[3rem] h-[3rem] mb-2 sm:w-[7.5rem] sm:h-[7.5rem] sm:mr-6 sm:mb-0"
               src={flightPartner}
               alt="Flight Partner"
             />

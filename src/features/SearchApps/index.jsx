@@ -8,14 +8,22 @@ import Search from "./Search";
 import Filter from "./Filter";
 import { appsCards } from "../Contants";
 import { useRequestService } from "../../services";
+import { notifyError } from "../../utils/notifications";
 
 const SearchAppsContainer = () => {
   const { getAllApps } = useRequestService();
   const [apps, setApps] = useState(appsCards);
 
   useEffect(() => {
-    return () => getAllApps().then((el) => setApps(el));
+    return () => getApps();
   }, []);
+
+  const getApps = () => {
+    getAllApps()
+      .then((el) => setApps(el))
+      .catch((err) => notifyError(err));
+  };
+
   return (
     <section className="w-full h-full">
       <Search />
@@ -50,24 +58,28 @@ const SearchAppsContainer = () => {
             </h5>
           </div>
           <div className="mt-6 w-full h-full">
-            {appsCards.map(
+            {apps.map(
               ({
-                id,
-                img,
-                rating,
+                hotelId,
+                photo,
+                starRating,
                 price,
                 ratingText,
                 location,
-                title,
+                name,
                 alt,
               }) => (
                 <div
-                  key={id}
+                  key={hotelId}
                   className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
                 >
                   <div className="flex w-full items-start justify-start space-x-6">
                     <div>
-                      <img src={img} alt={alt} />
+                      <img
+                        className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover"
+                        src={photo}
+                        alt={alt}
+                      />
                     </div>
                     <div className="flex items-start justify-start flex-col w-full">
                       <div className="flex items-start justify-start w-full h-full">
@@ -75,7 +87,7 @@ const SearchAppsContainer = () => {
                           <div>
                             <div className="w-full h-full">
                               <h3 className="text-xl font-bold text-blackishGreen mb-4 max-w-[19rem]">
-                                {title}
+                                {name}
                               </h3>
                               <p className="text-sm text-blackishGreen/50 mb-4 flex items-baseline justify-start">
                                 <ImLocation2 /> {location}
@@ -99,7 +111,7 @@ const SearchAppsContainer = () => {
                             </div>
                             <div className="my-4">
                               <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
-                                {rating}
+                                {starRating}
                               </span>
                               <span className="ml-2 text-xs text-blackishGreen font-bold">
                                 {ratingText}
@@ -122,7 +134,7 @@ const SearchAppsContainer = () => {
                         </button>
                         <Link
                           className="flex items-center justify-center w-full h-full ml-4 bg-mintGreen text-sm rounded-sm font-semibold text-blackishGreen hover:text-white transition-colors py-4"
-                          to={`/appartaments/${id}`}
+                          to={`/appartaments/${hotelId}`}
                         >
                           View Place
                         </Link>

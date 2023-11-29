@@ -8,7 +8,7 @@ const ApartmentsContainer = () => {
     <section className="w-full h-full">
       <ApartmentsHeader />
       <ApartmentsSearch />
-      <div className="px-20">
+      <div className="px-5 sm:px-20">
         <h3 className="mb-4 text-black text-2xl lg:text-4xl font-bold">
           Your recent searches
         </h3>

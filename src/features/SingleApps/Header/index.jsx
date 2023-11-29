@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 const SingleAppHeader = () => {
   return (
     <div className="flex items-center justify-between py-12 w-full h-full">
-      <div>
-        <div className="flex items-baseline justify-start">
+      <div className="w-full sm:w-2/3">
+        <div className="flex items-baseline justify-start flex-wrap ">
           <h3 className="mb-4 font-bold text-2xl">
             CVK Park Bosphorus Hotel Istanbul
           </h3>
-          <span className="ml-4 flex items-center justify-start">
+          <span className="mb-4 xl:mb-0 xl:ml-4 flex items-center justify-start">
             <AiFillStar className="text-red-300 w-4 h-4" />
             <AiFillStar className="text-red-300 w-4 h-4" />
             <AiFillStar className="text-red-300 w-4 h-4" />
@@ -19,8 +19,8 @@ const SingleAppHeader = () => {
           </span>
         </div>
         <h4 className="text-sm text-blackishGreen/75 mb-4 font-medium flex items-center justify-start">
-          <ImLocation2 className="mr-2" /> Gümüssuyu Mah. Inönü Cad. No:8,
-          Istanbul 34437
+          <ImLocation2 className="mr-2 w-6 h-6 sm:w-auto sm:h-auto" /> Gümüssuyu
+          Mah. Inönü Cad. No:8, Istanbul 34437
         </h4>
         <div>
           <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
@@ -31,11 +31,11 @@ const SingleAppHeader = () => {
           </span>
         </div>
       </div>
-      <div>
+      <div className="mt-10">
         <h3 className="mb-4 text-4xl font-bold text-red-400 text-end">
           $240/night
         </h3>
-        <div>
+        <div className="flex items-center justify-center">
           <button className="p-3 border border-mintGreen hover:bg-mintGreen text-center text-blackishGreen font-medium mr-4 transition-colors">
             <AiOutlineHeart />
           </button>
@@ -44,7 +44,7 @@ const SingleAppHeader = () => {
           </button>
           <Link
             to="/details"
-            className="text-sm text-blackishGreen font-semibold bg-mintGreen/90 hover:bg-mintGreen py-3 px-10 text-center rounded-sm transition-colors"
+            className="text-sm text-blackishGreen font-semibold bg-mintGreen/90 hover:bg-mintGreen p-4 xl:py-3 xl:px-10 text-center rounded-sm transition-colors"
           >
             Book now
           </Link>

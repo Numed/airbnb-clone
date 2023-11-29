@@ -22,13 +22,13 @@ const SingleAppContainer = () => {
   }, [id]);
 
   return (
-    <main className="flex items-center justify-center flex-col w-full h-full px-[6.5rem]">
+    <main className="flex items-center justify-center flex-col w-full h-full px-12 lg:px-[6.5rem]">
       <section className="w-full h-full">
         <Header />
       </section>
       <div className="w-full h-full my-5">
         <img
-          className="w-1/2 h-full rounded-3xl"
+          className="w-full sm:w-1/2 h-full rounded-3xl"
           src={appBanner}
           alt="Appartament"
         />
@@ -53,7 +53,7 @@ const SingleAppContainer = () => {
             its special guests as a wide variety of selection.
           </p>
         </div>
-        <div className="flex items-center justify-start space-x-4 my-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 lg:space-x-4 gap-y-5 my-8">
           <div className="bg-mintGreen border border-mintGreen rounded-lg p-4 w-[10rem] h-full flex items-start justify-between flex-col">
             <h3 className="text-4xl text-colorText font-bold mb-8">4.5</h3>
             <h4 className="text-base text-colorText font-bold">Very good</h4>
@@ -89,7 +89,7 @@ const SingleAppContainer = () => {
       <section className="border-t border-t-blackishGreen/25 py-12 w-full h-full">
         <div className="flex flex-col items-start justify-start w-full h-full">
           <h3 className="text-xl text-blackishGreen font-bold">Amenities</h3>
-          <div className="flex items-start justify-between w-1/2 mt-8">
+          <div className="flex items-start justify-between w-full flex-col sm:flex-row sm:w-1/2 mt-8 space-y-7">
             <ul className="space-y-7 list-disc">
               <li className="text-base text-blackishGreen font-medium">
                 Outdoor pool
@@ -142,9 +142,9 @@ const SingleAppContainer = () => {
         </div>
         <section className="border-t border-t-blackishGreen/25 w-full h-full">
           <div className="flex flex-col items-center justify-start w-full h-auto border-b border-b-blackishGreen/25">
-            <div className="flex items-center justify-start border-t border-t-blackishGreen/25 py-6">
+            <div className="flex items-center justify-start flex-col sm:flex-row border-t border-t-blackishGreen/25 py-6">
               <img
-                className="w-10 h-10 mr-2"
+                className="w-full h-full sm:w-10 sm:h-10 mr-2"
                 src={ava}
                 alt="Omar's Siphron Avatar"
               />
@@ -163,9 +163,9 @@ const SingleAppContainer = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center justify-start border-t border-t-blackishGreen/25 py-6">
+            <div className="flex items-center justify-start flex-col sm:flex-row border-t border-t-blackishGreen/25 py-6">
               <img
-                className="w-10 h-10 mr-2"
+                className="w-full h-full sm:w-10 sm:h-10 mr-2"
                 src={ava}
                 alt="Omar's Siphron Avatar"
               />
@@ -184,9 +184,9 @@ const SingleAppContainer = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center justify-start border-t border-t-blackishGreen/25 py-6">
+            <div className="flex items-center justify-start flex-col sm:flex-row border-t border-t-blackishGreen/25 py-6">
               <img
-                className="w-10 h-10 mr-2"
+                className="w-full h-full sm:w-10 sm:h-10 mr-2"
                 src={ava}
                 alt="Omar's Siphron Avatar"
               />

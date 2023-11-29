@@ -64,7 +64,7 @@ const ApartmentsSearch = () => {
                 <Button
                   variant={"solid"}
                   className={cn(
-                    "w-[240px] pl-3 text-left font-normal",
+                    "w-full sm:w-[240px] pl-3 text-left font-normal",
                     !checkIn && "text-muted-foreground"
                   )}
                 >
@@ -93,7 +93,7 @@ const ApartmentsSearch = () => {
                 <Button
                   variant={"solid"}
                   className={cn(
-                    "w-[240px] pl-3 text-left font-normal",
+                    "w-full sm:w-[240px] pl-3 text-left font-normal",
                     !checkOut && "text-muted-foreground"
                   )}
                 >
@@ -115,7 +115,7 @@ const ApartmentsSearch = () => {
               </PopoverContent>
             </Popover>
           </fieldset>
-          <div className="relative min-w-[20rem]">
+          <div className="relative min-w-full sm:min-w-[20rem]">
             <fieldset className="border border-black rounded-md p-4 min-h-[90px]">
               <legend className="bg-white p-2 text-sm ml-2">
                 Rooms & Guests

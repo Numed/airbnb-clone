@@ -10,7 +10,7 @@ export const useRecentSearch = create((set) => ({
 }));
 
 export const useActiveUser = create((set) => ({
-  user: {},
+  user: null,
   setUser: (newUser) => {
     set(() => ({
       user: newUser,

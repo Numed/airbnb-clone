@@ -27,15 +27,15 @@ const SingleFlightsContainer = () => {
   }, []);
 
   return (
-    <main className="flex items-center justify-center flex-col w-full h-full px-[6.5rem]">
+    <main className="flex items-center justify-center flex-col w-full h-full px-12 lg:px-[6.5rem]">
       <section className="w-full h-full">
         <SingleFlightHeader />
         <img className="w-full h-auto" src={flightBanen} alt="Airplane" />
         <div className="bg-mintGreen p-4 rounded-md mt-10">
-          <h3 className="text-2xl text-blackishGreen font-bold">
+          <h3 className="text-xl sm:text-2xl text-blackishGreen font-bold">
             Emirates Airlines Policies
           </h3>
-          <div className="grid grid-cols-2 items-center justify-start mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 space-y-2 items-center justify-start mt-4">
             <div className="flex items-center justify-start">
               <PiTimerFill className="mr-4 w-6 h-6" />
               <p className="text-blackishGreen/75 text-base font-medium">
@@ -54,7 +54,7 @@ const SingleFlightsContainer = () => {
       <section className="mt-10 w-full h-full">
         <div className="flex items-center justify-center">
           <div className="w-full h-full bg-white rounded-2xl shadow py-8 px-6 space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-start sm:items-center justify-between flex-col sm:flex-row">
               <h3 className="text-xl text-blackishGreen font-bold">
                 Return Wed, Dec 8
               </h3>
@@ -62,8 +62,8 @@ const SingleFlightsContainer = () => {
                 2h 28m
               </h4>
             </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center justify-start bg-white border border-mintGreen rounded-md px-8 py-6">
+            <div className="flex items-center justify-between flex-col sm:flex-row">
+              <div className="flex items-center justify-start bg-white border border-mintGreen rounded-md px-8 py-6 flex-col sm:flex-row">
                 <img
                   className="w-16 h-11"
                   src={partner}
@@ -78,7 +78,7 @@ const SingleFlightsContainer = () => {
                   </h5>
                 </div>
               </div>
-              <div className="flex items-center justify-start space-x-6 divide-x-2 divide-gray-300">
+              <div className="hidden sm:flex items-center justify-start space-x-6 divide-x-2 divide-gray-300">
                 <IoAirplane className="w-8 h-8 pl-2" />
                 <IoWifi className="w-8 h-8 pl-2" />
                 <IoTimeOutline className="w-8 h-8 pl-2" />
@@ -86,9 +86,9 @@ const SingleFlightsContainer = () => {
                 <MdOutlineAirlineSeatReclineNormal className="w-8 h-8 pl-2" />
               </div>
             </div>
-            <div className="flex items-center justify-center space-x-[5rem]">
+            <div className="flex items-center justify-center flex-col space-y-4 lg:flex-row lg:space-x-[5rem]">
               <div className="flex items-center justify-center">
-                <h3 className="text-2xl text-blackishGreen font-semibold">
+                <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
                   12:00 pm
                 </h3>
                 <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
@@ -101,7 +101,7 @@ const SingleFlightsContainer = () => {
                 <span className="text-blackishGreen font-bold ml-6">—</span>
               </div>
               <div className="flex items-center justify-center">
-                <h3 className="text-2xl text-blackishGreen font-semibold">
+                <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
                   12:00 pm
                 </h3>
                 <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
