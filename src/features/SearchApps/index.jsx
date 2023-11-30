@@ -9,19 +9,33 @@ import Filter from "./Filter";
 import { appsCards } from "../Contants";
 import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
+import Loader from "../../components/Loader";
+import { cn } from "../../utils";
 
 const SearchAppsContainer = () => {
   const { getAllApps } = useRequestService();
   const [apps, setApps] = useState(appsCards);
+  const [offset, setOffset] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     return () => getApps();
   }, []);
 
   const getApps = () => {
-    getAllApps()
-      .then((el) => setApps(el))
-      .catch((err) => notifyError(err));
+    setIsLoading(true);
+    getAllApps().then(onSetApps).catch(onError);
+  };
+
+  const onSetApps = (data) => {
+    setOffset(offset + 4);
+    setApps(data.slice(0, offset + 4));
+    setIsLoading(false);
+  };
+
+  const onError = (err) => {
+    notifyError(err);
+    setIsLoading(false);
   };
 
   return (
@@ -145,8 +159,15 @@ const SearchAppsContainer = () => {
               )
             )}
           </div>
-          <button className="text-white bg-blackishGreen hover:bg-blackishGreen/90 text-center w-full py-4 transition-colors">
-            Show more results
+          <button
+            className={cn(
+              "text-white bg-blackishGreen hover:bg-blackishGreen/90 text-center w-full py-4 transition-colors",
+              offset === 12 && "hidden"
+            )}
+            onClick={() => getApps()}
+            disabled={isLoading}
+          >
+            {isLoading ? <Loader /> : "Show more results"}
           </button>
         </div>
       </div>

@@ -1,61 +1,58 @@
 import { MdFlight } from "react-icons/md";
 import { IoBed, IoChevronDownSharp, IoLogOut, IoMenu } from "react-icons/io5";
 import { AiFillHeart } from "react-icons/ai";
-import { NavLink, Link } from "react-router-dom";
 
 import logo from "../../img/logo/logo.png";
 import profile from "../../img/profile.png";
-import { useActiveUser, useOpenModal, useOpenMenu } from "../../store";
+import { useActiveUser, useOpenSubmodal, useOpenMenu } from "../../store";
 import NavPopup from "../../features/NavPopup";
+import Link from "../CustomLink";
 
 const Header = () => {
   const { isOpenMenu, setIsOpenMenu } = useOpenMenu();
-  const { isOpenModal, setOpenedModal } = useOpenModal();
+  const { isOpenSubmodal, setOpenedSubmodal } = useOpenSubmodal();
   const { user, setUser } = useActiveUser();
+
   return (
     <header className="w-full flex justify-between items-center p-8 bg-white">
       <div className="hidden sm:flex text-sm items-center space-x-8">
-        <NavLink
+        <Link
           to="/flights"
-          onClick={() => setOpenedModal(false)}
           className="text-blackishGreen font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all"
         >
           <MdFlight size="1.5em" className="mr-1" />
           Find Flight
-        </NavLink>
-        <NavLink
+        </Link>
+        <Link
           to="/appartaments"
-          onClick={() => setOpenedModal(false)}
           className="text-blackishGreen font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all"
         >
           <IoBed size="1.5em" className="mr-1" />
           Find Stays
-        </NavLink>
+        </Link>
       </div>
-      <Link to="/" onClick={() => setOpenedModal(false)}>
+      <Link to="/">
         <img src={logo} alt="Logo golobe" />
       </Link>
       <div>
         <button
           className="block sm:hidden"
-          onClick={() => setOpenedModal(true)}
+          onClick={() => setOpenedSubmodal(true)}
         >
           <IoMenu className="w-8 h-8 text-blackishGreen" />
         </button>
         {user !== null ? (
           <div className="text-sm hidden sm:flex items-center space-x-8">
-            <NavLink
+            <Link
               to="/favorite"
-              onClick={() => setOpenedModal(false)}
               className="text-blackishGreen font-semibold flex items-center hover:underline hover:underline-offset-4 transition-all"
             >
               <AiFillHeart size="1.5em" className="mr-1" />
               Favorites
-            </NavLink>
+            </Link>
             <span className="mx-4 text-blackishGreen">|</span>
-            <NavLink
+            <Link
               to="/profile"
-              onClick={() => setOpenedModal(false)}
               className="text-blackishGreen font-semibold flex items-center cursor-pointer relative"
             >
               <div
@@ -81,27 +78,25 @@ const Header = () => {
                 </div>
               )}
               John D.
-            </NavLink>
+            </Link>
           </div>
         ) : (
           <div className="text-sm hidden sm:flex items-center space-x-8">
-            <NavLink
+            <Link
               to="/sign-in"
-              onClick={() => setOpenedModal(false)}
               className="text-blackishGreen font-semibold flex items-center rounded-lg px-6 py-4 transition-all hover:bg-blackishGreen hover:text-white"
             >
               Sign In
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/sign-up"
-              onClick={() => setOpenedModal(false)}
               className="text-blackishGreen font-semibold flex items-center rounded-lg px-6 py-4 transition-all hover:bg-blackishGreen hover:text-white"
             >
               Sign Up
-            </NavLink>
+            </Link>
           </div>
         )}
-        {isOpenModal && <NavPopup />}
+        {isOpenSubmodal && <NavPopup />}
       </div>
     </header>
   );

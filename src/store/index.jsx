@@ -10,7 +10,7 @@ export const useRecentSearch = create((set) => ({
 }));
 
 export const useActiveUser = create((set) => ({
-  user: null,
+  user: {},
   setUser: (newUser) => {
     set(() => ({
       user: newUser,
@@ -25,9 +25,9 @@ export const useOpenMenu = create((set) => ({
   },
 }));
 
-export const useOpenModal = create((set) => ({
-  isOpenModal: false,
-  setOpenedModal: (state) => {
-    set({ isOpenModal: state });
+export const useOpenSubmodal = create((set) => ({
+  isOpenSubmodal: false,
+  setOpenedSubmodal: (state) => {
+    set({ isOpenSubmodal: state });
   },
 }));

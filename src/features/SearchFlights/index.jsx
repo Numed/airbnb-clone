@@ -6,14 +6,35 @@ import Search from "./Search";
 import Filter from "./Filter";
 import { flightCards } from "../Contants";
 import { useRequestService } from "../../services";
+import { notifyError } from "../../utils/notifications";
+import Loader from "../../components/Loader";
+import { cn } from "../../utils";
 
 const SearchFlightsContainer = () => {
   const { getAllFlights } = useRequestService();
   const [flights, setFlights] = useState(flightCards);
+  const [offset, setOffset] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    return () => getAllFlights().then((el) => setFlights(el));
+    return () => getFlights();
   }, []);
+
+  const getFlights = () => {
+    setIsLoading(true);
+    getAllFlights().then(onSetFlights).catch(onError);
+  };
+
+  const onSetFlights = (data) => {
+    setOffset(offset + 4);
+    setFlights(data.slice(0, offset + 4));
+    setIsLoading(false);
+  };
+
+  const onError = (err) => {
+    notifyError(err);
+    setIsLoading(false);
+  };
 
   return (
     <section className="w-full h-full">
@@ -55,102 +76,96 @@ const SearchFlightsContainer = () => {
             </h5>
           </div>
           <div className="mt-6 w-full h-full">
-            {flights.map(({ id, img, rating, price, ratingText, alt }) => (
-              <div
-                key={id}
-                className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
-              >
-                <div className="flex items-start justify-start space-x-6">
-                  <div>
-                    <img src={img} alt={alt} />
-                  </div>
-                  <div className="flex flex-col items-start justify-start w-full h-full">
-                    <div className="flex items-start justify-start space-x-6">
-                      <div>
-                        <div className="flex items-start justify-start space-x-6">
-                          <div>
-                            <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
-                              {rating}
-                            </span>
-                            <span className="ml-5 text-xs text-blackishGreen font-bold">
-                              {ratingText}
-                            </span>
-                          </div>
-                          <div className="flex flex-col items-start justify-start space-y-3 pb-3">
-                            <label className="flex  items-start justify-start">
-                              <input className="mt-1 mr-2" type="checkbox" />
-                              <div>
-                                <h4 className="text-base text-blackishGreen font-bold">
-                                  12:00pm - 01:28pm
-                                </h4>
-                                <h3 className="text-base text-blackishGreen/25 font-bold">
-                                  Emirates
-                                </h3>
-                              </div>
-                              <span className="mx-10 text-sm text-blackishGreen/80 font-semibold">
-                                non stop
+            {flights.map(
+              ({
+                flightId,
+                airlineLogo,
+                rating,
+                price,
+                alt,
+                duration,
+                abbreviation,
+                departureTime,
+                arrivalTime,
+              }) => (
+                <div
+                  key={flightId}
+                  className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
+                >
+                  <div className="flex items-start justify-start space-x-6">
+                    <div>
+                      <img src={airlineLogo} alt={alt} />
+                    </div>
+                    <div className="flex flex-col items-start justify-start w-full h-full">
+                      <div className="flex items-start justify-start space-x-6">
+                        <div>
+                          <div className="flex items-start justify-start space-x-6">
+                            <div>
+                              <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
+                                {rating}
                               </span>
-                              <div>
-                                <h4 className="mx-10 text-base text-blackishGreen/80 font-semibold">
-                                  2h 28m
-                                </h4>
-                                <h3 className="mx-10 text-sm text-blackishGreen/40">
-                                  EWR-BNA
-                                </h3>
-                              </div>
-                            </label>
-                            <label className="flex  items-start justify-start">
-                              <input className="mt-1 mr-2" type="checkbox" />
-                              <div>
-                                <h4 className="text-base text-blackishGreen font-bold">
-                                  12:00pm - 01:28pm
-                                </h4>
-                                <h3 className="text-base text-blackishGreen/25 font-bold">
-                                  Emirates
-                                </h3>
-                              </div>
-                              <span className="mx-10 text-sm text-blackishGreen/80 font-semibold">
-                                non stop
-                              </span>
-                              <div>
-                                <h4 className="mx-10 text-base text-blackishGreen/80 font-semibold">
-                                  2h 28m
-                                </h4>
-                                <h3 className="mx-10 text-sm text-blackishGreen/40">
-                                  EWR-BNA
-                                </h3>
-                              </div>
-                            </label>
+                            </div>
+                            <div className="flex flex-col items-start justify-start space-y-3 pb-3">
+                              <label className="flex  items-start justify-start">
+                                <input className="mt-1 mr-2" type="checkbox" />
+                                <div>
+                                  <h4 className="text-base text-blackishGreen font-bold">
+                                    {departureTime} - {arrivalTime}
+                                  </h4>
+                                  <h3 className="text-base text-blackishGreen/25 font-bold">
+                                    Emirates
+                                  </h3>
+                                </div>
+                                <span className="mx-10 text-sm text-blackishGreen/80 font-semibold">
+                                  non stop
+                                </span>
+                                <div>
+                                  <h4 className="mx-10 text-base text-blackishGreen/80 font-semibold">
+                                    {duration}
+                                  </h4>
+                                  <h3 className="mx-10 text-sm text-blackishGreen/40">
+                                    {abbreviation}
+                                  </h3>
+                                </div>
+                              </label>
+                            </div>
                           </div>
                         </div>
+                        <div>
+                          <h4 className="text-xs text-blackishGreen/75">
+                            started from
+                          </h4>
+                          <h3 className="text-2xl font-bold text-red-300">
+                            {price}
+                          </h3>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="text-xs text-blackishGreen/75">
-                          started from
-                        </h4>
-                        <h3 className="text-2xl font-bold text-red-300">
-                          {price}
-                        </h3>
+                      <div className="border-t border-t-blackishGreen/25 w-full pt-4 flex items-start justify-start">
+                        <button className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all">
+                          <AiOutlineHeart />
+                        </button>
+                        <Link
+                          className="flex items-center justify-center w-full h-full ml-4 bg-mintGreen text-sm rounded-sm font-semibold text-blackishGreen hover:text-white transition-colors py-4"
+                          to={`/flights/${flightId}`}
+                        >
+                          View Details
+                        </Link>
                       </div>
-                    </div>
-                    <div className="border-t border-t-blackishGreen/25 w-full pt-4 flex items-start justify-start">
-                      <button className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all">
-                        <AiOutlineHeart />
-                      </button>
-                      <Link
-                        className="flex items-center justify-center w-full h-full ml-4 bg-mintGreen text-sm rounded-sm font-semibold text-blackishGreen hover:text-white transition-colors py-4"
-                        to={`/flights/${id}`}
-                      >
-                        View Details
-                      </Link>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
-          <button className="text-white bg-blackishGreen hover:bg-blackishGreen/90 text-center w-full py-4 transition-colors">
-            Show more results
+          <button
+            className={cn(
+              "text-white bg-blackishGreen hover:bg-blackishGreen/90 text-center w-full py-4 transition-colors",
+              offset === 12 && "hidden"
+            )}
+            onClick={() => getFlights()}
+            disabled={isLoading}
+          >
+            {isLoading ? <Loader /> : "Show more results"}
           </button>
         </div>
       </div>

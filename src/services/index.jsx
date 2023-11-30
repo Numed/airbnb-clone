@@ -3,8 +3,8 @@ import { useHttp } from "../hooks";
 export const useRequestService = () => {
   const { request } = useHttp();
 
-  const signIn = async (data) => {
-    const response = await request(
+  const signIn = (data) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/auth/signin`,
       "POST",
       JSON.stringify(data)
@@ -12,8 +12,8 @@ export const useRequestService = () => {
     return response;
   };
 
-  const signUp = async (data) => {
-    const response = await request(
+  const signUp = (data) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/auth/signup`,
       "POST",
       JSON.stringify(data)
@@ -21,8 +21,8 @@ export const useRequestService = () => {
     return response;
   };
 
-  const updateApps = async (data, id) => {
-    const response = await request(
+  const updateApps = (data, id) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/${id}`,
       "PUT",
       JSON.stringify(data)
@@ -30,22 +30,20 @@ export const useRequestService = () => {
     return response;
   };
 
-  const getAppsByID = async (id) => {
-    const response = await request(
+  const getAppsByID = (id) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/${id}`
     );
     return response;
   };
 
-  const getAllApps = async () => {
-    const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels`
-    );
+  const getAllApps = () => {
+    const response = request(`${process.env.REACT_APP_FETCH_TEMPLATE}/hotels`);
     return response;
   };
 
-  const addApps = async (data) => {
-    const response = await request(
+  const addApps = (data) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels`,
       "POST",
       JSON.stringify(data)
@@ -53,16 +51,16 @@ export const useRequestService = () => {
     return response;
   };
 
-  const deleteApps = async (id) => {
-    const response = await request(
+  const deleteApps = (id) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/${id}`,
       "DELETE"
     );
     return response;
   };
 
-  const addReview = async (data) => {
-    const response = await request(
+  const addReview = (data) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/reviews`,
       "POST",
       JSON.stringify(data)
@@ -70,15 +68,13 @@ export const useRequestService = () => {
     return response;
   };
 
-  const getAllFlights = async () => {
-    const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights`
-    );
+  const getAllFlights = () => {
+    const response = request(`${process.env.REACT_APP_FETCH_TEMPLATE}/flights`);
     return response;
   };
 
-  const addFlight = async (data) => {
-    const response = await request(
+  const addFlight = (data) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/flights`,
       "POST",
       JSON.stringify(data)
@@ -86,15 +82,15 @@ export const useRequestService = () => {
     return response;
   };
 
-  const getFlightById = async (id) => {
-    const response = await request(
+  const getFlightById = (id) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/${id}`
     );
     return response;
   };
 
-  const updateFlight = async (data, id) => {
-    const response = await request(
+  const updateFlight = (data, id) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/${id}`,
       "PUT",
       JSON.stringify(data)
@@ -102,18 +98,81 @@ export const useRequestService = () => {
     return response;
   };
 
-  const deleteFlight = async (id) => {
-    const response = await request(
+  const deleteFlight = (id) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/${id}`,
       "DELETE"
     );
     return response;
   };
 
-  const addFavorite = async (data) => {
-    const response = await request(
+  const addFavorite = (data) => {
+    const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/user/favorites`,
       "POST",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
+  const updateEmail = (data) => {
+    const response = request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/email`,
+      "PATCH",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
+  const updatePassword = (data) => {
+    const response = request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/password`,
+      "PATCH",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
+  const updateName = (data) => {
+    const response = request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/name`,
+      "PATCH",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
+  const updateAvatar = (data) => {
+    const response = request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/avatar`,
+      "PATCH",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
+  const updatePhone = (data) => {
+    const response = request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/phone`,
+      "PATCH",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
+  const updateAddress = (data) => {
+    const response = request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/address`,
+      "PATCH",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
+  const updateDateOfBirth = (data) => {
+    const response = request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/dateOfBirth`,
+      "PATCH",
       JSON.stringify(data)
     );
     return response;
@@ -134,5 +193,12 @@ export const useRequestService = () => {
     updateFlight,
     addFavorite,
     addReview,
+    updateEmail,
+    updatePassword,
+    updateName,
+    updateAvatar,
+    updatePhone,
+    updateAddress,
+    updateDateOfBirth,
   };
 };

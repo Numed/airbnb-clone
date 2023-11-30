@@ -1,47 +1,47 @@
 import { IoBed, IoChevronDownSharp, IoLogOut, IoClose } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
 import { AiFillHeart } from "react-icons/ai";
 
 import profile from "../../img/profile.png";
 import { MdFlight } from "react-icons/md";
-import { useActiveUser, useOpenMenu, useOpenModal } from "../../store";
+import { useActiveUser, useOpenMenu, useOpenSubmodal } from "../../store";
+import Link from "../../components/CustomLink";
 
 const NavPopup = () => {
   const { user, setUser } = useActiveUser();
   const { isOpenMenu, setIsOpenMenu } = useOpenMenu();
-  const { setOpenedModal } = useOpenModal();
+  const { setOpenedSubmodal } = useOpenSubmodal();
   return (
     <div className="bg-black/80 w-full h-full z-20 fixed inset-0 my-0 mx-auto">
       <div className="flex flex-col w-full h-full items-center justify-center relative">
-        <button onClick={() => setOpenedModal(false)}>
+        <button onClick={() => setOpenedSubmodal(false)}>
           <IoClose className="w-8 h-8 text-white absolute top-5 right-5" />
         </button>
         <div className="flex flex-col space-y-8 text-sm items-center mb-8">
-          <NavLink
+          <Link
             to="/flights"
             className="text-white font-semibold text-xl flex items-center hover:underline hover:underline-offset-4 transition-all"
           >
             <MdFlight size="1.5em" className="mr-1" />
             Find Flight
-          </NavLink>
-          <NavLink
+          </Link>
+          <Link
             to="/appartaments"
             className="text-white font-semibold text-xl flex items-center hover:underline hover:underline-offset-4 transition-all"
           >
             <IoBed size="1.5em" className="mr-1" />
             Find Stays
-          </NavLink>
+          </Link>
         </div>
         {user !== null ? (
           <div className="text-sm flex flex-col items-center space-y-8">
-            <NavLink
+            <Link
               to="/favorite"
               className="text-white font-semibold text-xl flex items-center hover:underline hover:underline-offset-4 transition-all"
             >
               <AiFillHeart size="1.5em" className="mr-1" />
               Favorites
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/profile"
               className="text-white font-semibold text-xl flex items-center cursor-pointer relative"
             >
@@ -68,22 +68,22 @@ const NavPopup = () => {
                 </div>
               )}
               John D.
-            </NavLink>
+            </Link>
           </div>
         ) : (
           <div className="text-sm flex flex-col space-y-8 items-center">
-            <NavLink
+            <Link
               to="/sign-in"
               className="text-white font-semibold text-xl flex items-center rounded-lg px-6 py-4 transition-all hover:bg-white hover:text-blackishGreen"
             >
               Sign In
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/sign-up"
               className="text-white font-semibold text-xl flex items-center rounded-lg px-6 py-4 transition-all hover:bg-white hover:text-blackishGreen"
             >
               Sign Up
-            </NavLink>
+            </Link>
           </div>
         )}
       </div>

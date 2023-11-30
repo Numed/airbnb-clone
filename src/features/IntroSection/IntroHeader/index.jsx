@@ -6,12 +6,12 @@ import { NavLink, Link } from "react-router-dom";
 import NavPopup from "../../NavPopup";
 import logo from "../../../img/logo/logo-white.png";
 import profile from "../../../img/profile.png";
-import { useActiveUser, useOpenMenu, useOpenModal } from "../../../store";
+import { useActiveUser, useOpenMenu, useOpenSubmodal } from "../../../store";
 
 const IntroHeader = () => {
   const { user, setUser } = useActiveUser();
   const { isOpenMenu, setIsOpenMenu } = useOpenMenu();
-  const { isOpenModal, setOpenedModal } = useOpenModal();
+  const { isOpenSubmodal, setOpenedSubmodal } = useOpenSubmodal();
 
   return (
     <header className="w-full flex justify-between items-center p-8">
@@ -37,7 +37,7 @@ const IntroHeader = () => {
       <div>
         <button
           className="block sm:hidden"
-          onClick={() => setOpenedModal(true)}
+          onClick={() => setOpenedSubmodal(true)}
         >
           <IoMenu className="w-8 h-8 text-white" />
         </button>
@@ -96,7 +96,7 @@ const IntroHeader = () => {
             </NavLink>
           </div>
         )}
-        {isOpenModal && <NavPopup />}
+        {isOpenSubmodal && <NavPopup />}
       </div>
     </header>
   );
