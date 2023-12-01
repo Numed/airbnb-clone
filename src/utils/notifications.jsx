@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const notifySuccses = () => {
+export const notifySuccess = () => {
   return toast("Updated!", {
     position: "top-center",
     autoClose: 5000,

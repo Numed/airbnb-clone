@@ -2,18 +2,27 @@ import { Field, Form, Formik } from "formik";
 import { LuX } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
-import { validationSchemas } from "./validationSchema";
-import { notifyError, notifySuccses } from "../../utils/notifications";
+import { generateValidationSchema } from "./validationSchema";
+import { notifyError, notifySuccess } from "../../utils/notifications";
 import { useRequestService } from "../../services";
+import { getFieldLabel, getFieldType } from "../../utils/modal";
+import { useOpenModal } from "../../store";
+import { cn } from "../../utils";
 
 const ModalContainer = ({ children }) => {
+  const { setOpenedModal } = useOpenModal();
   return (
-    <div className="absolute inset-0 my-0 mx-auto z-100 bg-blackishGreen/30 w-screen h-screen">
-      <div className="flex items-center justify-center bg-white relative">
-        <button className="absolute top-0 right-0 p-4">
-          <LuX />
-        </button>
-        {children}
+    <div className="fixed inset-0 my-0 mx-auto z-100 bg-blackishGreen/30 w-full h-full">
+      <div className="absolute inset-0 my-0 mx-auto w-[90%] sm:w-[50vw] h-screen flex items-center justify-center">
+        <div className="bg-white h-1/2 w-full relative rounded-3xl">
+          <button
+            className="absolute top-1 right-1 p-4"
+            onClick={() => setOpenedModal(false)}
+          >
+            <LuX />
+          </button>
+          {children}
+        </div>
       </div>
     </div>
   );
@@ -28,111 +37,67 @@ export const ModalProfile = ({ initial, type }) => {
     updateName,
     updatePhone,
   } = useRequestService();
+
+  const typeFunctionMap = {
+    email: updateEmail,
+    text: updateName,
+    phone: updatePhone,
+    password: updatePassword,
+    address: updateAddress,
+    default: updateDateOfBirth,
+  };
+
   const onSubmitProfile = (values) => {
-    if (type === "email") {
-      updateEmail(values)
-        .then((el) => notifySuccses(el.message))
-        .catch(onError);
-    } else if (type === "text") {
-      updateName(values)
-        .then((el) => notifySuccses(el.message))
-        .catch(onError);
-    } else if (type === "phone") {
-      updatePhone(values)
-        .then((el) => notifySuccses(el.message))
-        .catch(onError);
-    } else if (type === "password") {
-      updatePassword(values)
-        .then((el) => notifySuccses(el.message))
-        .catch(onError);
-    } else {
-      updateDateOfBirth(values)
-        .then((el) => notifySuccses(el.message))
-        .catch(onError);
-    }
+    const updateFunction = typeFunctionMap[type] || typeFunctionMap.default;
+
+    updateFunction(values)
+      .then((el) => notifySuccess(el.message))
+      .catch(onError);
   };
 
   const onError = (error) => {
     notifyError(error);
   };
+
   return (
     <ModalContainer>
       <Formik
         initialValues={{
-          field: initial,
+          [type]: initial,
         }}
         onSubmit={(values, actions) => {
           onSubmitProfile(values);
           actions.resetForm();
         }}
-        validationSchema={validationSchemas[type]}
+        validationSchema={generateValidationSchema(type)}
       >
-        {() => (
-          <Form>
-            {type === "email" && (
-              <div>
-                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full ">
-                  Email
-                  <Field
-                    className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                    type="email"
-                    name="field"
-                  />
-                </label>
-              </div>
-            )}
-            {type === "text" && (
-              <div>
-                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full ">
-                  Full Name
-                  <Field
-                    className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                    type="text"
-                    name="field"
-                  />
-                </label>
-              </div>
-            )}
-            {type === "phone" && (
-              <div>
-                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full ">
-                  Phone number
-                  <Field
-                    className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                    type="tel"
-                    name="field"
-                  />
-                </label>
-              </div>
-            )}
-            {type === "password" && (
-              <div>
-                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full ">
-                  Password
-                  <Field
-                    className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                    type="password"
-                    name="field"
-                  />
-                </label>
-                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full ">
-                  New password
-                  <Field
-                    className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                    type="password"
-                    name="field"
-                  />
-                </label>
-                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full ">
-                  Confirm new password
-                  <Field
-                    className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                    type="password"
-                    name="field"
-                  />
-                </label>
-              </div>
-            )}
+        {({ errors, touched }) => (
+          <Form className="flex items-center justify-center h-full p-4">
+            <div>
+              <label className="text-base text-colorText flex flex-col justify-center items-start mb-6 w-full font-bold">
+                {getFieldLabel(type)}
+                {errors[type] && touched[type] ? (
+                  <span className="text-sm text-red-500">{errors[type]}</span>
+                ) : null}
+                <Field
+                  className={cn(
+                    "mt-4 text-base font-normal text-black w-full p-2 border",
+                    errors[type] && touched[type]
+                      ? "border-red-500"
+                      : "border-blackishGreen"
+                  )}
+                  type={getFieldType(type)}
+                  name={type}
+                  required
+                />
+              </label>
+              <button
+                className="p-3 bg-mintGreen text-white text-lg w-full"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
           </Form>
         )}
       </Formik>

@@ -75,7 +75,7 @@ const SigninContainer = () => {
                       </span>
                     </div>
                     <div>
-                      <button className="bg-mintGreen/80 hover:bg-mintGreen transition-all text-blackishGreen flex flex-col mt-11 w-full p-4 items-center justify-center">
+                      <button type="submit" className="bg-mintGreen/80 hover:bg-mintGreen transition-all text-blackishGreen flex flex-col mt-11 w-full p-4 items-center justify-center">
                         Login
                       </button>
                       <div className="flex justify-between mt-4">

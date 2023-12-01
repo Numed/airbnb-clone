@@ -8,13 +8,22 @@ import { BsFillCupFill } from "react-icons/bs";
 
 import ava from "../../img/profile/ava.png";
 import { cn } from "../../utils";
-import { useActiveUser } from "../../store";
+import { useActiveUser, useOpenModal } from "../../store";
 import { appsCards, flightCards } from "../../features/Contants";
+import { ModalProfile } from "../../components/Modal";
 
 const ProfileContainer = () => {
+  const { user } = useActiveUser();
+  const { isOpenModal, setOpenedModal } = useOpenModal();
   const [activeSection, setActiveSection] = useState("Account");
   const [historySection, setHistorySection] = useState("Flights");
-  const { user } = useActiveUser();
+  const [type, setType] = useState("");
+
+  const handleModal = (type) => {
+    setOpenedModal(true);
+    setType(type);
+  };
+
   return (
     <section className="p-8 xl:p-[6.5rem]">
       <div className="w-full h-[22rem] bg-profileBackground bg-center bg-no-repeat bg-cover rounded-xl"></div>
@@ -67,7 +76,10 @@ const ProfileContainer = () => {
                       John Doe
                     </h3>
                   </div>
-                  <button className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all">
+                  <button
+                    className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
+                    onClick={() => handleModal("text")}
+                  >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
                 </div>
@@ -78,7 +90,10 @@ const ProfileContainer = () => {
                       john.doe@gmail.com
                     </h3>
                   </div>
-                  <button className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all">
+                  <button
+                    className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
+                    onClick={() => handleModal("email")}
+                  >
                     <RiEditBoxFill className="mr-1" />
                     Change
                   </button>
@@ -90,7 +105,10 @@ const ProfileContainer = () => {
                       ********
                     </h3>
                   </div>
-                  <button className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all">
+                  <button
+                    className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
+                    onClick={() => handleModal("password")}
+                  >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
                 </div>
@@ -101,7 +119,10 @@ const ProfileContainer = () => {
                       +1 000-000-0000
                     </h3>
                   </div>
-                  <button className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all">
+                  <button
+                    className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
+                    onClick={() => handleModal("phone")}
+                  >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
                 </div>
@@ -112,7 +133,10 @@ const ProfileContainer = () => {
                       St 32 main downtown, Los Angeles, California, USA
                     </h3>
                   </div>
-                  <button className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all">
+                  <button
+                    className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
+                    onClick={() => handleModal("address")}
+                  >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
                 </div>
@@ -125,7 +149,10 @@ const ProfileContainer = () => {
                       01-01-1992
                     </h3>
                   </div>
-                  <button className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all">
+                  <button
+                    className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
+                    onClick={() => handleModal("birthday")}
+                  >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
                 </div>
@@ -303,6 +330,7 @@ const ProfileContainer = () => {
             </div>
           )}
         </div>
+        {isOpenModal && <ModalProfile type={type} />}
       </div>
     </section>
   );

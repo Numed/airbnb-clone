@@ -31,3 +31,10 @@ export const useOpenSubmodal = create((set) => ({
     set({ isOpenSubmodal: state });
   },
 }));
+
+export const useOpenModal = create((set) => ({
+  isOpenModal: false,
+  setOpenedModal: (state) => {
+    set({ isOpenModal: state });
+  },
+}));
