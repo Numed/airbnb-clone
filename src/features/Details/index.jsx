@@ -6,16 +6,18 @@ import {
 } from "react-icons/md";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { ImLocation2 } from "react-icons/im";
+import { Link } from "react-router-dom";
 
 import flightPartner from "../../img/searchFlights/flight1.png";
 import { cn } from "../../utils";
-import { useActiveUser } from "../../store";
-import { Link } from "react-router-dom";
+import { useActiveUser, useOpenModal } from "../../store";
+import { ModalSuccess } from "../../components/Modal";
 
 const DetailsContent = ({ detail }) => {
   const [isFlight, setIsFlight] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("full-price");
   const { user } = useActiveUser();
+  const { isOpenModal, setOpenedModal } = useOpenModal();
 
   return (
     <main className="flex items-center justify-center flex-col w-full h-full px-8 sm:px-[5rem] mt-12">
@@ -23,7 +25,7 @@ const DetailsContent = ({ detail }) => {
         <div className="h-full space-y-10 w-full lg:w-[50rem]">
           <section className="bg-white py-0 px-2 sm:py-8 sm:px-6 rounded-xl space-y-6 w-full">
             <div className="flex items-center justify-between flex-wrap sm:flex-nowrap">
-              <h3 className="text-blackishGreen text-2xl font-bold w-full sm:w-2/3 lg:w-[30rem]">
+              <h3 className="text-blackishGreen text-2xl font-bold w-full sm:w-2/3 lg:w-[28rem]">
                 Superior room - 1 double bed or 2 twin beds
               </h3>
               <h4 className="text-red-400 text-sm font-bold">
@@ -221,7 +223,7 @@ const DetailsContent = ({ detail }) => {
                 </h4>
               </div>
             ) : (
-              <button className="text-white text-xl bg-mintGreen hover:bg-mintGreen/70 text-center w-full py-4 transition-colors">
+              <button className="text-white text-xl bg-mintGreen hover:bg-mintGreen/70 text-center w-full py-4 transition-colors" onClick={() => setOpenedModal(true)}>
                 Book now
               </button>
             )}
@@ -304,6 +306,7 @@ const DetailsContent = ({ detail }) => {
           </div>
         </aside>
       </div>
+      {isOpenModal && <ModalSuccess/>}
     </main>
   );
 };

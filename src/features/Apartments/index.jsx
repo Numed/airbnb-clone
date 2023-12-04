@@ -1,9 +1,10 @@
 import ApartmentsHeader from "./Header";
 import ApartmentsSearch from "./Search";
-import { useRecentSearch } from "../../store";
+import { useActiveUser } from "../../store";
 
 const ApartmentsContainer = () => {
-  const { recentSearch } = useRecentSearch();
+  const { user } = useActiveUser();
+  const { recentSearch } = user;
   return (
     <section className="w-full h-full">
       <ApartmentsHeader />
@@ -12,14 +13,13 @@ const ApartmentsContainer = () => {
         <h3 className="mb-4 text-black text-2xl lg:text-4xl font-bold">
           Your recent searches
         </h3>
-        <div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 items-center gap-4">
           {recentSearch.length > 0 ? (
-            recentSearch.map(({ id, img, alt, title, places }) => (
+            recentSearch.map(({ id, title, places }) => (
               <div
                 key={id}
                 className="bg-white shadow-md flex items-center space-x-4 rounded-xl p-4"
               >
-                <img src={img} alt={alt} />
                 <div>
                   <h5 className="text-blackishGreen/70 text-base font-semibold">
                     {title}

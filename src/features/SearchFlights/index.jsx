@@ -39,23 +39,23 @@ const SearchFlightsContainer = () => {
   return (
     <section className="w-full h-full">
       <Search />
-      <div className="flex items-start justify-between px-[6.5rem]">
+      <div className="flex flex-col xl:flex-row items-start justify-between p-4 sm:px-12 xl:px-[6.5rem]">
         <Filter />
-        <div className="flex flex-col items-start justify-start w-4/5 ml-6">
-          <div className="flex items-start justify-start w-full bg-white space-x-6 rounded-xl">
-            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
+        <div className="flex flex-col items-start justify-start w-full xl:w-4/5 xl:ml-6">
+          <div className="flex items-start justify-start flex-col sm:flex-row w-full bg-white space-y-6 sm:space-x-6 sm:space-y-0 rounded-xl">
+            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0">
               Cheapest
               <span className="text-sm text-blackishGreen/40">
                 $99 | 2h 18m
               </span>
             </button>
-            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
+            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0">
               Best
               <span className="text-sm text-blackishGreen/40">
                 $120 | 1h 30m
               </span>
             </button>
-            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4">
+            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4">
               Quickest
               <span className="text-sm text-blackishGreen/40">
                 $99 | 1h 18m
@@ -92,22 +92,25 @@ const SearchFlightsContainer = () => {
                   key={flightId}
                   className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
                 >
-                  <div className="flex items-start justify-start space-x-6">
+                  <div className="flex w-full items-start justify-center xl:justify-start flex-wrap xl:flex-nowrap xl:space-x-6">
                     <div>
-                      <img src={airlineLogo} alt={alt} />
+                      <img
+                        className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
+                        src={airlineLogo}
+                        alt={alt}
+                      />
                     </div>
                     <div className="flex flex-col items-start justify-start w-full h-full">
-                      <div className="flex items-start justify-start space-x-6">
+                      <div className="flex items-start justify-start flex-wrap xl:flex-nowrap space-x-6">
                         <div>
-                          <div className="flex items-start justify-start space-x-6">
+                          <div className="flex items-start justify-start flex-wrap xl:flex-nowrap space-x-6">
                             <div>
                               <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
                                 {rating}
                               </span>
                             </div>
                             <div className="flex flex-col items-start justify-start space-y-3 pb-3">
-                              <label className="flex  items-start justify-start">
-                                <input className="mt-1 mr-2" type="checkbox" />
+                              <label className="mt-4 sl:mt-0 flex items-start justify-start">
                                 <div>
                                   <h4 className="text-base text-blackishGreen font-bold">
                                     {departureTime} - {arrivalTime}
@@ -116,14 +119,14 @@ const SearchFlightsContainer = () => {
                                     Emirates
                                   </h3>
                                 </div>
-                                <span className="mx-10 text-sm text-blackishGreen/80 font-semibold">
+                                <span className="mx-4 xl:mx-10 text-sm text-blackishGreen/80 font-semibold">
                                   non stop
                                 </span>
                                 <div>
-                                  <h4 className="mx-10 text-base text-blackishGreen/80 font-semibold">
+                                  <h4 className="mx-4 xl:mx-10 text-base text-blackishGreen/80 font-semibold">
                                     {duration}
                                   </h4>
-                                  <h3 className="mx-10 text-sm text-blackishGreen/40">
+                                  <h3 className="mx-4 xl:mx-10 text-sm text-blackishGreen/40">
                                     {abbreviation}
                                   </h3>
                                 </div>

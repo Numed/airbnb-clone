@@ -33,7 +33,7 @@ const ApartmentsSearch = () => {
         Where are you flying?
       </h2>
       <div className="flex flex-col items-start justify-start w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:space-x-6 mt-12 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 xg:space-x-6 mt-12 w-full">
           <fieldset className="border border-black rounded-md p-2 flex items-start justify-start min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Enter Destination
@@ -116,7 +116,7 @@ const ApartmentsSearch = () => {
             </Popover>
           </fieldset>
           <div className="relative min-w-full sm:min-w-[20rem]">
-            <fieldset className="border border-black rounded-md p-4 min-h-[90px]">
+            <fieldset className="border border-black rounded-md p-4 min-h-[90px] w-full xl:w-[90%]">
               <legend className="bg-white p-2 text-sm ml-2">
                 Rooms & Guests
               </legend>

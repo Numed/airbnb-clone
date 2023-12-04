@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import { LuX } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { generateValidationSchema } from "./validationSchema";
 import { notifyError, notifySuccess } from "../../utils/notifications";
@@ -106,15 +106,23 @@ export const ModalProfile = ({ initial, type }) => {
 };
 
 export const ModalSuccess = () => {
+  const { setOpenedModal } = useOpenModal();
+  const navigate = useNavigate();
+
+  const onCloseHandler = (event) => {
+    event.preventDefault();
+    setOpenedModal(false);
+    navigate("/");
+  };
   return (
     <ModalContainer>
-      <div className="flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold text-blackishGreen mb-4">
+      <div className="flex flex-col justify-center items-center w-full h-full">
+        <h2 className="text-2xl font-bold text-blackishGreen mb-4 text-center">
           Your reservation has been confirmed!
         </h2>
         <Link
-          to="/"
-          className="bg-colorPrimary text-white text-base py-2 px-4 rounded-md"
+          onClick={(event) => onCloseHandler(event)}
+          className="text-blackishGreen text-base py-2 px-4 rounded-md underline underline-offset-4 underline-blackishGreen"
         >
           Go to home page
         </Link>

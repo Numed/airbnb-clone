@@ -41,19 +41,19 @@ const SearchAppsContainer = () => {
   return (
     <section className="w-full h-full">
       <Search />
-      <div className="flex items-start justify-between px-[6.5rem]">
+      <div className="flex flex-col xl:flex-row items-start justify-between p-4 sm:px-12 xl:px-[6.5rem]">
         <Filter />
-        <div className="flex flex-col items-start justify-start w-4/5 ml-6">
-          <div className=" flex items-start justify-start w-full bg-white space-x-6 rounded-xl">
-            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
+        <div className="flex flex-col items-start justify-start w-full xl:w-4/5 xl:ml-6">
+          <div className="flex items-start justify-start flex-col sm:flex-row w-full bg-white space-y-6 sm:space-x-6 sm:space-y-0 rounded-xl">
+            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0">
               Hotels
               <span className="text-sm text-blackishGreen/40">298 places</span>
             </button>
-            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-r">
+            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0">
               Motels
               <span className="text-sm text-blackishGreen/40">137 places</span>
             </button>
-            <button className="w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4">
+            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4">
               Resorts
               <span className="text-sm text-blackishGreen/40">72 places</span>
             </button>
@@ -87,16 +87,16 @@ const SearchAppsContainer = () => {
                   key={hotelId}
                   className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
                 >
-                  <div className="flex w-full items-start justify-start space-x-6">
+                  <div className="flex w-full items-start justify-center xl:justify-start flex-wrap xl:flex-nowrap xl:space-x-6">
                     <div>
                       <img
-                        className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover"
+                        className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
                         src={photo}
                         alt={alt}
                       />
                     </div>
                     <div className="flex items-start justify-start flex-col w-full">
-                      <div className="flex items-start justify-start w-full h-full">
+                      <div className="flex items-start justify-start w-full h-full flex-wrap xl:flex-nowrap">
                         <div className="w-full flex items-start justify-start space-x-6">
                           <div>
                             <div className="w-full h-full">
@@ -107,7 +107,7 @@ const SearchAppsContainer = () => {
                                 <ImLocation2 /> {location}
                               </p>
                             </div>
-                            <div className="flex items-start justify-start">
+                            <div className="flex items-end xl:items-start justify-start flex-col xl:flex-row">
                               <div className="flex items-center justify-center text-sm text-blackishGreen">
                                 <AiFillStar className="text-red-300 w-4 h-4" />
                                 <AiFillStar className="text-red-300 w-4 h-4" />
@@ -133,7 +133,7 @@ const SearchAppsContainer = () => {
                             </div>
                           </div>
                         </div>
-                        <div>
+                        <div className="my-4 xl:my-0">
                           <h4 className="text-xs text-blackishGreen/75">
                             started from
                           </h4>

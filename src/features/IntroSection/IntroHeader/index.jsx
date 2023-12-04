@@ -7,6 +7,7 @@ import NavPopup from "../../NavPopup";
 import logo from "../../../img/logo/logo-white.png";
 import profile from "../../../img/profile.png";
 import { useActiveUser, useOpenMenu, useOpenSubmodal } from "../../../store";
+import {convertNameFormat} from "../../../utils";
 
 const IntroHeader = () => {
   const { user, setUser } = useActiveUser();
@@ -77,7 +78,7 @@ const IntroHeader = () => {
                   </button>
                 </div>
               )}
-              John D.
+              {convertNameFormat(user.name)}
             </NavLink>
           </div>
         ) : (

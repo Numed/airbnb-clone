@@ -115,6 +115,14 @@ export const useRequestService = () => {
     return response;
   };
 
+  const deleteFavorite = (id) => {
+    const response = request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/favorites/${id}`,
+      "DELETE"
+    );
+    return response;
+  };
+
   const updateEmail = (data) => {
     const response = request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/user/email`,
@@ -192,6 +200,7 @@ export const useRequestService = () => {
     deleteFlight,
     updateFlight,
     addFavorite,
+    deleteFavorite,
     addReview,
     updateEmail,
     updatePassword,

@@ -7,6 +7,7 @@ import profile from "../../img/profile.png";
 import { useActiveUser, useOpenSubmodal, useOpenMenu } from "../../store";
 import NavPopup from "../../features/NavPopup";
 import Link from "../CustomLink";
+import { convertNameFormat } from "../../utils";
 
 const Header = () => {
   const { isOpenMenu, setIsOpenMenu } = useOpenMenu();
@@ -77,7 +78,7 @@ const Header = () => {
                   </button>
                 </div>
               )}
-              John D.
+              {convertNameFormat(user.name)}
             </Link>
           </div>
         ) : (

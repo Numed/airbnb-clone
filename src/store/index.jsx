@@ -1,16 +1,20 @@
 import { create } from "zustand";
 
-export const useRecentSearch = create((set) => ({
-  recentSearch: [],
-  setRecentSearch: (newSearch) => {
-    set((state) => ({
-      recentSearch: [...state.recentSearch, newSearch],
-    }));
-  },
-}));
-
 export const useActiveUser = create((set) => ({
-  user: {},
+  user: {
+    email: "admin@gmail.com",
+    name: "Eugene Rara",
+    token: "",
+    recentSearch: [
+      { id: 1, title: "Melbourne", places: 20 },
+      { id: 2, title: "Sydney", places: 20 },
+      { id: 3, title: "Brisbane", places: 20 },
+    ],
+    favorites: {
+      hotels: [],
+      flights: [],
+    },
+  },
   setUser: (newUser) => {
     set(() => ({
       user: newUser,

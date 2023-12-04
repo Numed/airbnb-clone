@@ -7,7 +7,7 @@ const Filter = () => {
   const [price, setPrice] = useState([60, 1200]);
 
   return (
-    <div className="w-1/5">
+    <div className="w-full mb-4 xl:w-1/5 xl:mb-0">
       <div className="space-y-8">
         <div className="pt-4">
           <h3 className="mb-8 text-xl text-blackishGreen font-bold">Filter</h3>
