@@ -11,31 +11,56 @@ import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
 import Loader from "../../components/Loader";
 import { cn } from "../../utils";
+import { Skeleton } from "../../components/Skeleton";
+import { useActiveUser } from "../../store";
 
 const SearchAppsContainer = () => {
-  const { getAllApps } = useRequestService();
   const [apps, setApps] = useState(appsCards);
   const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetchingData, setIsFetchingData] = useState(false);
+  const [appsCounter, setAppsCounter] = useState(0);
+  const { getAllApps, addFavorite, deleteFavorite } = useRequestService();
+  const { user } = useActiveUser();
 
   useEffect(() => {
     return () => getApps();
   }, []);
 
+  const onFavoriteHandler = (e, hotelId) => {
+    const formatedData = {
+      flightId: hotelId,
+      id: user.id,
+    };
+
+    if (e.classList.contains("bg-mintGreen")) {
+      return deleteFavorite(formatedData)
+        .then(e.classList.remove("bg-mintGreen"))
+        .catch(onError);
+    }
+    addFavorite(formatedData)
+      .then(e.classList.add("bg-mintGreen"))
+      .catch(onError);
+  };
+
   const getApps = () => {
     setIsLoading(true);
+    setIsFetchingData(true);
     getAllApps().then(onSetApps).catch(onError);
   };
 
   const onSetApps = (data) => {
+    setAppsCounter(data.length);
     setOffset(offset + 4);
     setApps(data.slice(0, offset + 4));
     setIsLoading(false);
+    setIsFetchingData(false);
   };
 
   const onError = (err) => {
     notifyError(err);
     setIsLoading(false);
+    setIsFetchingData(false);
   };
 
   return (
@@ -60,7 +85,8 @@ const SearchAppsContainer = () => {
           </div>
           <div className="w-full flex items-center justify-between mt-6">
             <h4 className="text-sm text-blackishGreen font-semibold">
-              Showing 4 of <span className="text-red-400">257 places</span>
+              Showing 4 of{" "}
+              <span className="text-red-400">{appsCounter} places</span>
             </h4>
             <h5 className="text-sm text-blackishGreen">
               Sort by
@@ -82,6 +108,7 @@ const SearchAppsContainer = () => {
                 location,
                 name,
                 alt,
+                advantages,
               }) => (
                 <div
                   key={hotelId}
@@ -89,11 +116,15 @@ const SearchAppsContainer = () => {
                 >
                   <div className="flex w-full items-start justify-center xl:justify-start flex-wrap xl:flex-nowrap xl:space-x-6">
                     <div>
-                      <img
-                        className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
-                        src={photo}
-                        alt={alt}
-                      />
+                      {isFetchingData ? (
+                        <Skeleton className="h-[14rem] w-[14rem]" />
+                      ) : (
+                        <img
+                          className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
+                          src={photo}
+                          alt={alt}
+                        />
+                      )}
                     </div>
                     <div className="flex items-start justify-start flex-col w-full">
                       <div className="flex items-start justify-start w-full h-full flex-wrap xl:flex-nowrap">
@@ -118,9 +149,12 @@ const SearchAppsContainer = () => {
                               </div>
                               <div className="flex items-start justify-start text-blackishGreen ml-8">
                                 <span className="font-semibold text-blackishGreen flex items-center justify-start">
-                                  <BsFillCupFill className="mx-2" /> 20+
+                                  <BsFillCupFill className="mx-2" />
+                                  {advantages?.length > 20
+                                    ? "20+"
+                                    : advantages?.length}{" "}
+                                  Aminities
                                 </span>
-                                Aminities
                               </div>
                             </div>
                             <div className="my-4">
@@ -143,7 +177,10 @@ const SearchAppsContainer = () => {
                         </div>
                       </div>
                       <div className="border-t border-t-blackishGreen/25 w-full pt-4 flex items-start justify-start">
-                        <button className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all">
+                        <button
+                          className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all"
+                          onClick={(e) => onFavoriteHandler(e.target, hotelId)}
+                        >
                           <AiOutlineHeart />
                         </button>
                         <Link

@@ -9,12 +9,17 @@ import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
 import Loader from "../../components/Loader";
 import { cn } from "../../utils";
+import { Skeleton } from "../../components/Skeleton";
+import { useActiveUser } from "../../store";
 
 const SearchFlightsContainer = () => {
-  const { getAllFlights } = useRequestService();
   const [flights, setFlights] = useState(flightCards);
   const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetchingData, setIsFetchingData] = useState(false);
+  const [flightsCount, setFlightsCount] = useState(0);
+  const { getAllFlights, addFavorite, deleteFavorite } = useRequestService();
+  const { user } = useActiveUser();
 
   useEffect(() => {
     return () => getFlights();
@@ -22,18 +27,38 @@ const SearchFlightsContainer = () => {
 
   const getFlights = () => {
     setIsLoading(true);
+    setIsFetchingData(true);
     getAllFlights().then(onSetFlights).catch(onError);
   };
 
+  const onFavoriteHandler = (e, flightId) => {
+    const formatedData = {
+      hotelId: flightId,
+      id: user.id,
+    };
+
+    if (e.classList.contains("bg-mintGreen")) {
+      return deleteFavorite(formatedData)
+        .then(e.classList.remove("bg-mintGreen"))
+        .catch(onError);
+    }
+    addFavorite(formatedData)
+      .then(e.classList.add("bg-mintGreen"))
+      .catch(onError);
+  };
+
   const onSetFlights = (data) => {
+    setFlightsCount(data.length);
     setOffset(offset + 4);
     setFlights(data.slice(0, offset + 4));
     setIsLoading(false);
+    setIsFetchingData(false);
   };
 
   const onError = (err) => {
     notifyError(err);
     setIsLoading(false);
+    setIsFetchingData(false);
   };
 
   return (
@@ -64,7 +89,8 @@ const SearchFlightsContainer = () => {
           </div>
           <div className="w-full flex items-center justify-between mt-6">
             <h4 className="text-sm text-blackishGreen font-semibold">
-              Showing 4 of <span className="text-red-400">257 places</span>
+              Showing 4 of{" "}
+              <span className="text-red-400">{flightsCount} places</span>
             </h4>
             <h5 className="text-sm text-blackishGreen">
               Sort by
@@ -94,14 +120,18 @@ const SearchFlightsContainer = () => {
                 >
                   <div className="flex w-full items-start justify-center xl:justify-start flex-wrap xl:flex-nowrap xl:space-x-6">
                     <div>
-                      <img
-                        className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
-                        src={airlineLogo}
-                        alt={alt}
-                      />
+                      {isFetchingData ? (
+                        <Skeleton className="h-[14rem] w-[14rem]" />
+                      ) : (
+                        <img
+                          className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
+                          src={airlineLogo}
+                          alt={alt}
+                        />
+                      )}
                     </div>
                     <div className="flex flex-col items-start justify-start w-full h-full">
-                      <div className="flex items-start justify-start flex-wrap xl:flex-nowrap space-x-6">
+                      <div className="flex items-start justify-start flex-wrap xl:flex-nowrap space-x-6 w-full sm:justify-between">
                         <div>
                           <div className="flex items-start justify-start flex-wrap xl:flex-nowrap space-x-6">
                             <div>
@@ -144,7 +174,10 @@ const SearchFlightsContainer = () => {
                         </div>
                       </div>
                       <div className="border-t border-t-blackishGreen/25 w-full pt-4 flex items-start justify-start">
-                        <button className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all">
+                        <button
+                          className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all"
+                          onClick={(e) => onFavoriteHandler(e.target, flightId)}
+                        >
                           <AiOutlineHeart />
                         </button>
                         <Link

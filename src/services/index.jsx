@@ -125,7 +125,7 @@ export const useRequestService = () => {
 
   const updateEmail = (data) => {
     const response = request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/email`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
       "PATCH",
       JSON.stringify(data)
     );
@@ -134,7 +134,7 @@ export const useRequestService = () => {
 
   const updatePassword = (data) => {
     const response = request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/password`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
       "PATCH",
       JSON.stringify(data)
     );
@@ -143,7 +143,7 @@ export const useRequestService = () => {
 
   const updateName = (data) => {
     const response = request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/name`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
       "PATCH",
       JSON.stringify(data)
     );
@@ -152,7 +152,7 @@ export const useRequestService = () => {
 
   const updateAvatar = (data) => {
     const response = request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/avatar`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
       "PATCH",
       JSON.stringify(data)
     );
@@ -161,7 +161,7 @@ export const useRequestService = () => {
 
   const updatePhone = (data) => {
     const response = request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/phone`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
       "PATCH",
       JSON.stringify(data)
     );
@@ -170,7 +170,7 @@ export const useRequestService = () => {
 
   const updateAddress = (data) => {
     const response = request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/address`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
       "PATCH",
       JSON.stringify(data)
     );
@@ -179,7 +179,7 @@ export const useRequestService = () => {
 
   const updateDateOfBirth = (data) => {
     const response = request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/dateOfBirth`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
       "PATCH",
       JSON.stringify(data)
     );

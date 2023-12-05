@@ -11,8 +11,11 @@ export const useActiveUser = create((set) => ({
       { id: 3, title: "Brisbane", places: 20 },
     ],
     favorites: {
-      hotels: [],
-      flights: [],
+      hotelsList: [
+        { id: 1, title: "Melbourne", places: 20 },
+        { id: 2, title: "Sydney", places: 20 },
+      ],
+      flightsList: [],
     },
   },
   setUser: (newUser) => {
