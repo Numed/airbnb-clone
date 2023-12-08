@@ -37,6 +37,7 @@ const App = () => {
             <Route path="/favorite" element={<Favorite />} />
             <Route path="/details" element={<Details />} />
           </Routes>
+          <ToastContainer />
         </Suspense>
       </Router>
     </QueryClientProvider>

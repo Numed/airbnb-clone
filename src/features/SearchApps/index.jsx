@@ -50,6 +50,7 @@ const SearchAppsContainer = () => {
   };
 
   const onSetApps = (data) => {
+    const {} = data;
     setAppsCounter(data.length);
     setOffset(offset + 4);
     setApps(data.slice(0, offset + 4));
@@ -58,9 +59,9 @@ const SearchAppsContainer = () => {
   };
 
   const onError = (err) => {
-    notifyError(err);
     setIsLoading(false);
     setIsFetchingData(false);
+    return notifyError(err);
   };
 
   return (
@@ -172,7 +173,7 @@ const SearchAppsContainer = () => {
                             started from
                           </h4>
                           <h3 className="text-2xl font-bold text-red-300">
-                            {price}
+                            {price} $
                           </h3>
                         </div>
                       </div>

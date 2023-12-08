@@ -4,6 +4,12 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../../components/Accordion";
+import {
   flightMarks,
   timeToValue,
   valueToTime,
@@ -23,14 +29,14 @@ const Filter = () => {
 
   return (
     <div className="w-full mb-4 xl:w-1/5 xl:mb-0">
-      <div className="space-y-8">
-        <div className="pt-4">
+      <Accordion type="single" collapsible className="space-y-8">
+        <AccordionItem value="item-1" className="pt-4">
           <h3 className="mb-8 text-xl text-blackishGreen font-bold">Filter</h3>
           <div>
-            <details>
-              <summary className="text-base font-bold text-blackishGreen">
-                Price
-              </summary>
+            <AccordionTrigger className="text-base font-bold text-blackishGreen">
+              Price
+            </AccordionTrigger>
+            <AccordionContent>
               <Slider
                 className="mt-6"
                 range
@@ -40,14 +46,14 @@ const Filter = () => {
                 value={price}
                 onChange={setPrice}
               />
-            </details>
+            </AccordionContent>
           </div>
-        </div>
-        <div className="border-t border-gray-300 pt-4">
-          <details>
-            <summary className="text-base font-bold text-blackishGreen">
-              Departure Time
-            </summary>
+        </AccordionItem>
+        <AccordionItem value="item-2">
+          <AccordionTrigger className="text-base font-bold text-blackishGreen">
+            Departure Time
+          </AccordionTrigger>
+          <AccordionContent>
             <Slider
               className="mt-6"
               range
@@ -59,92 +65,63 @@ const Filter = () => {
               value={value}
               onChange={setValue}
             />
-          </details>
-        </div>
-        <div className="border-t border-gray-300 pt-4">
-          <details>
-            <summary className="text-base font-bold text-blackishGreen">
-              Rating
-            </summary>
-            <div className="space-x-4 mt-6">
-              <Link
-                className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                to="/search-flights?rating=1"
-              >
-                1
-              </Link>
-              <Link
-                className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                to="/search-flights?rating=2"
-              >
-                2
-              </Link>
-              <Link
-                className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                to="/search-flights?rating=3"
-              >
-                3
-              </Link>
-              <Link
-                className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                to="/search-flights?rating=4"
-              >
-                4
-              </Link>
-            </div>
-          </details>
-        </div>
-        <div className="border-t border-gray-300 pt-4">
-          <details>
-            <summary className="text-base font-bold text-blackishGreen">
-              Airlines
-            </summary>
-            <div className="mt-6 flex flex-col items-start justify-center">
-              <label>
-                <input type="checkbox" className="mr-2" />
-                Round trip
-              </label>
-              <label>
-                <input type="checkbox" className="mr-2" />
-                On Way
-              </label>
-              <label>
-                <input type="checkbox" className="mr-2" />
-                Multi-City
-              </label>
-              <label>
-                <input type="checkbox" className="mr-2" />
-                My Dates Are Flexible
-              </label>
-            </div>
-          </details>
-        </div>
-        <div className="border-t border-gray-300 pt-4">
-          <details>
-            <summary className="text-base font-bold text-blackishGreen">
-              Trips
-            </summary>
-            <div className="mt-6 flex flex-col items-start justify-center">
-              <label>
-                <input type="checkbox" className="mr-2" />
-                Round trip
-              </label>
-              <label>
-                <input type="checkbox" className="mr-2" />
-                On Way
-              </label>
-              <label>
-                <input type="checkbox" className="mr-2" />
-                Multi-City
-              </label>
-              <label>
-                <input type="checkbox" className="mr-2" />
-                My Dates Are Flexible
-              </label>
-            </div>
-          </details>
-        </div>
-      </div>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-3">
+          <AccordionTrigger className="text-base font-bold text-blackishGreen">
+            Rating
+          </AccordionTrigger>
+          <AccordionContent className="space-x-4 mt-6">
+            <Link
+              className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              to="/search-flights?rating=1"
+            >
+              1
+            </Link>
+            <Link
+              className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              to="/search-flights?rating=2"
+            >
+              2
+            </Link>
+            <Link
+              className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              to="/search-flights?rating=3"
+            >
+              3
+            </Link>
+            <Link
+              className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              to="/search-flights?rating=4"
+            >
+              4
+            </Link>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-4">
+          <AccordionTrigger className="text-base font-bold text-blackishGreen">
+            Airlines
+          </AccordionTrigger>
+          <AccordionContent className="mt-6 flex flex-col items-start justify-center">
+            <label>
+              <input type="checkbox" className="mr-2" />
+              Round trip
+            </label>
+            <label>
+              <input type="checkbox" className="mr-2" />
+              On Way
+            </label>
+            <label>
+              <input type="checkbox" className="mr-2" />
+              Multi-City
+            </label>
+            <label>
+              <input type="checkbox" className="mr-2" />
+              My Dates Are Flexible
+            </label>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 };

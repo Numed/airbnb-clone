@@ -169,7 +169,7 @@ const SearchFlightsContainer = () => {
                             started from
                           </h4>
                           <h3 className="text-2xl font-bold text-red-300">
-                            {price}
+                            {price} $
                           </h3>
                         </div>
                       </div>
