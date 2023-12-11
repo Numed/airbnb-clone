@@ -1,15 +1,25 @@
 import { IoBed, IoChevronDownSharp, IoLogOut, IoClose } from "react-icons/io5";
 import { AiFillHeart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 import profile from "../../img/profile.png";
 import { MdFlight } from "react-icons/md";
 import { useActiveUser, useOpenMenu, useOpenSubmodal } from "../../store";
 import Link from "../../components/CustomLink";
+import { convertNameFormat } from "../../utils";
 
 const NavPopup = () => {
   const { user, setUser } = useActiveUser();
   const { isOpenMenu, setIsOpenMenu } = useOpenMenu();
   const { setOpenedSubmodal } = useOpenSubmodal();
+  const navigate = useNavigate();
+
+  const onLogout = (e) => {
+    e.preventDefault();
+    setUser(null);
+    navigate("/");
+  };
+
   return (
     <div className="bg-black/80 w-full h-full z-20 fixed inset-0 my-0 mx-auto">
       <div className="flex flex-col w-full h-full items-center justify-center relative">
@@ -61,13 +71,13 @@ const NavPopup = () => {
                 <div className="space-y-3 bg-white absolute z-10 top-12 left-0 p-4 border border-blackishGreen/40 rounded-lg">
                   <button
                     className="flex items-center justify-center"
-                    onClick={() => setUser(null)}
+                    onClick={onLogout}
                   >
                     <IoLogOut className="w-4 h-4 scale-105 mr-2" /> Logout
                   </button>
                 </div>
               )}
-              John D.
+              {convertNameFormat(user?.name)}
             </Link>
           </div>
         ) : (

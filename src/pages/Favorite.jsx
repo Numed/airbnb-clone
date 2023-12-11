@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 import { BsFillCupFill } from "react-icons/bs";
 import { ImLocation2 } from "react-icons/im";
 
@@ -8,12 +8,15 @@ import Footer from "../components/Footer";
 import { cn } from "../utils";
 import { appsCards, flightCards } from "../features/Contants";
 import { useActiveUser } from "../store";
+import { notifyError } from "../utils/notifications";
+import { useRequestService } from "../services";
 
 const Favorite = () => {
   const [flights, setFlights] = useState(flightCards);
   const [apps, setApps] = useState(appsCards);
   const [active, setActive] = useState("Flights");
   const { user } = useActiveUser();
+  const { deleteFavorite } = useRequestService();
   const {
     favorites: { flightsList, hotelsList },
   } = user;
@@ -22,10 +25,31 @@ const Favorite = () => {
     setFlights(flightsList);
     setApps(hotelsList);
   }
+
+  const onFavoriteHandler = (e, id, isFlight) => {
+    const formatedData = {
+      id: user.id,
+    };
+
+    if (isFlight) {
+      formatedData.flightId = id;
+    } else {
+      formatedData.hotelId = id;
+    }
+
+    return deleteFavorite(formatedData)
+      .then(e.classList.remove("bg-mintGreen"))
+      .catch(onError);
+  };
+
+  const onError = (err) => {
+    return notifyError(err);
+  };
+
   return (
     <>
       <Header />
-      <section className="mt-12 px-[6.5rem] w-full h-full flex flex-col items-center justify-center">
+      <section className="mt-12 px-8 xl:px-[6.5rem] w-full h-full flex flex-col items-center justify-center">
         <div className="w-full h-full">
           <h3 className="text-black font-bold text-4xl">Favorite</h3>
           <div className="mt-6 w-full h-full flex items-start justify-start">
@@ -58,9 +82,9 @@ const Favorite = () => {
         <div className="w-full h-full">
           {active === "Flights" ? (
             <div className="mt-6 w-full h-full grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {flights.map(({ id, img, rating, alt }) => (
+              {flights.map(({ flightId, img, rating, alt }) => (
                 <div
-                  key={id}
+                  key={flightId}
                   className="px-4 py-6 bg-white w-full h-auto flex flex-col items-center justify-center rounded-xl mb-8"
                 >
                   <div className="flex items-start justify-between flex-col w-full">
@@ -73,7 +97,7 @@ const Favorite = () => {
                     </div>
                     <div className="flex flex-col items-start justify-start w-full h-full">
                       <div className="flex items-start justify-between space-x-6 w-full m-0 mt-3">
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center flex-col xl:flex-row">
                           <div className="flex items-start justify-start flex-col">
                             <div className="flex items-center justify-center">
                               <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
@@ -81,7 +105,7 @@ const Favorite = () => {
                               </span>
                             </div>
                             <div className="flex flex-col items-start justify-start space-y-3 pb-3 mt-4">
-                              <label className="flex  items-start justify-start">
+                              <label className="flex  items-start justify-start flex-col space-y-4 xl:flex-row xl:space-y-0">
                                 <div className="flex flex-col items-baseline justify-center">
                                   <h4 className="text-base text-blackishGreen font-bold">
                                     12:00pm - 01:28pm
@@ -104,6 +128,16 @@ const Favorite = () => {
                               </label>
                             </div>
                           </div>
+                          <div className="w-full pt-4 flex items-start justify-start">
+                            <button
+                              className="bg-mintGreen p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all"
+                              onClick={(e) =>
+                                onFavoriteHandler(e.target, flightId)
+                              }
+                            >
+                              <AiOutlineHeart />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -113,9 +147,9 @@ const Favorite = () => {
             </div>
           ) : (
             <div className="mt-6 w-full h-full grid grid-cols-1 gap-5 sm:grid-cols-2">
-              {apps.map(({ id, img, rating, location, title, alt }) => (
+              {apps.map(({ hotelId, img, rating, location, title, alt }) => (
                 <div
-                  key={id}
+                  key={hotelId}
                   className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
                 >
                   <div className="flex w-full items-start justify-center sm:space-x-6 flex-wrap lg:no-wrap">
@@ -159,6 +193,16 @@ const Favorite = () => {
                               <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
                                 {rating}
                               </span>
+                            </div>
+                            <div className="w-full pt-4 flex items-start justify-start">
+                              <button
+                                className="bg-mintGreen p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all"
+                                onClick={(e) =>
+                                  onFavoriteHandler(e.target, hotelId)
+                                }
+                              >
+                                <AiOutlineHeart />
+                              </button>
                             </div>
                           </div>
                         </div>

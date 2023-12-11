@@ -33,7 +33,7 @@ const SearchFlightsContainer = () => {
 
   const onFavoriteHandler = (e, flightId) => {
     const formatedData = {
-      hotelId: flightId,
+      flightId: flightId,
       id: user.id,
     };
 
@@ -104,18 +104,19 @@ const SearchFlightsContainer = () => {
           <div className="mt-6 w-full h-full">
             {flights.map(
               ({
-                flightId,
-                airlineLogo,
+                id,
+                photo,
                 rating,
                 price,
                 alt,
                 duration,
                 abbreviation,
                 departureTime,
-                arrivalTime,
+                slug,
+                fromArrive,
               }) => (
                 <div
-                  key={flightId}
+                  key={id}
                   className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
                 >
                   <div className="flex w-full items-start justify-center xl:justify-start flex-wrap xl:flex-nowrap xl:space-x-6">
@@ -125,7 +126,7 @@ const SearchFlightsContainer = () => {
                       ) : (
                         <img
                           className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
-                          src={airlineLogo}
+                          src={photo}
                           alt={alt}
                         />
                       )}
@@ -143,10 +144,10 @@ const SearchFlightsContainer = () => {
                               <label className="mt-4 sl:mt-0 flex items-start justify-start">
                                 <div>
                                   <h4 className="text-base text-blackishGreen font-bold">
-                                    {departureTime} - {arrivalTime}
+                                    {departureTime} - {duration}
                                   </h4>
                                   <h3 className="text-base text-blackishGreen/25 font-bold">
-                                    Emirates
+                                    {fromArrive}
                                   </h3>
                                 </div>
                                 <span className="mx-4 xl:mx-10 text-sm text-blackishGreen/80 font-semibold">
@@ -176,13 +177,13 @@ const SearchFlightsContainer = () => {
                       <div className="border-t border-t-blackishGreen/25 w-full pt-4 flex items-start justify-start">
                         <button
                           className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all"
-                          onClick={(e) => onFavoriteHandler(e.target, flightId)}
+                          onClick={(e) => onFavoriteHandler(e.target, id)}
                         >
                           <AiOutlineHeart />
                         </button>
                         <Link
                           className="flex items-center justify-center w-full h-full ml-4 bg-mintGreen text-sm rounded-sm font-semibold text-blackishGreen hover:text-white transition-colors py-4"
-                          to={`/flights/${flightId}`}
+                          to={`/flights/${slug}`}
                         >
                           View Details
                         </Link>
@@ -201,7 +202,11 @@ const SearchFlightsContainer = () => {
             onClick={() => getFlights()}
             disabled={isLoading}
           >
-            {isLoading ? <Loader /> : "Show more results"}
+            {isLoading ? (
+              <Loader className="after:w-8 after:h-8" />
+            ) : (
+              "Show more results"
+            )}
           </button>
         </div>
       </div>

@@ -14,7 +14,6 @@ import { ModalProfile } from "../../components/Modal";
 
 const ProfileContainer = () => {
   const { user } = useActiveUser();
-  const {name, email} =  user;
   const { isOpenModal, setOpenedModal } = useOpenModal();
   const [activeSection, setActiveSection] = useState("Account");
   const [historySection, setHistorySection] = useState("Flights");
@@ -36,10 +35,10 @@ const ProfileContainer = () => {
           </button>
           <div className="flex flex-col items-center justify-center">
             <h3 className="font-bold mb-2 text-2xl text-blackishGreen">
-              {name}
+              {user?.name}
             </h3>
             <h4 className="text-base text-blackishGreen/75">
-              {email}
+              {user?.email}
             </h4>
           </div>
         </div>

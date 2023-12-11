@@ -29,7 +29,7 @@ const SearchAppsContainer = () => {
 
   const onFavoriteHandler = (e, hotelId) => {
     const formatedData = {
-      flightId: hotelId,
+      hotelId: hotelId,
       id: user.id,
     };
 
@@ -50,7 +50,6 @@ const SearchAppsContainer = () => {
   };
 
   const onSetApps = (data) => {
-    const {} = data;
     setAppsCounter(data.length);
     setOffset(offset + 4);
     setApps(data.slice(0, offset + 4));
@@ -205,7 +204,11 @@ const SearchAppsContainer = () => {
             onClick={() => getApps()}
             disabled={isLoading}
           >
-            {isLoading ? <Loader /> : "Show more results"}
+            {isLoading ? (
+              <Loader className="after:w-8 after:h-8" />
+            ) : (
+              "Show more results"
+            )}
           </button>
         </div>
       </div>

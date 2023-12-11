@@ -1,6 +1,7 @@
 import { MdFlight } from "react-icons/md";
 import { IoBed, IoChevronDownSharp, IoLogOut, IoMenu } from "react-icons/io5";
 import { AiFillHeart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 import logo from "../../img/logo/logo.png";
 import profile from "../../img/profile.png";
@@ -13,6 +14,13 @@ const Header = () => {
   const { isOpenMenu, setIsOpenMenu } = useOpenMenu();
   const { isOpenSubmodal, setOpenedSubmodal } = useOpenSubmodal();
   const { user, setUser } = useActiveUser();
+  const navigate = useNavigate();
+
+  const onLogout = (e) => {
+    e.preventDefault();
+    setUser(null);
+    navigate("/");
+  };
 
   return (
     <header className="w-full flex justify-between items-center p-8 bg-white">
@@ -52,15 +60,14 @@ const Header = () => {
               Favorites
             </Link>
             <span className="mx-4 text-blackishGreen">|</span>
-            <Link
-              to="/profile"
-              className="text-blackishGreen font-semibold flex items-center cursor-pointer relative"
-            >
+            <div className="text-blackishGreen font-semibold flex items-center cursor-pointer relative">
               <div
                 className="relative mr-1"
                 onClick={() => setIsOpenMenu(!isOpenMenu)}
               >
-                <img src={profile} alt="Profile Avatar" />
+                <Link to="/profile">
+                  <img src={profile} alt="Profile Avatar" />
+                </Link>
                 <button
                   className="absolute bottom-0 right-0 flex items-center justify-center bg-red-400 w-3 h-3 rounded-full"
                   onClick={() => setIsOpenMenu(!isOpenMenu)}
@@ -72,14 +79,14 @@ const Header = () => {
                 <div className="space-y-3 bg-white absolute z-10 top-12 left-0 p-4 border border-blackishGreen/40 rounded-lg">
                   <button
                     className="flex items-center justify-center"
-                    onClick={() => setUser(null)}
+                    onClick={onLogout}
                   >
                     <IoLogOut className="w-4 h-4 scale-105 mr-2" /> Logout
                   </button>
                 </div>
               )}
-              {convertNameFormat(user.name)}
-            </Link>
+              {convertNameFormat(user?.name)}
+            </div>
           </div>
         ) : (
           <div className="text-sm hidden sm:flex items-center space-x-8">
