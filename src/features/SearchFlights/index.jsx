@@ -22,7 +22,7 @@ const SearchFlightsContainer = () => {
   const { user } = useActiveUser();
 
   useEffect(() => {
-    return () => getFlights();
+    getFlights();
   }, []);
 
   const getFlights = () => {
