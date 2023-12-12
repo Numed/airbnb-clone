@@ -24,7 +24,7 @@ const SearchAppsContainer = () => {
   const { user } = useActiveUser();
 
   useEffect(() => {
-    return () => getApps();
+    getApps();
   }, []);
 
   const onFavoriteHandler = (e, hotelId) => {
