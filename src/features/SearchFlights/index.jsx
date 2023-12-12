@@ -105,7 +105,7 @@ const SearchFlightsContainer = () => {
             {flights.map(
               ({
                 id,
-                photo,
+                airlineLogo,
                 rating,
                 price,
                 alt,
@@ -126,7 +126,7 @@ const SearchFlightsContainer = () => {
                       ) : (
                         <img
                           className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
-                          src={photo}
+                          src={airlineLogo}
                           alt={alt}
                         />
                       )}

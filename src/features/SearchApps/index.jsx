@@ -100,18 +100,18 @@ const SearchAppsContainer = () => {
           <div className="mt-6 w-full h-full">
             {apps.map(
               ({
-                hotelId,
+                id,
                 photo,
-                starRating,
+                rating,
                 price,
-                ratingText,
                 location,
                 name,
                 alt,
+                slug,
                 advantages,
               }) => (
                 <div
-                  key={hotelId}
+                  key={id}
                   className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
                 >
                   <div className="flex w-full items-start justify-center xl:justify-start flex-wrap xl:flex-nowrap xl:space-x-6">
@@ -159,10 +159,7 @@ const SearchAppsContainer = () => {
                             </div>
                             <div className="my-4">
                               <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
-                                {starRating}
-                              </span>
-                              <span className="ml-2 text-xs text-blackishGreen font-bold">
-                                {ratingText}
+                                {rating}
                               </span>
                             </div>
                           </div>
@@ -172,20 +169,20 @@ const SearchAppsContainer = () => {
                             started from
                           </h4>
                           <h3 className="text-2xl font-bold text-red-300">
-                            {price} $
+                            ${price}
                           </h3>
                         </div>
                       </div>
                       <div className="border-t border-t-blackishGreen/25 w-full pt-4 flex items-start justify-start">
                         <button
                           className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all"
-                          onClick={(e) => onFavoriteHandler(e.target, hotelId)}
+                          onClick={(e) => onFavoriteHandler(e.target, id)}
                         >
                           <AiOutlineHeart />
                         </button>
                         <Link
                           className="flex items-center justify-center w-full h-full ml-4 bg-mintGreen text-sm rounded-sm font-semibold text-blackishGreen hover:text-white transition-colors py-4"
-                          to={`/appartaments/${hotelId}`}
+                          to={`/appartaments/${slug}`}
                         >
                           View Place
                         </Link>
