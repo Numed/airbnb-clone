@@ -1,116 +1,16 @@
-export const flightMarks = {
-  0: "12am",
-  1: "12:15am",
-  2: "12:30am",
-  3: "12:45am",
-  4: "1am",
-  5: "1:15am",
-  6: "1:30am",
-  7: "1:45am",
-  8: "2am",
-  9: "2:15am",
-  10: "2:30am",
-  11: "2:45am",
-  12: "3am",
-  13: "3:15am",
-  14: "3:30am",
-  15: "3:45am",
-  16: "4am",
-  17: "4:15am",
-  18: "4:30am",
-  19: "4:45am",
-  20: "5am",
-  21: "5:15am",
-  22: "5:30am",
-  23: "5:45am",
-  24: "6am",
-  25: "6:15am",
-  26: "6:30am",
-  27: "6:45am",
-  28: "7am",
-  29: "7:15am",
-  30: "7:30am",
-  31: "7:45am",
-  32: "8am",
-  33: "8:15am",
-  34: "8:30am",
-  35: "8:45am",
-  36: "9am",
-  37: "9:15am",
-  38: "9:30am",
-  39: "9:45am",
-  40: "10am",
-  41: "10:15am",
-  42: "10:30am",
-  43: "10:45am",
-  44: "11am",
-  45: "11:15am",
-  46: "11:30am",
-  48: "11:45am",
-  50: "12am",
-  51: "12:15pm",
-  52: "12:30pm",
-  53: "12:45pm",
-  54: "1pm",
-  55: "1:15pm",
-  56: "1:30pm",
-  57: "1:45pm",
-  58: "2pm",
-  59: "2:15pm",
-  60: "2:30pm",
-  61: "2:45pm",
-  62: "3pm",
-  63: "3:15pm",
-  64: "3:30pm",
-  65: "3:45pm",
-  66: "4pm",
-  67: "4:15pm",
-  68: "4:30pm",
-  69: "4:45pm",
-  70: "5pm",
-  71: "5:15pm",
-  72: "5:30pm",
-  73: "5:45pm",
-  74: "6pm",
-  75: "6:15pm",
-  76: "6:30pm",
-  77: "6:45pm",
-  78: "7pm",
-  79: "7:15pm",
-  80: "7:30pm",
-  81: "7:45pm",
-  82: "8pm",
-  83: "8:15pm",
-  84: "8:30pm",
-  85: "8:45pm",
-  86: "9pm",
-  87: "9:15pm",
-  88: "9:30pm",
-  89: "9:45pm",
-  90: "10pm",
-  91: "10:15pm",
-  92: "10:30pm",
-  93: "10:45pm",
-  94: "11pm",
-  95: "11:15pm",
-  96: "11:30pm",
-  98: "11:45pm",
-  100: "12pm",
-};
+export const convertTo12HourFormat = (time) => {
+  let [hours, minutes] = time.split(":");
+  hours = parseInt(hours, 10);
+  let period = "am";
 
-export const valueToTime = (value) => {
-  const hours = Math.floor(value / 4);
-  const minutes = (value % 4) * 15;
-  const period = hours >= 12 ? "pm" : "am";
-  return `${hours === 0 ? "12" : hours}:${
-    minutes === 0 ? "00" : minutes
-  } ${period}`;
-};
+  if (hours >= 12) {
+    period = "pm";
+    if (hours > 12) {
+      hours -= 12;
+    }
+  } else if (hours === 0) {
+    hours = 12;
+  }
 
-export const timeToValue = (time) => {
-  const [hoursMinutes, period] = time.split(" ");
-  let [hours, minutes] = hoursMinutes.split(":");
-  hours = hours === "12" ? 0 : Number(hours);
-  const value = period === "pm" ? hours + 12 : hours;
-  return value * 4 + Number(minutes) / 15;
+  return `${hours}:${minutes} ${period}`;
 };

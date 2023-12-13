@@ -190,6 +190,34 @@ export const useRequestService = () => {
     return response;
   };
 
+  const filterApps = async (params) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels?${params}`
+    );
+    return response;
+  };
+
+  const filterFlights = async (params) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights?${params}`
+    );
+    return response;
+  };
+
+  const getAdvantages = async () => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/advantages`
+    );
+    return response;
+  };
+
+  const getAirlines = async () => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/airlines`
+    );
+    return response;
+  };
+
   return {
     updateApps,
     getAppsByID,
@@ -213,5 +241,9 @@ export const useRequestService = () => {
     updatePhone,
     updateAddress,
     updateDateOfBirth,
+    filterApps,
+    filterFlights,
+    getAdvantages,
+    getAirlines,
   };
 };

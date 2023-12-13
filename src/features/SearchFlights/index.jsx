@@ -112,6 +112,7 @@ const SearchFlightsContainer = () => {
                 duration,
                 abbreviation,
                 departureTime,
+                arrivalTime,
                 slug,
                 fromArrive,
               }) => (
@@ -144,7 +145,7 @@ const SearchFlightsContainer = () => {
                               <label className="mt-4 sl:mt-0 flex items-start justify-start">
                                 <div>
                                   <h4 className="text-base text-blackishGreen font-bold">
-                                    {departureTime} - {duration}
+                                    {departureTime} - {arrivalTime}
                                   </h4>
                                   <h3 className="text-base text-blackishGreen/25 font-bold">
                                     {fromArrive}
