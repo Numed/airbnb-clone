@@ -6,22 +6,21 @@ import { ImLocation2 } from "react-icons/im";
 
 import Search from "./Search";
 import Filter from "./Filter";
-import { appsCards } from "../Contants";
 import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
 import Loader from "../../components/Loader";
 import { cn } from "../../utils";
 import { Skeleton } from "../../components/Skeleton";
-import { useActiveUser } from "../../store";
+import { useActiveUser, useApps } from "../../store";
 
 const SearchAppsContainer = () => {
-  const [apps, setApps] = useState(appsCards);
   const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingData, setIsFetchingData] = useState(false);
   const [appsCounter, setAppsCounter] = useState(0);
   const { getAllApps, addFavorite, deleteFavorite } = useRequestService();
   const { user } = useActiveUser();
+  const { apps, setApps } = useApps();
 
   useEffect(() => {
     getApps();

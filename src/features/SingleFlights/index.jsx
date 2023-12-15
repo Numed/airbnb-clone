@@ -8,8 +8,6 @@ import {
 } from "react-icons/md";
 
 import SingleFlightHeader from "./Header";
-import flightBanen from "../../img/flight-example.png";
-import partner from "../../img/searchFlights/flight1.png";
 import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
 
@@ -19,18 +17,16 @@ const SingleFlightsContainer = () => {
   const [flight, setFlight] = useState({});
 
   useEffect(() => {
-    return () => {
-      getFlightById(id)
-        .then((res) => setFlight(res))
-        .catch((err) => notifyError(err));
-    };
+    getFlightById(id)
+      .then((res) => setFlight(res))
+      .catch((err) => notifyError(err));
   }, []);
 
   return (
     <main className="flex items-center justify-center flex-col w-full h-full px-12 lg:px-[6.5rem]">
       <section className="w-full h-full">
-        <SingleFlightHeader />
-        <img className="w-full h-auto" src={flightBanen} alt="Airplane" />
+        <SingleFlightHeader flight={flight} />
+        <img className="w-full h-auto" src={flight?.photo} alt={flight?.alt} />
         <div className="bg-mintGreen p-4 rounded-md mt-10">
           <h3 className="text-xl sm:text-2xl text-blackishGreen font-bold">
             Emirates Airlines Policies
@@ -56,25 +52,25 @@ const SingleFlightsContainer = () => {
           <div className="w-full h-full bg-white rounded-2xl shadow py-8 px-6 space-y-6">
             <div className="flex items-start sm:items-center justify-between flex-col sm:flex-row">
               <h3 className="text-xl text-blackishGreen font-bold">
-                Return Wed, Dec 8
+                {flight?.date}
               </h3>
               <h4 className="text-xl text-blackishGreen/75 font-medium">
-                2h 28m
+                {flight?.duration}
               </h4>
             </div>
             <div className="flex items-center justify-between flex-col sm:flex-row">
               <div className="flex items-center justify-start bg-white border border-mintGreen rounded-md px-8 py-6 flex-col sm:flex-row">
                 <img
                   className="w-16 h-11"
-                  src={partner}
-                  alt="Emirates Airline"
+                  src={flight?.partnerLogo}
+                  alt={flight?.partnerName}
                 />
                 <div className="ml-6">
                   <h4 className="text-blackishGreen font-semibold text-2xl">
-                    Emirates
+                    {flight?.partnerName}
                   </h4>
                   <h5 className="mt-2 text-blackishGreen/6 font-medium text-sm">
-                    Airbus A320
+                    {flight?.planeName}
                   </h5>
                 </div>
               </div>
@@ -89,10 +85,10 @@ const SingleFlightsContainer = () => {
             <div className="flex items-center justify-center flex-col space-y-4 lg:flex-row lg:space-x-[5rem]">
               <div className="flex items-center justify-center">
                 <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
-                  12:00 pm
+                  {flight?.departureTime}
                 </h3>
                 <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
-                  Newark(EWR)
+                  {flight?.fromArrive}
                 </h4>
               </div>
               <div className="flex items-center justify-center">
@@ -102,10 +98,10 @@ const SingleFlightsContainer = () => {
               </div>
               <div className="flex items-center justify-center">
                 <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
-                  12:00 pm
+                  {flight?.arrivalTime}
                 </h3>
                 <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
-                  Newark(EWR)
+                  {flight?.toArrive}
                 </h4>
               </div>
             </div>

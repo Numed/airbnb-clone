@@ -4,22 +4,21 @@ import { AiOutlineHeart } from "react-icons/ai";
 
 import Search from "./Search";
 import Filter from "./Filter";
-import { flightCards } from "../Contants";
 import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
 import Loader from "../../components/Loader";
 import { cn } from "../../utils";
 import { Skeleton } from "../../components/Skeleton";
-import { useActiveUser } from "../../store";
+import { useActiveUser, useFlights } from "../../store";
 
 const SearchFlightsContainer = () => {
-  const [flights, setFlights] = useState(flightCards);
   const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingData, setIsFetchingData] = useState(false);
   const [flightsCount, setFlightsCount] = useState(0);
   const { getAllFlights, addFavorite, deleteFavorite } = useRequestService();
   const { user } = useActiveUser();
+  const {flights, setFlights} = useFlights();
 
   useEffect(() => {
     getFlights();

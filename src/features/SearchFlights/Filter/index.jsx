@@ -8,6 +8,7 @@ import {
 } from "../../../components/Accordion";
 import { useRequestService } from "../../../services";
 import { notifyError } from "../../../utils/notifications";
+import { useFlights } from "../../../store";
 
 const Filter = () => {
   const [minPrice, setMinPrice] = useState(0);
@@ -26,6 +27,7 @@ const Filter = () => {
     selectedAirlines,
   });
   const { filterFlights, getAirlines } = useRequestService();
+  const { setFlights } = useFlights();
 
   useEffect(() => {
     getAirlines()
@@ -34,23 +36,22 @@ const Filter = () => {
   }, []);
 
   useEffect(() => {
-    setSearchParams({
-      ...searchParams,
+    setSearchParams((prevParams) => ({
+      ...prevParams,
       minPrice,
       maxPrice,
       startTime,
       endTime,
       rating,
       airlines,
-    });
-    // eslint-disable-next-line
+    }));
   }, [minPrice, maxPrice, startTime, endTime, rating, airlines]);
 
   useEffect(() => {
-    if (searchParams) {
-      const queryString = new URLSearchParams(searchParams).toString();
-      filterFlights(queryString);
-    }
+    const queryString = new URLSearchParams(searchParams).toString();
+    filterFlights(queryString)
+      .then((res) => setFlights(res))
+      .catch((err) => notifyError(err));
     // eslint-disable-next-line
   }, [searchParams]);
 
@@ -128,27 +129,27 @@ const Filter = () => {
           </AccordionTrigger>
           <AccordionContent className="space-x-4 mt-6">
             <button
-              className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              className="w-6 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
               onClick={() => setRating(1)}
             >
               1+
             </button>
             <button
-              className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              className="w-6 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               onClick={() => setRating(2)}
             >
               2+
             </button>
             <button
-              className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              className="w-6 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
               onClick={() => setRating(3)}
             >
               3+
             </button>
             <button
-              className="font-medium text-sm text-blackishGreen border border-mintGreen w-6 py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              className="w-6 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
               onClick={() => setRating(4)}
             >
@@ -167,6 +168,7 @@ const Filter = () => {
                   name="airline"
                   type="checkbox"
                   className="mr-2"
+                  value={airline}
                   onChange={(e) =>
                     setSelectedAirlines([...airlines, e.target.value])
                   }

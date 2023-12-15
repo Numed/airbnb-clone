@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoAirplane, IoWifi, IoTimeOutline } from "react-icons/io5";
 import {
   MdOutlineFastfood,
@@ -6,18 +6,35 @@ import {
 } from "react-icons/md";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { ImLocation2 } from "react-icons/im";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-import flightPartner from "../../img/searchFlights/flight1.png";
 import { cn } from "../../utils";
 import { useActiveUser, useOpenModal } from "../../store";
 import { ModalSuccess } from "../../components/Modal";
+import { useRequestService } from "../../services";
+import { notifyError } from "../../utils/notifications";
 
-const DetailsContent = ({ detail }) => {
-  const [isFlight, setIsFlight] = useState(false);
+const DetailsContent = () => {
+  const [detailsInfo, setDetailsInfo] = useState();
   const [selectedPayment, setSelectedPayment] = useState("full-price");
   const { user } = useActiveUser();
   const { isOpenModal, setOpenedModal } = useOpenModal();
+  const { getFlightById, getAppsByID } = useRequestService();
+
+  let location = useLocation();
+  let { id, type } = location.state;
+
+  useEffect(() => {
+    if (type === "flights") {
+      getFlightById(id)
+        .then((res) => setDetailsInfo(res))
+        .catch((err) => notifyError(err));
+    } else {
+      getAppsByID(id)
+        .then((res) => setDetailsInfo(res))
+        .catch((err) => notifyError(err));
+    }
+  }, []);
 
   return (
     <main className="flex items-center justify-center flex-col w-full h-full px-8 sm:px-[5rem] mt-12">
@@ -26,15 +43,17 @@ const DetailsContent = ({ detail }) => {
           <section className="bg-white py-0 px-2 sm:py-8 sm:px-6 rounded-xl space-y-6 w-full">
             <div className="flex items-center justify-between flex-wrap sm:flex-nowrap">
               <h3 className="text-blackishGreen text-2xl font-bold w-full sm:w-2/3 lg:w-[28rem]">
-                Superior room - 1 double bed or 2 twin beds
+                {detailsInfo?.airlineName || detailsInfo?.roomName}
               </h3>
               <h4 className="text-red-400 text-sm font-bold">
-                <span className="text-red-400 text-3xl font-bold">$240</span>
-                /night
+                <span className="text-red-400 text-3xl font-bold">
+                  ${detailsInfo?.price}
+                </span>
+                {type === "apps" && "/night"}
               </h4>
             </div>
             <div>
-              {isFlight ? (
+              {type === "flights" ? (
                 <>
                   <section className="mt-10 w-full h-full">
                     <div className="flex items-center justify-center">
@@ -43,15 +62,15 @@ const DetailsContent = ({ detail }) => {
                           <div className="flex items-center justify-start bg-white border border-mintGreen rounded-md p-4 sm:px-8 sm:py-6">
                             <img
                               className="w-16 h-11 object-contain mb-4 sm:mb-0"
-                              src={flightPartner}
-                              alt="Emirates Airline"
+                              src={detailsInfo?.partnerLogo}
+                              alt={detailsInfo?.partnerName}
                             />
                             <div className="sm:ml-6">
                               <h4 className="text-blackishGreen font-semibold text-2xl">
-                                Emirates
+                                {detailsInfo?.partnerName}
                               </h4>
                               <h5 className="mt-2 text-blackishGreen/6 font-medium text-sm">
-                                Airbus A320
+                                {detailsInfo?.planeName}
                               </h5>
                             </div>
                           </div>
@@ -66,10 +85,10 @@ const DetailsContent = ({ detail }) => {
                         <div className="flex items-center flex-wrap sm:flex-nowrap justify-center sm:justify-between sm:space-x-12 mt-10">
                           <div className="flex items-center justify-center">
                             <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
-                              12:00 pm
+                              {detailsInfo?.departureTime}
                             </h3>
                             <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
-                              Newark(EWR)
+                              {detailsInfo?.fromArrive}
                             </h4>
                           </div>
                           <div className="flex items-center justify-center">
@@ -83,10 +102,10 @@ const DetailsContent = ({ detail }) => {
                           </div>
                           <div className="flex items-center justify-center">
                             <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
-                              12:00 pm
+                              {detailsInfo?.arrivalTime}
                             </h3>
                             <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
-                              Newark(EWR)
+                              {detailsInfo?.toArrive}
                             </h4>
                           </div>
                         </div>
@@ -102,16 +121,16 @@ const DetailsContent = ({ detail }) => {
                         <div className="flex items-center justify-start flex-wrap sm:flex-nowrap bg-white border border-mintGreen rounded-md p-4 sm:px-8 sm:py-6 w-full">
                           <img
                             className="w-16 h-11 object-contain mb-4 sm:mb-0"
-                            src={flightPartner}
-                            alt="Emirates Airline"
+                            src={detailsInfo?.hotelLogo}
+                            alt={detailsInfo?.alt}
                           />
                           <div className="sm:ml-6">
                             <h4 className="text-blackishGreen font-semibold text-xl sm:text-2xl">
-                              CVK Park Bosphorus Hotel Istanbul
+                              {detailsInfo?.name}
                             </h4>
                             <h5 className="mt-2 text-blackishGreen/6 font-medium text-sm flex items-center justify-start">
                               <ImLocation2 className="hidden sm:block mr-2" />
-                              Gümüssuyu Mah. Inönü Cad. No:8, Istanbul 34437
+                              {detailsInfo?.location}
                             </h5>
                           </div>
                         </div>
@@ -186,8 +205,7 @@ const DetailsContent = ({ detail }) => {
                   </h3>
                   <h4 className="text-sm text-blackishGreen w-4/5 lg:max-w-[40rem]">
                     Pay $207.43 now, and the rest ($207.43) will be
-                    automatically charged to the same payment method on Nov 14,
-                    2022. No extra fees.
+                    automatically charged. No extra fees.
                   </h4>
                 </div>
                 <input
@@ -223,7 +241,10 @@ const DetailsContent = ({ detail }) => {
                 </h4>
               </div>
             ) : (
-              <button className="text-white text-xl bg-mintGreen hover:bg-mintGreen/70 text-center w-full py-4 transition-colors" onClick={() => setOpenedModal(true)}>
+              <button
+                className="text-white text-xl bg-mintGreen hover:bg-mintGreen/70 text-center w-full py-4 transition-colors"
+                onClick={() => setOpenedModal(true)}
+              >
                 Book now
               </button>
             )}
@@ -233,22 +254,19 @@ const DetailsContent = ({ detail }) => {
           <div className="flex items-start justify-start flex-col sm:flex-row">
             <img
               className="w-[3rem] h-[3rem] mb-2 sm:w-[7.5rem] sm:h-[7.5rem] sm:mr-6 sm:mb-0"
-              src={flightPartner}
-              alt="Flight Partner"
+              src={detailsInfo?.partnerLogo || detailsInfo?.hotelLogo}
+              alt={detailsInfo?.partnerName || detailsInfo?.alt}
             />
             <div className="flex flex-col items-start justify-start">
-              <h4 className="text-blackishGreen/75 text-base font-medium">
-                CVK Park Bosphorus...
+              <h4 className="text-blackishGreen/75 text-base font-medium line-clamp-1">
+                {detailsInfo?.airlineName || detailsInfo?.name}
               </h4>
               <h3 className="max-w-[16rem] font-semibold text-lg sm:text-xl text-blackishGreen mt-1">
-                Superior room - 1 double bed or 2 twin beds
+                {detailsInfo?.planeName || detailsInfo?.roomName}
               </h3>
               <div className="hidden sm:block my-4">
                 <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
-                  4.5
-                </span>
-                <span className="ml-2 text-xs text-blackishGreen font-bold">
-                  Very good
+                  {detailsInfo?.rating}
                 </span>
               </div>
             </div>
@@ -269,7 +287,7 @@ const DetailsContent = ({ detail }) => {
                   Base Fare
                 </h5>
                 <span className="text-blackishGreen text-base font-semibold">
-                  $240
+                  ${detailsInfo?.price}
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -301,12 +319,12 @@ const DetailsContent = ({ detail }) => {
           <div className="flex items-center justify-between mt-10 pt-4 border-t border-t-gray-400">
             <h5 className="text-blackishGreen text-base font-medium">Total</h5>
             <span className="text-blackishGreen text-base font-semibold">
-              $265
+              ${detailsInfo?.price + 25}
             </span>
           </div>
         </aside>
       </div>
-      {isOpenModal && <ModalSuccess/>}
+      {isOpenModal && <ModalSuccess />}
     </main>
   );
 };
