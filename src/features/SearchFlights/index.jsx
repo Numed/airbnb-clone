@@ -18,7 +18,7 @@ const SearchFlightsContainer = () => {
   const [flightsCount, setFlightsCount] = useState(0);
   const { getAllFlights, addFavorite, deleteFavorite } = useRequestService();
   const { user } = useActiveUser();
-  const {flights, setFlights} = useFlights();
+  const { flights, setFlights } = useFlights();
 
   useEffect(() => {
     getFlights();
@@ -60,6 +60,23 @@ const SearchFlightsContainer = () => {
     setIsFetchingData(false);
   };
 
+  const onSort = (value) => {
+    let sortedFlights;
+    switch (value) {
+      case "newest":
+        sortedFlights = [...flights].sort((a, b) => b.date - a.date);
+        break;
+      case "rating":
+        sortedFlights = [...flights].sort((a, b) => b.rating - a.rating);
+        break;
+      default:
+        sortedFlights = [...flights].sort(
+          (a, b) => b.abbreviation - a.abbreviation
+        );
+    }
+    setFlights(sortedFlights);
+  };
+
   return (
     <section className="w-full h-full">
       <Search />
@@ -93,7 +110,10 @@ const SearchFlightsContainer = () => {
             </h4>
             <h5 className="text-sm text-blackishGreen">
               Sort by
-              <select className="text-sm text-blackishGreen font-bold">
+              <select
+                className="text-sm text-blackishGreen font-bold"
+                onChange={(e) => onSort(e.target.value)}
+              >
                 <option value="recommended">Recommended</option>
                 <option value="newest">Newest</option>
                 <option value="rating">Rating</option>
@@ -144,7 +164,8 @@ const SearchFlightsContainer = () => {
                               <label className="mt-4 sl:mt-0 flex items-start justify-start">
                                 <div>
                                   <h4 className="text-base text-blackishGreen font-bold">
-                                    {departureTime} - {arrivalTime}
+                                    {departureTime?.slice(0, -3)} -{" "}
+                                    {arrivalTime?.slice(0, -3)}
                                   </h4>
                                   <h3 className="text-base text-blackishGreen/25 font-bold">
                                     {fromArrive}

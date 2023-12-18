@@ -62,6 +62,23 @@ const SearchAppsContainer = () => {
     return notifyError(err);
   };
 
+  const onSort = (value) => {
+    let sortedApps;
+    switch (value) {
+      case "newest":
+        sortedApps = [...apps].sort((a, b) => b.date - a.date);
+        break;
+      case "rating":
+        sortedApps = [...apps].sort((a, b) => b.rating - a.rating);
+        break;
+      default:
+        sortedApps = [...apps].sort(
+          (a, b) => b.advantages.length - a.advantages.length
+        );
+    }
+    setApps(sortedApps);
+  };
+
   return (
     <section className="w-full h-full">
       <Search />
@@ -89,7 +106,10 @@ const SearchAppsContainer = () => {
             </h4>
             <h5 className="text-sm text-blackishGreen">
               Sort by
-              <select className="text-sm text-blackishGreen font-bold">
+              <select
+                className="text-sm text-blackishGreen font-bold"
+                onChange={(e) => onSort(e.target.value)}
+              >
                 <option value="recommended">Recommended</option>
                 <option value="newest">Newest</option>
                 <option value="rating">Rating</option>

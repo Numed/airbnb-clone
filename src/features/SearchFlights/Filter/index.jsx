@@ -12,7 +12,7 @@ import { useFlights } from "../../../store";
 
 const Filter = () => {
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(1000);
+  const [maxPrice, setMaxPrice] = useState(100);
   const [startTime, setStartTime] = useState("12:15");
   const [endTime, setEndTime] = useState("02:30");
   const [rating, setRating] = useState(0);
@@ -73,7 +73,7 @@ const Filter = () => {
                     type="number"
                     name="minPrice"
                     value={minPrice}
-                    onChange={(e) => setMinPrice(e.target.value)}
+                    onChange={(e) => setMinPrice(+e.target.value)}
                     min="0"
                     max="1000"
                   />
@@ -85,7 +85,7 @@ const Filter = () => {
                     type="number"
                     name="maxPrice"
                     value={maxPrice}
-                    onChange={(e) => setMaxPrice(e.target.value)}
+                    onChange={(e) => setMaxPrice(+e.target.value)}
                     min="0"
                     max="1000"
                   />
