@@ -129,27 +129,27 @@ const Filter = () => {
           </AccordionTrigger>
           <AccordionContent className="space-x-4 mt-6">
             <button
-              className="w-6 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
               onClick={() => setRating(1)}
             >
               1+
             </button>
             <button
-              className="w-6 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               onClick={() => setRating(2)}
             >
               2+
             </button>
             <button
-              className="w-6 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
               onClick={() => setRating(3)}
             >
               3+
             </button>
             <button
-              className="w-6 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
+              className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
               onClick={() => setRating(4)}
             >

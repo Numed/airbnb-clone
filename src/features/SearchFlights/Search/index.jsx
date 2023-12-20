@@ -18,7 +18,7 @@ const Search = () => {
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-full xl:w-[90%] h-auto mx-auto p-4 flex-col shadow-md my-12">
       <div className="flex flex-col  sm:grid sm:grid-cols-2 xl:flex xl:flex-row xl:items-center xl:justify-center gap-4 w-full h-full">
-        <fieldset className="border border-blackishGreen rounded-md p-2 w-full sm:w-[20rem] min-h-[90px]">
+        <fieldset className="border border-blackishGreen rounded-md p-2 w-full sm:w-[20rem] md:w-full min-h-[90px]">
           <legend className="bg-white p-2 text-sm ml-2">From - To</legend>
           <div className="flex items-center justify-between pr-4">
             <div>
@@ -58,7 +58,7 @@ const Search = () => {
           <DatePickerWithRange />
         </fieldset>
         <div className="relative min-w-full sm:min-w-[20rem]">
-          <fieldset className="border border-blackishGreen rounded-md p-4 w-full sm:w-[20rem] min-h-[90px]">
+          <fieldset className="border border-blackishGreen rounded-md p-4 w-full sm:w-[20rem] md:w-full min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">
               Passenger - Class
             </legend>
