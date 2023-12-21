@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 export const useHttp = () => {
   const request = useCallback(
@@ -31,3 +31,17 @@ export const useHttp = () => {
 
   return { request };
 };
+
+export const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedValue(value), delay || 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}

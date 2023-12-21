@@ -9,6 +9,7 @@ import {
 import { useRequestService } from "../../../services";
 import { notifyError } from "../../../utils/notifications";
 import { useFlights } from "../../../store";
+import { useDebounce } from "../../../hooks";
 
 const Filter = () => {
   const [minPrice, setMinPrice] = useState(0);
@@ -26,6 +27,7 @@ const Filter = () => {
     rating,
     selectedAirlines,
   });
+  const debounceValue = useDebounce(searchParams, 300);
   const { filterFlights, getAirlines } = useRequestService();
   const { setFlights } = useFlights();
 
@@ -53,7 +55,17 @@ const Filter = () => {
       .then((res) => setFlights(res))
       .catch((err) => notifyError(err));
     // eslint-disable-next-line
-  }, [searchParams]);
+  }, [debounceValue]);
+
+  const setAirline = (e) => {
+    if (e.target.checked) {
+      setSelectedAirlines([...selectedAirlines, e.target.value]);
+    } else {
+      setSelectedAirlines(
+        selectedAirlines.filter((airline) => airline !== e.target.value)
+      );
+    }
+  };
 
   return (
     <div className="w-full mb-4 xl:w-1/5 xl:mb-0">
@@ -169,9 +181,7 @@ const Filter = () => {
                   type="checkbox"
                   className="mr-2"
                   value={airline}
-                  onChange={(e) =>
-                    setSelectedAirlines([...airlines, e.target.value])
-                  }
+                  onChange={(e) => setAirline(e)}
                 />
                 {airline}
               </label>

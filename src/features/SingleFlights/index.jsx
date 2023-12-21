@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { PiTimerFill } from "react-icons/pi";
 import { IoAirplane, IoWifi, IoTimeOutline } from "react-icons/io5";
 import {
@@ -12,7 +12,8 @@ import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
 
 const SingleFlightsContainer = () => {
-  let { id } = useParams();
+  let location = useLocation();
+  const id = location.state.id;
   const { getFlightById } = useRequestService();
   const [flight, setFlight] = useState({});
 

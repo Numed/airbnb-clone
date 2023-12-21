@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { BsStars } from "react-icons/bs";
 
 import { useRequestService } from "../../services";
@@ -7,7 +7,8 @@ import Header from "./Header";
 import { notifyError } from "../../utils/notifications";
 
 const SingleAppContainer = () => {
-  let { id } = useParams();
+  let location = useLocation();
+  const id = location.state.id;
   const { getAppsByID } = useRequestService();
   const [app, setApp] = useState({});
 

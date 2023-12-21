@@ -2,23 +2,7 @@ import { create } from "zustand";
 import { appsCards, flightCards } from "../features/Contants";
 
 export const useActiveUser = create((set) => ({
-  user: {
-    email: "admin@gmail.com",
-    name: "Eugene Rara",
-    token: "",
-    recentSearch: [
-      { id: 1, title: "Melbourne", places: 20 },
-      { id: 2, title: "Sydney", places: 20 },
-      { id: 3, title: "Brisbane", places: 20 },
-    ],
-    favorites: {
-      hotelsList: [
-        { id: 1, title: "Melbourne", places: 20 },
-        { id: 2, title: "Sydney", places: 20 },
-      ],
-      flightsList: [],
-    },
-  },
+  user: null,
   setUser: (newUser) => {
     set(() => ({
       user: newUser,

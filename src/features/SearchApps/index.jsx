@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 import { BsFillCupFill } from "react-icons/bs";
 import { ImLocation2 } from "react-icons/im";
@@ -12,15 +12,17 @@ import Loader from "../../components/Loader";
 import { cn } from "../../utils";
 import { Skeleton } from "../../components/Skeleton";
 import { useActiveUser, useApps } from "../../store";
+import { onSortApps } from "../../utils/sort";
 
 const SearchAppsContainer = () => {
   const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingData, setIsFetchingData] = useState(false);
   const [appsCounter, setAppsCounter] = useState(0);
-  const { getAllApps, addFavorite, deleteFavorite } = useRequestService();
+  const { getAllApps, addFavoriteApps, deleteFavorite } = useRequestService();
   const { user } = useActiveUser();
   const { apps, setApps } = useApps();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getApps();
@@ -37,7 +39,7 @@ const SearchAppsContainer = () => {
         .then(e.classList.remove("bg-mintGreen"))
         .catch(onError);
     }
-    addFavorite(formatedData)
+    addFavoriteApps(formatedData)
       .then(e.classList.add("bg-mintGreen"))
       .catch(onError);
   };
@@ -62,21 +64,10 @@ const SearchAppsContainer = () => {
     return notifyError(err);
   };
 
-  const onSort = (value) => {
-    let sortedApps;
-    switch (value) {
-      case "newest":
-        sortedApps = [...apps].sort((a, b) => b.date - a.date);
-        break;
-      case "rating":
-        sortedApps = [...apps].sort((a, b) => b.rating - a.rating);
-        break;
-      default:
-        sortedApps = [...apps].sort(
-          (a, b) => b.advantages.length - a.advantages.length
-        );
-    }
-    setApps(sortedApps);
+
+
+  const goToApp = (slug, id) => {
+    navigate(`/appartaments/${slug}`, { state: { id } });
   };
 
   return (
@@ -85,20 +76,6 @@ const SearchAppsContainer = () => {
       <div className="flex flex-col xl:flex-row items-start justify-between p-4 sm:px-12 xl:px-[6.5rem]">
         <Filter />
         <div className="flex flex-col items-start justify-start w-full xl:w-4/5 xl:ml-6">
-          <div className="flex items-start justify-start flex-col sm:flex-row w-full bg-white space-y-6 sm:space-x-6 sm:space-y-0 rounded-xl">
-            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0">
-              Hotels
-              <span className="text-sm text-blackishGreen/40">298 places</span>
-            </button>
-            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0">
-              Motels
-              <span className="text-sm text-blackishGreen/40">137 places</span>
-            </button>
-            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4">
-              Resorts
-              <span className="text-sm text-blackishGreen/40">72 places</span>
-            </button>
-          </div>
           <div className="w-full flex items-center justify-between mt-6">
             <h4 className="text-sm text-blackishGreen font-semibold">
               Showing 4 of{" "}
@@ -108,7 +85,7 @@ const SearchAppsContainer = () => {
               Sort by
               <select
                 className="text-sm text-blackishGreen font-bold"
-                onChange={(e) => onSort(e.target.value)}
+                onChange={(e) => onSortApps(apps, e.target.value, setApps)}
               >
                 <option value="recommended">Recommended</option>
                 <option value="newest">Newest</option>
@@ -188,7 +165,7 @@ const SearchAppsContainer = () => {
                             started from
                           </h4>
                           <h3 className="text-2xl font-bold text-red-300">
-                            ${price}
+                            ${price}/night
                           </h3>
                         </div>
                       </div>
@@ -199,12 +176,12 @@ const SearchAppsContainer = () => {
                         >
                           <AiOutlineHeart />
                         </button>
-                        <Link
+                        <button
                           className="flex items-center justify-center w-full h-full ml-4 bg-mintGreen text-sm rounded-sm font-semibold text-blackishGreen hover:text-white transition-colors py-4"
-                          to={`/appartaments/${slug}`}
+                          onClick={() => goToApp(slug, id)}
                         >
                           View Place
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </div>

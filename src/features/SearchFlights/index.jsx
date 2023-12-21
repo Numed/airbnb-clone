@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineHeart } from "react-icons/ai";
 
 import Search from "./Search";
@@ -10,15 +10,18 @@ import Loader from "../../components/Loader";
 import { cn } from "../../utils";
 import { Skeleton } from "../../components/Skeleton";
 import { useActiveUser, useFlights } from "../../store";
+import { onSortFlights } from "../../utils/sort";
 
 const SearchFlightsContainer = () => {
   const [offset, setOffset] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingData, setIsFetchingData] = useState(false);
   const [flightsCount, setFlightsCount] = useState(0);
-  const { getAllFlights, addFavorite, deleteFavorite } = useRequestService();
+  const { getAllFlights, addFavoriteFlight, deleteFavorite, filterFlights } =
+    useRequestService();
   const { user } = useActiveUser();
   const { flights, setFlights } = useFlights();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getFlights();
@@ -41,9 +44,24 @@ const SearchFlightsContainer = () => {
         .then(e.classList.remove("bg-mintGreen"))
         .catch(onError);
     }
-    addFavorite(formatedData)
+    addFavoriteFlight(formatedData)
       .then(e.classList.add("bg-mintGreen"))
       .catch(onError);
+  };
+
+  const onFilter = (value) => {
+    const queryString = new URLSearchParams(value).toString();
+    filterFlights(queryString).then(onFiltered).catch(onError);
+  };
+
+  const onFiltered = (data) => {
+    setFlights(data.slice(0, offset + 4));
+    setIsLoading(false);
+    setIsFetchingData(false);
+  };
+
+  const goToFlight = (slug, id) => {
+    navigate(`/flights/${slug}`, { state: { id } });
   };
 
   const onSetFlights = (data) => {
@@ -60,23 +78,6 @@ const SearchFlightsContainer = () => {
     setIsFetchingData(false);
   };
 
-  const onSort = (value) => {
-    let sortedFlights;
-    switch (value) {
-      case "newest":
-        sortedFlights = [...flights].sort((a, b) => b.date - a.date);
-        break;
-      case "rating":
-        sortedFlights = [...flights].sort((a, b) => b.rating - a.rating);
-        break;
-      default:
-        sortedFlights = [...flights].sort(
-          (a, b) => b.abbreviation - a.abbreviation
-        );
-    }
-    setFlights(sortedFlights);
-  };
-
   return (
     <section className="w-full h-full">
       <Search />
@@ -84,19 +85,28 @@ const SearchFlightsContainer = () => {
         <Filter />
         <div className="flex flex-col items-start justify-start w-full xl:w-4/5 xl:ml-6">
           <div className="flex items-start justify-start flex-col sm:flex-row w-full bg-white space-y-6 sm:space-x-6 sm:space-y-0 rounded-xl">
-            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0">
+            <button
+              className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0"
+              onClick={(e) => onFilter(e.target.value)}
+            >
               Cheapest
               <span className="text-sm text-blackishGreen/40">
                 $99 | 2h 18m
               </span>
             </button>
-            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0">
+            <button
+              className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0"
+              onClick={(e) => onFilter(e.target.value)}
+            >
               Best
               <span className="text-sm text-blackishGreen/40">
                 $120 | 1h 30m
               </span>
             </button>
-            <button className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4">
+            <button
+              className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4"
+              onClick={(e) => onFilter(e.target.value)}
+            >
               Quickest
               <span className="text-sm text-blackishGreen/40">
                 $99 | 1h 18m
@@ -112,7 +122,7 @@ const SearchFlightsContainer = () => {
               Sort by
               <select
                 className="text-sm text-blackishGreen font-bold"
-                onChange={(e) => onSort(e.target.value)}
+                onChange={(e) => onSortFlights(flights,e.target.value,setFlights)}
               >
                 <option value="recommended">Recommended</option>
                 <option value="newest">Newest</option>
@@ -202,12 +212,12 @@ const SearchFlightsContainer = () => {
                         >
                           <AiOutlineHeart />
                         </button>
-                        <Link
+                        <button
                           className="flex items-center justify-center w-full h-full ml-4 bg-mintGreen text-sm rounded-sm font-semibold text-blackishGreen hover:text-white transition-colors py-4"
-                          to={`/flights/${slug}`}
+                          onClick={() => goToFlight(slug, id)}
                         >
                           View Details
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </div>

@@ -9,6 +9,7 @@ import {
 import { useRequestService } from "../../../services";
 import { notifyError } from "../../../utils/notifications";
 import { useApps } from "../../../store";
+import { useDebounce } from "../../../hooks";
 
 const Filter = () => {
   const [minPrice, setMinPrice] = useState(0);
@@ -21,6 +22,7 @@ const Filter = () => {
     selectedAdvangages,
     rating,
   });
+  const debounceValue = useDebounce(searchParams, 300);
   const [advantages, setAdvantages] = useState([]);
   const { filterApps, getAdvantages } = useRequestService();
   const { setApps } = useApps();
@@ -47,7 +49,17 @@ const Filter = () => {
       .then((res) => setApps(res))
       .catch((err) => notifyError(err));
     // eslint-disable-next-line
-  }, [searchParams]);
+  }, [debounceValue]);
+
+  const setAdvantage = (e) => {
+    if (e.target.checked) {
+      setSelectedAdvangages([...selectedAdvangages, e.target.value]);
+    } else {
+      setSelectedAdvangages(
+        selectedAdvangages.filter((advantage) => advantage !== e.target.value)
+      );
+    }
+  };
 
   return (
     <div className="w-full mb-4 xl:w-1/5 xl:mb-0">
@@ -131,12 +143,7 @@ const Filter = () => {
                     type="checkbox"
                     className="mr-2"
                     value={advantage}
-                    onChange={(e) =>
-                      setSelectedAdvangages([
-                        ...selectedAdvangages,
-                        e.target.value,
-                      ])
-                    }
+                    onChange={(e) => setAdvantage(e)}
                   />
                   {advantage}
                 </label>

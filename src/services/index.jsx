@@ -110,9 +110,18 @@ export const useRequestService = () => {
     return response;
   };
 
-  const addFavorite = async (data) => {
+  const addFavoriteHotel = async (data) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/favorites`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/favoriteHotel`,
+      "POST",
+      JSON.stringify(data)
+    );
+    return response;
+  };
+
+  const addFavoriteFlight = async (data) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/favoriteFlight`,
       "POST",
       JSON.stringify(data)
     );
@@ -192,14 +201,14 @@ export const useRequestService = () => {
 
   const filterApps = async (params) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels?${params}`
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/filter?${params}`
     );
     return response;
   };
 
   const filterFlights = async (params) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights?${params}`
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/flights/filter?${params}`
     );
     return response;
   };
@@ -231,7 +240,8 @@ export const useRequestService = () => {
     addFlight,
     deleteFlight,
     updateFlight,
-    addFavorite,
+    addFavoriteHotel,
+    addFavoriteFlight,
     deleteFavorite,
     addReview,
     updateEmail,

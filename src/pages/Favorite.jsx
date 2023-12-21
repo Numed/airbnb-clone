@@ -17,13 +17,11 @@ const Favorite = () => {
   const [active, setActive] = useState("Flights");
   const { user } = useActiveUser();
   const { deleteFavorite } = useRequestService();
-  const {
-    favorites: { flightsList, hotelsList },
-  } = user;
+  const { favoritesHotels, favoritesFlights } = user;
 
-  if (user.favorites.length > 0) {
-    setFlights(flightsList);
-    setApps(hotelsList);
+  if (user?.favoritesHotels?.length > 0 || user?.favoritesFlights?.length > 0) {
+    setFlights(favoritesHotels);
+    setApps(favoritesFlights);
   }
 
   const onFavoriteHandler = (e, id, isFlight) => {
@@ -62,7 +60,7 @@ const Favorite = () => {
             >
               Flights
               <span className="mt-2 text-blackishGreen/40 text-sm">
-                {flightsList.length} marked
+                {favoritesFlights?.length} marked
               </span>
             </button>
             <button
@@ -74,7 +72,7 @@ const Favorite = () => {
             >
               Appartmets
               <span className="mt-2 text-blackishGreen/40 text-sm">
-                {hotelsList.length} marked
+                {favoritesHotels?.length} marked
               </span>
             </button>
           </div>
