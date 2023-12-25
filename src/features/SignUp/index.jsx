@@ -15,12 +15,14 @@ const SignUpContainer = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (data) => {
-    data = {
-      ...data,
+   const validData = {
       username: data.firstName + " " + data.lastName,
+      email: data.email,
+      phone: data.phone,
+      password: data.password,
     };
 
-    signUp(data)
+    signUp(validData)
       .then(onSuccess)
       .catch((err) => notifyError(err));
   };
