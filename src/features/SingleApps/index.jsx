@@ -120,7 +120,7 @@ const SingleAppContainer = () => {
           </h4>
         </div>
         <section className="border-t border-t-blackishGreen/25 w-full h-full">
-          <div className="flex flex-col items-center justify-start w-full h-auto border-b border-b-blackishGreen/25">
+          <div className="flex flex-col items-star justify-center w-full h-auto border-b border-b-blackishGreen/25">
             {app?.reviews?.map(({ photo, name, rating, comment }, i) => (
               <div
                 key={i}

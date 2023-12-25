@@ -5,7 +5,7 @@ import logo from "../../img/logo/logo.png";
 import signInPicture from "../../img/sign-in/img.png";
 import { SignupSchema } from "./validationSchema";
 import { useRequestService } from "../../services";
-import { notifyError } from "../../utils/notifications";
+import { notifyError, notifySuccess } from "../../utils/notifications";
 import { useActiveUser } from "../../store";
 
 const SignupContainer = () => {
@@ -25,7 +25,8 @@ const SignupContainer = () => {
 
   const onSuccsess = (data) => {
     setUser(data);
-    localStorage.setItem("token", data.token);
+    localStorage.setItem("token", data?.token);
+    notifySuccess(data?.message);
     navigate("/");
   };
 
