@@ -8,9 +8,8 @@ import {
 } from "../../../components/Accordion";
 import { useRequestService } from "../../../services";
 import { notifyError } from "../../../utils/notifications";
-import { useFlights } from "../../../store";
+import { useCountFlights, useFlights } from "../../../store";
 import { useDebounce } from "../../../hooks";
-import { updateSearchParams } from "../../../utils";
 
 const Filter = () => {
   const [searchParams, setSearchParams] = useState({
@@ -25,6 +24,7 @@ const Filter = () => {
   const debounceValue = useDebounce(searchParams, 300);
   const { filterFlights, getAirlines } = useRequestService();
   const { setFlights } = useFlights();
+  const setCountFlights = useCountFlights((state) => state.setCountFlights);
 
   useEffect(() => {
     getAirlines()
@@ -33,12 +33,19 @@ const Filter = () => {
   }, []);
 
   useEffect(() => {
-    const queryString = new URLSearchParams(searchParams).toString();
+    const validSearchParams = {
+      ...searchParams,
+      startTime: "",
+      endTime: "",
+    };
+    delete validSearchParams[0];
+    const queryString = new URLSearchParams(validSearchParams).toString();
     filterFlights(queryString).then(onSetFlights).catch(onError);
   }, [debounceValue]);
 
   const onSetFlights = (data) => {
     setFlights(data);
+    setCountFlights(data?.length);
   };
 
   const onError = (err) => {
@@ -53,6 +60,13 @@ const Filter = () => {
         : prevParams.selectedAirlines.filter(
             (airline) => airline !== e.target.value
           ),
+    }));
+  };
+
+  const updateSearchParams = (key, value) => {
+    setSearchParams((prevParams) => ({
+      ...prevParams,
+      [key]: value,
     }));
   };
 
@@ -75,11 +89,7 @@ const Filter = () => {
                     name="minPrice"
                     value={searchParams.minPrice}
                     onChange={(e) =>
-                      updateSearchParams(
-                        searchParams.minPrice,
-                        +e.target.value,
-                        setSearchParams
-                      )
+                      updateSearchParams("minPrice", +e.target.value)
                     }
                     min="0"
                     max="1000"
@@ -93,11 +103,7 @@ const Filter = () => {
                     name="maxPrice"
                     value={searchParams.maxPrice}
                     onChange={(e) =>
-                      updateSearchParams(
-                        searchParams.minPrice,
-                        +e.target.value,
-                        setSearchParams
-                      )
+                      updateSearchParams("maxPrice", +e.target.value)
                     }
                     min="0"
                     max="1000"
@@ -121,11 +127,7 @@ const Filter = () => {
                   type="time"
                   value={searchParams.startTime}
                   onChange={(e) =>
-                    updateSearchParams(
-                      searchParams.startTime,
-                      e.target.value,
-                      setSearchParams
-                    )
+                    updateSearchParams("startTime", e.target.value)
                   }
                 />
               </label>
@@ -137,11 +139,7 @@ const Filter = () => {
                   type="time"
                   value={searchParams.endTime}
                   onChange={(e) =>
-                    updateSearchParams(
-                      searchParams.endTime,
-                      e.target.value,
-                      setSearchParams
-                    )
+                    updateSearchParams("endDeparture", e.target.value)
                   }
                 />
               </label>
@@ -156,35 +154,27 @@ const Filter = () => {
             <button
               className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
-              onClick={() =>
-                updateSearchParams(searchParams.rating, 1, setSearchParams)
-              }
+              onClick={() => updateSearchParams("rating", 1)}
             >
               1+
             </button>
             <button
               className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-              onClick={() =>
-                updateSearchParams(searchParams.rating, 2, setSearchParams)
-              }
+              onClick={() => updateSearchParams("rating", 2)}
             >
               2+
             </button>
             <button
               className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
-              onClick={() =>
-                updateSearchParams(searchParams.rating, 3, setSearchParams)
-              }
+              onClick={() => updateSearchParams("rating", 3)}
             >
               3+
             </button>
             <button
               className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
-              onClick={() =>
-                updateSearchParams(searchParams.rating, 4, setSearchParams)
-              }
+              onClick={() => updateSearchParams("rating", 4)}
             >
               4+
             </button>

@@ -6,18 +6,24 @@ import Loader from "../../components/Loader";
 import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
 import { cn } from "../../utils";
-import { useFetchingData, useFlights, useIsLoading } from "../../store";
+import {
+  useFetchingData,
+  useFlights,
+  useIsLoading,
+  useCountFlights,
+} from "../../store";
 import { onSortFlights } from "../../utils/sort";
 import FlightItem from "./FlightItem";
 
 const SearchFlightsContainer = () => {
-  const [flightsCount, setFlightsCount] = useState(0);
   const [offset, setOffset] = useState(0);
   const { isLoading, setIsLoading } = useIsLoading();
   const { setIsFetchingData } = useFetchingData();
   const { getAllFlights, filterFlights } = useRequestService();
   const flights = useFlights((state) => state.flights);
   const setFlights = useFlights((state) => state.setFlights);
+  const flightsCount = useCountFlights((state) => state.countFlights);
+  const setCountFlights = useCountFlights((state) => state.setCountFlights);
 
   useEffect(() => {
     getFlights();
@@ -41,7 +47,7 @@ const SearchFlightsContainer = () => {
   };
 
   const onSetFlights = (data) => {
-    setFlightsCount(data.length);
+    setCountFlights(data.length);
     setOffset((prevOffset) => prevOffset + 4);
     setFlights(data.slice(0, offset + 4));
     setIsLoading(false);
@@ -91,7 +97,7 @@ const SearchFlightsContainer = () => {
           </div>
           <div className="w-full flex items-center justify-between mt-6">
             <h4 className="text-sm text-blackishGreen font-semibold">
-              Showing 4 of{" "}
+              Showing of{" "}
               <span className="text-red-400">{flightsCount} places</span>
             </h4>
             <h5 className="text-sm text-blackishGreen">

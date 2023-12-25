@@ -6,14 +6,20 @@ import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
 import Loader from "../../components/Loader";
 import { cn } from "../../utils";
-import { useApps, useFetchingData, useIsLoading } from "../../store";
+import {
+  useApps,
+  useCountApps,
+  useFetchingData,
+  useIsLoading,
+} from "../../store";
 import { onSortApps } from "../../utils/sort";
 import AppItem from "./AppItem";
 
 const SearchAppsContainer = () => {
   const [offset, setOffset] = useState(0);
-  const [appsCounter, setAppsCounter] = useState(0);
 
+  const appsCounter = useCountApps((state) => state.countApps);
+  const setAppsCounter = useCountApps((state) => state.setCountApps);
   const { isLoading, setIsLoading } = useIsLoading();
   const { setIsFetchingData } = useFetchingData();
   const { getAllApps } = useRequestService();
@@ -30,7 +36,7 @@ const SearchAppsContainer = () => {
   };
 
   const onSetApps = (data) => {
-    setAppsCounter(data.length);
+    setAppsCounter(data?.length);
     setOffset(offset + 4);
     setApps(data.slice(0, offset + 4));
     setIsLoading(false);
@@ -51,7 +57,7 @@ const SearchAppsContainer = () => {
         <div className="flex flex-col items-start justify-start w-full xl:w-4/5 xl:ml-6">
           <div className="w-full flex items-center justify-between mt-6">
             <h4 className="text-sm text-blackishGreen font-semibold">
-              Showing 4 of{" "}
+              Showing of{" "}
               <span className="text-red-400">{appsCounter} places</span>
             </h4>
             <h5 className="text-sm text-blackishGreen">

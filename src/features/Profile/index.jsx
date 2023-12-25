@@ -35,11 +35,9 @@ const ProfileContainer = () => {
           </button>
           <div className="flex flex-col items-center justify-center">
             <h3 className="font-bold mb-2 text-2xl text-blackishGreen">
-              {user?.name}
+              {user?.username}
             </h3>
-            <h4 className="text-base text-blackishGreen/75">
-              {user?.email}
-            </h4>
+            <h4 className="text-base text-blackishGreen/75">{user?.email}</h4>
           </div>
         </div>
         <div className="mt-8 w-full h-auto flex items-center justify-center">
@@ -73,7 +71,7 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Name</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      John Doe
+                      {user?.username}
                     </h3>
                   </div>
                   <button
@@ -87,7 +85,7 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Email</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      john.doe@gmail.com
+                      {user?.email}
                     </h3>
                   </div>
                   <button
@@ -116,7 +114,7 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Phone number</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      +1 000-000-0000
+                      {user?.phone}
                     </h3>
                   </div>
                   <button
@@ -130,7 +128,7 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Address</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      St 32 main downtown, Los Angeles, California, USA
+                      Not specified
                     </h3>
                   </div>
                   <button
@@ -146,7 +144,7 @@ const ProfileContainer = () => {
                       Date of birth
                     </h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      01-01-1992
+                      Not specified
                     </h3>
                   </div>
                   <button

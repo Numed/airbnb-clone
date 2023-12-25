@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
 
 import Loader from "../../components/Loader";
 import Homepage from "../../pages/Home";
@@ -20,11 +21,15 @@ import SearchApps from "../../pages/SearchApps";
 import SinglePageApps from "../../pages/SingleApps";
 import Favorite from "../../pages/Favorite";
 import Details from "../../pages/Details";
+import { useActiveUser } from "../../store";
 
 const App = () => {
-  //* Пофіксити фільтрацію (корс)
-  //* Пофіксити ререндинг
-  //* Передавати у flight/filter?departureTime у форматі UTC
+  const { setUser } = useActiveUser();
+  if (localStorage.getItem("token")) {
+    const decoded = jwtDecode(localStorage.getItem("token"));
+    setUser(decoded);
+  }
+
   return (
     <Router>
       <Suspense fallback={<Loader />}>

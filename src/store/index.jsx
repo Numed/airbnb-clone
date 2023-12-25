@@ -58,3 +58,17 @@ export const useIsLoading = create((set) => ({
     set({ isLoading: state });
   },
 }));
+
+export const useCountApps = create((set) => ({
+  countApps: 0,
+  setCountApps: (state) => {
+    set({ countApps: state });
+  },
+}));
+
+export const useCountFlights = create((set) => ({
+  countFlights: 0,
+  setCountFlights: (state) => {
+    set({ countFlights: state });
+  },
+}));

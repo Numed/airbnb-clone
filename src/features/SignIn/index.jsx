@@ -46,17 +46,22 @@ const SigninContainer = () => {
                   email: "",
                   password: "",
                 }}
-                onSubmit={(values, actions) => {
+                onSubmit={(values, { resetForm }) => {
                   onSubmit(values);
-                  actions.resetForm();
+                  resetForm();
                 }}
                 validationSchema={SigninSchema}
               >
-                {() => (
+                {({ errors, touched }) => (
                   <Form>
                     <div>
                       <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full ">
                         Email
+                        {errors.email && touched.email && (
+                          <span className="text-red-400 text-sm">
+                            {errors.email}
+                          </span>
+                        )}
                         <Field
                           className="text-base text-black mt-2 min-w-[18.5rem] p-2"
                           type="email"
@@ -68,6 +73,11 @@ const SigninContainer = () => {
                     <div>
                       <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full">
                         Password
+                        {errors.password && touched.password && (
+                          <span className="text-red-400 text-sm">
+                            {errors.password}
+                          </span>
+                        )}
                         <Field
                           className="text-base text-black mt-2 w-full p-2"
                           type="password"

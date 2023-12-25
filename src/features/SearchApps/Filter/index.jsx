@@ -8,9 +8,8 @@ import {
 } from "../../../components/Accordion";
 import { useRequestService } from "../../../services";
 import { notifyError } from "../../../utils/notifications";
-import { useApps } from "../../../store";
+import { useApps, useCountApps } from "../../../store";
 import { useDebounce } from "../../../hooks";
-import { updateSearchParams } from "../../../utils";
 
 const Filter = () => {
   const [searchParams, setSearchParams] = useState({
@@ -23,6 +22,7 @@ const Filter = () => {
   const [advantages, setAdvantages] = useState([]);
   const { filterApps, getAdvantages } = useRequestService();
   const { setApps } = useApps();
+  const setCountApps = useCountApps((state) => state.setCountApps);
 
   useEffect(() => {
     getAdvantages()
@@ -37,6 +37,7 @@ const Filter = () => {
 
   const onSetApps = (data) => {
     setApps(data);
+    setCountApps(data?.length);
   };
 
   const onError = (err) => {
@@ -55,6 +56,13 @@ const Filter = () => {
     }
   };
 
+  const updateSearchParams = (key, value) => {
+    setSearchParams((prevParams) => ({
+      ...prevParams,
+      [key]: value,
+    }));
+  };
+
   return (
     <div className="w-full mb-4 xl:w-1/5 xl:mb-0">
       <Accordion type="single" collapsible className="space-y-8">
@@ -71,13 +79,10 @@ const Filter = () => {
                     <input
                       className="mt-2 p-3"
                       type="number"
+                      name="minPrice"
                       value={searchParams.minPrice}
                       onChange={(e) =>
-                        updateSearchParams(
-                          searchParams.minPrice,
-                          +e.target.value,
-                          setSearchParams
-                        )
+                        updateSearchParams("minPrice", +e.target.value)
                       }
                       min="0"
                       max="1000"
@@ -87,13 +92,10 @@ const Filter = () => {
                     <input
                       className="mt-2 p-3"
                       type="number"
+                      name="maxPrice"
                       value={searchParams.maxPrice}
                       onChange={(e) =>
-                        updateSearchParams(
-                          searchParams.maxPrice,
-                          +e.target.value,
-                          setSearchParams
-                        )
+                        updateSearchParams("maxPrice", +e.target.value)
                       }
                       min="0"
                       max="1000"
@@ -112,33 +114,25 @@ const Filter = () => {
             <AccordionContent className="space-x-4 mt-6">
               <button
                 className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                onClick={() =>
-                  updateSearchParams(searchParams.rating, 1, setSearchParams)
-                }
+                onClick={() => updateSearchParams("rating", 1)}
               >
                 1+
               </button>
               <button
                 className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                onClick={() =>
-                  updateSearchParams(searchParams.rating, 2, setSearchParams)
-                }
+                onClick={() => updateSearchParams("rating", 2)}
               >
                 2+
               </button>
               <button
                 className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                onClick={() =>
-                  updateSearchParams(searchParams.rating, 3, setSearchParams)
-                }
+                onClick={() => updateSearchParams("rating", 3)}
               >
                 3+
               </button>
               <button
                 className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                onClick={() =>
-                  updateSearchParams(searchParams.rating, 4, setSearchParams)
-                }
+                onClick={() => updateSearchParams("rating", 4)}
               >
                 4+
               </button>

@@ -78,7 +78,7 @@ const NavPopup = () => {
                   </button>
                 </div>
               )}
-              {convertNameFormat(user?.name)}
+              {convertNameFormat(user.username)}
             </Link>
           </div>
         ) : (

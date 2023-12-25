@@ -85,7 +85,7 @@ const Header = () => {
                   </button>
                 </div>
               )}
-              {convertNameFormat(user?.name)}
+              {convertNameFormat(user?.username)}
             </div>
           </div>
         ) : (
