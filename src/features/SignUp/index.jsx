@@ -14,6 +14,10 @@ const SignupContainer = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
+    data = {
+      ...data,
+      username: data.firstName + " " + data.lastName,
+    };
     signUp(data)
       .then(onSuccsess)
       .catch((err) => notifyError(err));
@@ -109,7 +113,7 @@ const SignupContainer = () => {
                         Password
                         <Field
                           className="text-base text-black mt-2 p-2 w-full"
-                          type="email"
+                          type="password"
                           name="password"
                           placeholder="Your password"
                         />
