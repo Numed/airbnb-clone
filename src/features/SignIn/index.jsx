@@ -1,19 +1,30 @@
 import { Form, Field, Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../../img/logo/logo.png";
 import signInPicture from "../../img/sign-in/img.png";
 import { SigninSchema } from "./validationSchema";
 import { notifyError } from "../../utils/notifications";
 import { useRequestService } from "../../services";
+import { useActiveUser } from "../../store";
 
 const SigninContainer = () => {
   const { signIn } = useRequestService();
+  const { setUser } = useActiveUser();
+  const navigate = useNavigate();
+
   const onSubmit = (data) => {
     signIn(data)
-      .then((el) => console.log(el))
+      .then(onSuccsess)
       .catch((err) => notifyError(err));
   };
+
+  const onSuccsess = (data) => {
+    setUser(data);
+    localStorage.setItem("token", data.token);
+    navigate("/");
+  };
+
   return (
     <section className="mt-10 lg:mt-0 flex items-center justify-center">
       <div className="flex items-center justify-center space-x-28">
@@ -75,7 +86,10 @@ const SigninContainer = () => {
                       </span>
                     </div>
                     <div>
-                      <button type="submit" className="bg-mintGreen/80 hover:bg-mintGreen transition-all text-blackishGreen flex flex-col mt-11 w-full p-4 items-center justify-center">
+                      <button
+                        type="submit"
+                        className="bg-mintGreen/80 hover:bg-mintGreen transition-all text-blackishGreen flex flex-col mt-11 w-full p-4 items-center justify-center"
+                      >
                         Login
                       </button>
                       <div className="flex justify-between mt-4">

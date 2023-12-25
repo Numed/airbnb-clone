@@ -1,27 +1,23 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineHeart } from "react-icons/ai";
 
 import Search from "./Search";
 import Filter from "./Filter";
+import Loader from "../../components/Loader";
 import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
-import Loader from "../../components/Loader";
 import { cn } from "../../utils";
-import { Skeleton } from "../../components/Skeleton";
-import { useActiveUser, useFlights } from "../../store";
+import { useFetchingData, useFlights, useIsLoading } from "../../store";
 import { onSortFlights } from "../../utils/sort";
+import FlightItem from "./FlightItem";
 
 const SearchFlightsContainer = () => {
-  const [offset, setOffset] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isFetchingData, setIsFetchingData] = useState(false);
   const [flightsCount, setFlightsCount] = useState(0);
-  const { getAllFlights, addFavoriteFlight, deleteFavorite, filterFlights } =
-    useRequestService();
-  const { user } = useActiveUser();
-  const { flights, setFlights } = useFlights();
-  const navigate = useNavigate();
+  const [offset, setOffset] = useState(0);
+  const { isLoading, setIsLoading } = useIsLoading();
+  const { setIsFetchingData } = useFetchingData();
+  const { getAllFlights, filterFlights } = useRequestService();
+  const flights = useFlights((state) => state.flights);
+  const setFlights = useFlights((state) => state.setFlights);
 
   useEffect(() => {
     getFlights();
@@ -31,22 +27,6 @@ const SearchFlightsContainer = () => {
     setIsLoading(true);
     setIsFetchingData(true);
     getAllFlights().then(onSetFlights).catch(onError);
-  };
-
-  const onFavoriteHandler = (e, flightId) => {
-    const formatedData = {
-      flightId: flightId,
-      id: user.id,
-    };
-
-    if (e.classList.contains("bg-mintGreen")) {
-      return deleteFavorite(formatedData)
-        .then(e.classList.remove("bg-mintGreen"))
-        .catch(onError);
-    }
-    addFavoriteFlight(formatedData)
-      .then(e.classList.add("bg-mintGreen"))
-      .catch(onError);
   };
 
   const onFilter = (value) => {
@@ -60,13 +40,9 @@ const SearchFlightsContainer = () => {
     setIsFetchingData(false);
   };
 
-  const goToFlight = (slug, id) => {
-    navigate(`/flights/${slug}`, { state: { id } });
-  };
-
   const onSetFlights = (data) => {
     setFlightsCount(data.length);
-    setOffset(offset + 4);
+    setOffset((prevOffset) => prevOffset + 4);
     setFlights(data.slice(0, offset + 4));
     setIsLoading(false);
     setIsFetchingData(false);
@@ -122,7 +98,9 @@ const SearchFlightsContainer = () => {
               Sort by
               <select
                 className="text-sm text-blackishGreen font-bold"
-                onChange={(e) => onSortFlights(flights,e.target.value,setFlights)}
+                onChange={(e) =>
+                  onSortFlights(flights, e.target.value, setFlights)
+                }
               >
                 <option value="recommended">Recommended</option>
                 <option value="newest">Newest</option>
@@ -130,101 +108,7 @@ const SearchFlightsContainer = () => {
               </select>
             </h5>
           </div>
-          <div className="mt-6 w-full h-full">
-            {flights.map(
-              ({
-                id,
-                airlineLogo,
-                rating,
-                price,
-                alt,
-                duration,
-                abbreviation,
-                departureTime,
-                arrivalTime,
-                slug,
-                fromArrive,
-              }) => (
-                <div
-                  key={id}
-                  className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
-                >
-                  <div className="flex w-full items-start justify-center xl:justify-start flex-wrap xl:flex-nowrap xl:space-x-6">
-                    <div>
-                      {isFetchingData ? (
-                        <Skeleton className="h-[14rem] w-[14rem]" />
-                      ) : (
-                        <img
-                          className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
-                          src={airlineLogo}
-                          alt={alt}
-                        />
-                      )}
-                    </div>
-                    <div className="flex flex-col items-start justify-start w-full h-full">
-                      <div className="flex items-start justify-start flex-wrap xl:flex-nowrap space-x-6 w-full sm:justify-between">
-                        <div>
-                          <div className="flex items-start justify-start flex-wrap xl:flex-nowrap space-x-6">
-                            <div>
-                              <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
-                                {rating}
-                              </span>
-                            </div>
-                            <div className="flex flex-col items-start justify-start space-y-3 pb-3">
-                              <label className="mt-4 sl:mt-0 flex items-start justify-start">
-                                <div>
-                                  <h4 className="text-base text-blackishGreen font-bold">
-                                    {departureTime?.slice(0, -3)} -{" "}
-                                    {arrivalTime?.slice(0, -3)}
-                                  </h4>
-                                  <h3 className="text-base text-blackishGreen/25 font-bold">
-                                    {fromArrive}
-                                  </h3>
-                                </div>
-                                <span className="mx-4 xl:mx-10 text-sm text-blackishGreen/80 font-semibold">
-                                  non stop
-                                </span>
-                                <div>
-                                  <h4 className="mx-4 xl:mx-10 text-base text-blackishGreen/80 font-semibold">
-                                    {duration}
-                                  </h4>
-                                  <h3 className="mx-4 xl:mx-10 text-sm text-blackishGreen/40">
-                                    {abbreviation}
-                                  </h3>
-                                </div>
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <div>
-                          <h4 className="text-xs text-blackishGreen/75">
-                            started from
-                          </h4>
-                          <h3 className="text-2xl font-bold text-red-300">
-                            {price} $
-                          </h3>
-                        </div>
-                      </div>
-                      <div className="border-t border-t-blackishGreen/25 w-full pt-4 flex items-start justify-start">
-                        <button
-                          className="p-4 border border-mintGreen rounded-md hover:bg-mintGreen transition-all"
-                          onClick={(e) => onFavoriteHandler(e.target, id)}
-                        >
-                          <AiOutlineHeart />
-                        </button>
-                        <button
-                          className="flex items-center justify-center w-full h-full ml-4 bg-mintGreen text-sm rounded-sm font-semibold text-blackishGreen hover:text-white transition-colors py-4"
-                          onClick={() => goToFlight(slug, id)}
-                        >
-                          View Details
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
+          <FlightItem flights={flights} />
           <button
             className={cn(
               "text-white bg-blackishGreen hover:bg-blackishGreen/90 text-center w-full py-4 transition-colors",

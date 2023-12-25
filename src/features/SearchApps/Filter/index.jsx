@@ -10,17 +10,14 @@ import { useRequestService } from "../../../services";
 import { notifyError } from "../../../utils/notifications";
 import { useApps } from "../../../store";
 import { useDebounce } from "../../../hooks";
+import { updateSearchParams } from "../../../utils";
 
 const Filter = () => {
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
-  const [rating, setRating] = useState(0);
-  const [selectedAdvangages, setSelectedAdvangages] = useState([]);
   const [searchParams, setSearchParams] = useState({
-    minPrice,
-    maxPrice,
-    selectedAdvangages,
-    rating,
+    minPrice: 0,
+    maxPrice: 500,
+    selectedAdvantages: [],
+    rating: 1,
   });
   const debounceValue = useDebounce(searchParams, 300);
   const [advantages, setAdvantages] = useState([]);
@@ -34,29 +31,26 @@ const Filter = () => {
   }, []);
 
   useEffect(() => {
-    setSearchParams((prevParams) => ({
-      ...prevParams,
-      minPrice,
-      maxPrice,
-      selectedAdvangages,
-      rating,
-    }));
-  }, [minPrice, maxPrice, selectedAdvangages, rating]);
-
-  useEffect(() => {
     const queryString = new URLSearchParams(searchParams).toString();
-    filterApps(queryString)
-      .then((res) => setApps(res))
-      .catch((err) => notifyError(err));
-    // eslint-disable-next-line
+    filterApps(queryString).then(onSetApps).catch(onError);
   }, [debounceValue]);
+
+  const onSetApps = (data) => {
+    setApps(data);
+  };
+
+  const onError = (err) => {
+    notifyError(err);
+  };
 
   const setAdvantage = (e) => {
     if (e.target.checked) {
-      setSelectedAdvangages([...selectedAdvangages, e.target.value]);
+      setSearchParams((el) => [...el.selectedAdvantages, e.target.value]);
     } else {
-      setSelectedAdvangages(
-        selectedAdvangages.filter((advantage) => advantage !== e.target.value)
+      setSearchParams((el) =>
+        el.selectedAdvantages.filter(
+          (advantage) => advantage !== e.target.value
+        )
       );
     }
   };
@@ -77,8 +71,14 @@ const Filter = () => {
                     <input
                       className="mt-2 p-3"
                       type="number"
-                      value={minPrice}
-                      onChange={(e) => setMinPrice(+e.target.value)}
+                      value={searchParams.minPrice}
+                      onChange={(e) =>
+                        updateSearchParams(
+                          searchParams.minPrice,
+                          +e.target.value,
+                          setSearchParams
+                        )
+                      }
                       min="0"
                       max="1000"
                     />
@@ -87,8 +87,14 @@ const Filter = () => {
                     <input
                       className="mt-2 p-3"
                       type="number"
-                      value={maxPrice}
-                      onChange={(e) => setMaxPrice(+e.target.value)}
+                      value={searchParams.maxPrice}
+                      onChange={(e) =>
+                        updateSearchParams(
+                          searchParams.maxPrice,
+                          +e.target.value,
+                          setSearchParams
+                        )
+                      }
                       min="0"
                       max="1000"
                     />
@@ -106,25 +112,33 @@ const Filter = () => {
             <AccordionContent className="space-x-4 mt-6">
               <button
                 className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                onClick={() => setRating(1)}
+                onClick={() =>
+                  updateSearchParams(searchParams.rating, 1, setSearchParams)
+                }
               >
                 1+
               </button>
               <button
                 className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                onClick={() => setRating(2)}
+                onClick={() =>
+                  updateSearchParams(searchParams.rating, 2, setSearchParams)
+                }
               >
                 2+
               </button>
               <button
                 className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                onClick={() => setRating(3)}
+                onClick={() =>
+                  updateSearchParams(searchParams.rating, 3, setSearchParams)
+                }
               >
                 3+
               </button>
               <button
                 className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-                onClick={() => setRating(4)}
+                onClick={() =>
+                  updateSearchParams(searchParams.rating, 4, setSearchParams)
+                }
               >
                 4+
               </button>

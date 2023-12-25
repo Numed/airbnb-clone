@@ -10,23 +10,18 @@ import { useRequestService } from "../../../services";
 import { notifyError } from "../../../utils/notifications";
 import { useFlights } from "../../../store";
 import { useDebounce } from "../../../hooks";
+import { updateSearchParams } from "../../../utils";
 
 const Filter = () => {
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(100);
-  const [startTime, setStartTime] = useState("12:15");
-  const [endTime, setEndTime] = useState("02:30");
-  const [rating, setRating] = useState(0);
-  const [airlines, setAirlines] = useState([]);
-  const [selectedAirlines, setSelectedAirlines] = useState([]);
   const [searchParams, setSearchParams] = useState({
-    minPrice,
-    maxPrice,
-    startTime,
-    endTime,
-    rating,
-    selectedAirlines,
+    minPrice: 0,
+    maxPrice: 1000,
+    startTime: "12:15",
+    endTime: "02:30",
+    rating: 0,
+    selectedAirlines: [],
   });
+  const [airlines, setAirlines] = useState([]);
   const debounceValue = useDebounce(searchParams, 300);
   const { filterFlights, getAirlines } = useRequestService();
   const { setFlights } = useFlights();
@@ -38,33 +33,27 @@ const Filter = () => {
   }, []);
 
   useEffect(() => {
-    setSearchParams((prevParams) => ({
-      ...prevParams,
-      minPrice,
-      maxPrice,
-      startTime,
-      endTime,
-      rating,
-      airlines,
-    }));
-  }, [minPrice, maxPrice, startTime, endTime, rating, airlines]);
-
-  useEffect(() => {
     const queryString = new URLSearchParams(searchParams).toString();
-    filterFlights(queryString)
-      .then((res) => setFlights(res))
-      .catch((err) => notifyError(err));
-    // eslint-disable-next-line
+    filterFlights(queryString).then(onSetFlights).catch(onError);
   }, [debounceValue]);
 
-  const setAirline = (e) => {
-    if (e.target.checked) {
-      setSelectedAirlines([...selectedAirlines, e.target.value]);
-    } else {
-      setSelectedAirlines(
-        selectedAirlines.filter((airline) => airline !== e.target.value)
-      );
-    }
+  const onSetFlights = (data) => {
+    setFlights(data);
+  };
+
+  const onError = (err) => {
+    notifyError(err);
+  };
+
+  const setSelectedAirline = (e) => {
+    setSearchParams((prevParams) => ({
+      ...prevParams,
+      selectedAirlines: e.target.checked
+        ? [...prevParams.selectedAirlines, e.target.value]
+        : prevParams.selectedAirlines.filter(
+            (airline) => airline !== e.target.value
+          ),
+    }));
   };
 
   return (
@@ -84,8 +73,14 @@ const Filter = () => {
                     className="p-3 mt-2"
                     type="number"
                     name="minPrice"
-                    value={minPrice}
-                    onChange={(e) => setMinPrice(+e.target.value)}
+                    value={searchParams.minPrice}
+                    onChange={(e) =>
+                      updateSearchParams(
+                        searchParams.minPrice,
+                        +e.target.value,
+                        setSearchParams
+                      )
+                    }
                     min="0"
                     max="1000"
                   />
@@ -96,8 +91,14 @@ const Filter = () => {
                     className="p-3 mt-2"
                     type="number"
                     name="maxPrice"
-                    value={maxPrice}
-                    onChange={(e) => setMaxPrice(+e.target.value)}
+                    value={searchParams.maxPrice}
+                    onChange={(e) =>
+                      updateSearchParams(
+                        searchParams.minPrice,
+                        +e.target.value,
+                        setSearchParams
+                      )
+                    }
                     min="0"
                     max="1000"
                   />
@@ -118,8 +119,14 @@ const Filter = () => {
                   className="mt-2 p-3"
                   name="startTime"
                   type="time"
-                  value={startTime}
-                  onChange={(e) => setStartTime(e.target.value)}
+                  value={searchParams.startTime}
+                  onChange={(e) =>
+                    updateSearchParams(
+                      searchParams.startTime,
+                      e.target.value,
+                      setSearchParams
+                    )
+                  }
                 />
               </label>
               <label className="flex flex-col items-start justify-start">
@@ -128,8 +135,14 @@ const Filter = () => {
                   className="mt-2 p-3"
                   name="endDeparture"
                   type="time"
-                  value={endTime}
-                  onChange={(e) => setEndTime(e.target.value)}
+                  value={searchParams.endTime}
+                  onChange={(e) =>
+                    updateSearchParams(
+                      searchParams.endTime,
+                      e.target.value,
+                      setSearchParams
+                    )
+                  }
                 />
               </label>
             </div>
@@ -143,27 +156,35 @@ const Filter = () => {
             <button
               className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
-              onClick={() => setRating(1)}
+              onClick={() =>
+                updateSearchParams(searchParams.rating, 1, setSearchParams)
+              }
             >
               1+
             </button>
             <button
               className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
-              onClick={() => setRating(2)}
+              onClick={() =>
+                updateSearchParams(searchParams.rating, 2, setSearchParams)
+              }
             >
               2+
             </button>
             <button
               className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
-              onClick={() => setRating(3)}
+              onClick={() =>
+                updateSearchParams(searchParams.rating, 3, setSearchParams)
+              }
             >
               3+
             </button>
             <button
               className="w-1/5 sm:w-10 xl:w-1/5 font-medium text-sm text-blackishGreen border border-mintGreen py-2 px-4 hover:bg-mintGreen hover:text-white transition-all"
               name="rating"
-              onClick={() => setRating(4)}
+              onClick={() =>
+                updateSearchParams(searchParams.rating, 4, setSearchParams)
+              }
             >
               4+
             </button>
@@ -181,7 +202,7 @@ const Filter = () => {
                   type="checkbox"
                   className="mr-2"
                   value={airline}
-                  onChange={(e) => setAirline(e)}
+                  onChange={(e) => setSelectedAirline(e)}
                 />
                 {airline}
               </label>

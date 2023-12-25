@@ -17,6 +17,7 @@ const NavPopup = () => {
   const onLogout = (e) => {
     e.preventDefault();
     setUser(null);
+    localStorage.removeItem("token");
     navigate("/");
   };
 

@@ -22,6 +22,9 @@ import Favorite from "../../pages/Favorite";
 import Details from "../../pages/Details";
 
 const App = () => {
+  //* Пофіксити фільтрацію (корс)
+  //* Пофіксити ререндинг
+  //* Передавати у flight/filter?departureTime у форматі UTC
   return (
     <Router>
       <Suspense fallback={<Loader />}>

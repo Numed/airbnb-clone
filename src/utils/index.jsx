@@ -11,3 +11,10 @@ export const convertNameFormat = (name) => {
   const lastName = nameArr[nameArr.length - 1].slice("0", "1");
   return `${firstName} ${lastName[0]}.`;
 };
+
+export const updateSearchParams = (key, value, setSearchParams) => {
+  setSearchParams((prevParams) => ({
+    ...prevParams,
+    [key]: value,
+  }));
+};

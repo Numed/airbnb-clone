@@ -1,19 +1,30 @@
 import { Form, Field, Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../../img/logo/logo.png";
 import signInPicture from "../../img/sign-in/img.png";
 import { SignupSchema } from "./validationSchema";
 import { useRequestService } from "../../services";
 import { notifyError } from "../../utils/notifications";
+import { useActiveUser } from "../../store";
 
 const SignupContainer = () => {
   const { signUp } = useRequestService();
+  const { setUser } = useActiveUser();
+  const navigate = useNavigate();
+
   const onSubmit = (data) => {
     signUp(data)
-      .then((el) => console.log(el))
+      .then(onSuccsess)
       .catch((err) => notifyError(err));
   };
+
+  const onSuccsess = (data) => {
+    setUser(data);
+    localStorage.setItem("token", data.token);
+    navigate("/");
+  };
+
   return (
     <section className="mt-10 lg:mt-0 flex items-center justify-center py-4">
       <img

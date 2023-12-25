@@ -44,3 +44,17 @@ export const useApps = create((set) => ({
     set({ apps: state });
   },
 }));
+
+export const useFetchingData = create((set) => ({
+  isFetchingData: false,
+  setIsFetchingData: (state) => {
+    set({ isFetchingData: state });
+  },
+}));
+
+export const useIsLoading = create((set) => ({
+  isLoading: false,
+  setIsLoading: (state) => {
+    set({ isLoading: state });
+  },
+}));
