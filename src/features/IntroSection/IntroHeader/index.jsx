@@ -14,6 +14,12 @@ const IntroHeader = () => {
   const { isOpenMenu, setIsOpenMenu } = useOpenMenu();
   const { isOpenSubmodal, setOpenedSubmodal } = useOpenSubmodal();
 
+  const onLogout = (e) => {
+    e.preventDefault();
+    setUser(null);
+    localStorage.removeItem("token");
+  };
+
   return (
     <header className="w-full flex justify-between items-center p-8">
       <div className="hidden sm:flex text-sm items-center space-x-8">
@@ -72,7 +78,7 @@ const IntroHeader = () => {
                 <div className="space-y-3 bg-white absolute z-10 top-12 left-0 p-4 border border-blackishGreen/40 rounded-lg">
                   <button
                     className="flex items-center justify-center"
-                    onClick={() => setUser(null)}
+                    onClick={(e) => onLogout(e)}
                   >
                     <IoLogOut className="w-4 h-4 scale-105 mr-2" /> Logout
                   </button>

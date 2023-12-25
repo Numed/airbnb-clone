@@ -18,8 +18,8 @@ const SignUpContainer = () => {
    const validData = {
       username: data.firstName + " " + data.lastName,
       email: data.email,
-      phone: data.phone,
       password: data.password,
+      phone: data.phone,
     };
 
     signUp(validData)

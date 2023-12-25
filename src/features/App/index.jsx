@@ -4,6 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useEffect } from "react";
 import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
@@ -25,10 +26,13 @@ import { useActiveUser } from "../../store";
 
 const App = () => {
   const { setUser } = useActiveUser();
-  if (localStorage.getItem("token")) {
-    const decoded = jwtDecode(localStorage.getItem("token"));
-    setUser(decoded);
-  }
+
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
+      const decoded = jwtDecode(localStorage.getItem("token"));
+      setUser(decoded);
+    }
+  }, []);
 
   return (
     <Router>
