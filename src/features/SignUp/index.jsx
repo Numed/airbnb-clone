@@ -14,12 +14,12 @@ const SignUpContainer = () => {
   const { setUser } = useActiveUser();
   const navigate = useNavigate();
 
-  const handleSubmit = (data) => {
-   const validData = {
-      username: data.firstName + " " + data.lastName,
-      email: data.email,
-      password: data.password,
-      phone: data.phone,
+  const handleSubmit = ({ firstName, lastName, email, phone, password }) => {
+    const validData = {
+      username: firstName + " " + lastName,
+      email,
+      password,
+      phone,
     };
 
     signUp(validData)
@@ -33,7 +33,7 @@ const SignUpContainer = () => {
     notifySuccess(data?.message);
     navigate("/");
   };
-  
+
   return (
     <section className="mt-10 lg:mt-0 flex items-center justify-center py-4">
       <img
@@ -66,7 +66,7 @@ const SignUpContainer = () => {
               }}
               onSubmit={(values, { resetForm }) => {
                 handleSubmit(values);
-                resetForm();
+                // resetForm();
               }}
               validationSchema={SignupSchema}
             >
