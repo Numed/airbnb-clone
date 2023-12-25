@@ -121,7 +121,7 @@ const SingleAppContainer = () => {
         </div>
         <section className="border-t border-t-blackishGreen/25 w-full h-full">
           <div className="flex flex-col items-center justify-start w-full h-auto border-b border-b-blackishGreen/25">
-            {app?.reviews?.map(({ photo, name, rating, review }, i) => (
+            {app?.reviews?.map(({ photo, name, rating, comment }, i) => (
               <div
                 key={i}
                 className="flex items-center justify-start flex-col sm:flex-row border-t border-t-blackishGreen/25 py-6"
@@ -138,7 +138,7 @@ const SingleAppContainer = () => {
                       <span className="mx-2">|</span> {name}
                     </span>
                   </h3>
-                  <p className="text-sm w-full h-auto">{review}</p>
+                  <p className="text-sm w-full h-auto">{comment}</p>
                 </div>
               </div>
             ))}

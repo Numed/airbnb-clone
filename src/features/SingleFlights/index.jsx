@@ -86,7 +86,7 @@ const SingleFlightsContainer = () => {
             <div className="flex items-center justify-center flex-col space-y-4 lg:flex-row lg:space-x-[5rem]">
               <div className="flex items-center justify-center">
                 <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
-                  {flight?.departureTime}
+                  {flight?.departureTime?.slice(11, 16)}
                 </h3>
                 <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
                   {flight?.fromArrive}
@@ -99,7 +99,7 @@ const SingleFlightsContainer = () => {
               </div>
               <div className="flex items-center justify-center">
                 <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
-                  {flight?.arrivalTime}
+                  {flight?.arrivalTime?.slice(11, 16)}
                 </h3>
                 <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
                   {flight?.toArrive}
