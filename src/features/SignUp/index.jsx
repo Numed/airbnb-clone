@@ -15,7 +15,6 @@ const SignUpContainer = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (data) => {
-    console.log(data);
     data = {
       ...data,
       username: data.firstName + " " + data.lastName,
@@ -64,7 +63,6 @@ const SignUpContainer = () => {
                 confirmPassword: "",
               }}
               onSubmit={(values, { resetForm }) => {
-                console.log(values);
                 handleSubmit(values);
                 resetForm();
               }}
