@@ -85,7 +85,7 @@ const DetailsContent = () => {
                         <div className="flex items-center flex-wrap sm:flex-nowrap justify-center sm:justify-between sm:space-x-12 mt-10">
                           <div className="flex items-center justify-center">
                             <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
-                              {detailsInfo?.departureTime}
+                              {detailsInfo?.departureTime?.slice(11,16)}
                             </h3>
                             <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
                               {detailsInfo?.fromArrive}
@@ -102,7 +102,7 @@ const DetailsContent = () => {
                           </div>
                           <div className="flex items-center justify-center">
                             <h3 className="text-xl sm:text-2xl text-blackishGreen font-semibold">
-                              {detailsInfo?.arrivalTime}
+                              {detailsInfo?.arrivalTime?.slice(11,16)}
                             </h3>
                             <h4 className="text-base font-medium text-blackishGreen/60 ml-4">
                               {detailsInfo?.toArrive}

@@ -27,7 +27,11 @@ const SingleFlightsContainer = () => {
     <main className="flex items-center justify-center flex-col w-full h-full px-12 lg:px-[6.5rem]">
       <section className="w-full h-full">
         <SingleFlightHeader flight={flight} />
-        <img className="w-full h-auto" src={flight?.photo} alt={flight?.alt} />
+        <img
+          className="w-full h-1/2 rounded-xl object-cover"
+          src={flight?.photo}
+          alt={flight?.alt}
+        />
         <div className="bg-mintGreen p-4 rounded-md mt-10">
           <h3 className="text-xl sm:text-2xl text-blackishGreen font-bold">
             Emirates Airlines Policies
