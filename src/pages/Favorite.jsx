@@ -29,8 +29,9 @@ const Favorite = () => {
   }, [user]);
 
   const onSetUser = (data) => {
+    console.log(data);
     setFlights(data.favoritesFlights);
-    setApps(data.favoriteHotels);
+    setApps(data.favoritesHotels);
     setIsLoading(false);
   };
 
@@ -171,15 +172,19 @@ const Favorite = () => {
             </div>
           ) : (
             <div className="mt-6 w-full h-full grid grid-cols-1 gap-5 sm:grid-cols-2">
-              {apps.length === 0 ? (
+              {apps?.length === 0 ? (
                 <div className="w-full h-full">
                   <h3 className="text-blackishGreen/50 text-xl">
-                    No Apartments added to favorites
+                    {isLoading ? (
+                      <Skeleton className="h-[14rem] w-[14rem]" />
+                    ) : (
+                      "No Apps added to favorites"
+                    )}
                   </h3>
                 </div>
               ) : (
                 <>
-                  {apps.map(({ id, img, rating, location, title, alt }) => (
+                  {apps?.map(({ id, photo, rating, location, title, alt }) => (
                     <div
                       key={id}
                       className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
@@ -187,8 +192,8 @@ const Favorite = () => {
                       <div className="flex w-full items-start justify-center sm:space-x-6 flex-wrap lg:no-wrap">
                         <div>
                           <img
-                            className="w-full h-full mr-8 rounded-xl"
-                            src={img}
+                            className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
+                            src={photo}
                             alt={alt}
                           />
                         </div>

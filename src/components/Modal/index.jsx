@@ -48,6 +48,7 @@ export const ModalProfile = ({ initial, type }) => {
   };
 
   const onSubmitProfile = (values) => {
+    console.log(1, values);
     const updateFunction = typeFunctionMap[type] || typeFunctionMap.default;
 
     updateFunction(values)

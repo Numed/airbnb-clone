@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoBed, IoPencil } from "react-icons/io5";
 import { RiEditBoxFill } from "react-icons/ri";
 import { MdFlight } from "react-icons/md";
@@ -8,19 +8,34 @@ import { BsFillCupFill } from "react-icons/bs";
 
 import ava from "../../img/profile/ava.png";
 import { cn } from "../../utils";
-import { useActiveUser, useOpenModal } from "../../store";
+import { useOpenModal, useActiveUser } from "../../store";
 import { appsCards, flightCards } from "../../features/Contants";
 import { ModalProfile } from "../../components/Modal";
+import { useRequestService } from "../../services";
+import { notifyError } from "../../utils/notifications";
 
 const ProfileContainer = () => {
-  const { user } = useActiveUser();
+  const [activeUser, setActiveUser] = useState({});
   const { isOpenModal, setOpenedModal } = useOpenModal();
   const [activeSection, setActiveSection] = useState("Account");
   const [historySection, setHistorySection] = useState("Flights");
   const [type, setType] = useState("");
+  const [initial, setInitial] = useState({});
+  const { getUser } = useRequestService();
+  const { user } = useActiveUser();
 
-  const handleModal = (type) => {
+  useEffect(() => {
+    if (user?.id?.length > 0) {
+      const id = user?.id;
+      getUser(id)
+        .then((data) => setActiveUser(data))
+        .catch((er) => notifyError(er.message));
+    }
+  }, [user]);
+
+  const handleModal = (type, initial) => {
     setOpenedModal(true);
+    setInitial(initial);
     setType(type);
   };
 
@@ -35,9 +50,11 @@ const ProfileContainer = () => {
           </button>
           <div className="flex flex-col items-center justify-center">
             <h3 className="font-bold mb-2 text-2xl text-blackishGreen">
-              {user?.username}
+              {activeUser?.username}
             </h3>
-            <h4 className="text-base text-blackishGreen/75">{user?.email}</h4>
+            <h4 className="text-base text-blackishGreen/75">
+              {activeUser?.email}
+            </h4>
           </div>
         </div>
         <div className="mt-8 w-full h-auto flex items-center justify-center">
@@ -71,12 +88,12 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Name</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      {user?.username}
+                      {activeUser?.username}
                     </h3>
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() => handleModal("text")}
+                    onClick={() => handleModal("text", activeUser?.username)}
                   >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
@@ -85,12 +102,12 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Email</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      {user?.email}
+                      {activeUser?.email}
                     </h3>
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() => handleModal("email")}
+                    onClick={() => handleModal("email", activeUser?.email)}
                   >
                     <RiEditBoxFill className="mr-1" />
                     Change
@@ -119,7 +136,7 @@ const ProfileContainer = () => {
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() => handleModal("phone")}
+                    onClick={() => handleModal("phone", user?.phone)}
                   >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
@@ -128,12 +145,14 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Address</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      Not specified
+                      {user?.address !== undefined
+                        ? user.address
+                        : "Not specified"}
                     </h3>
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() => handleModal("address")}
+                    onClick={() => handleModal("address", user?.address)}
                   >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
@@ -144,12 +163,14 @@ const ProfileContainer = () => {
                       Date of birth
                     </h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      Not specified
+                      {user?.birthday !== undefined
+                        ? user.birthday
+                        : "Not specified"}
                     </h3>
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() => handleModal("birthday")}
+                    onClick={() => handleModal("birthday", user?.birthday)}
                   >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
@@ -328,7 +349,7 @@ const ProfileContainer = () => {
             </div>
           )}
         </div>
-        {isOpenModal && <ModalProfile type={type} />}
+        {isOpenModal && <ModalProfile type={type} initial={initial} />}
       </div>
     </section>
   );
