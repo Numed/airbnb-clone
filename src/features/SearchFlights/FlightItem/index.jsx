@@ -9,7 +9,7 @@ import { notifyError } from "../../../utils/notifications";
 const FlightItem = ({ flights }) => {
   const navigate = useNavigate();
   const { user } = useActiveUser();
-  const { addFavoriteFlight, deleteFavorite } = useRequestService();
+  const { addFavoriteFlight, deleteFavoriteFlight } = useRequestService();
   const { isFetchingData, setIsFetchingData } = useFetchingData();
   const { setIsLoading } = useIsLoading();
 
@@ -20,17 +20,18 @@ const FlightItem = ({ flights }) => {
     }
     const formatedData = {
       flightId: flightId,
-      id: user.id,
+      userId: user.id,
     };
 
     if (e.classList.contains("bg-mintGreen")) {
-      return deleteFavorite(formatedData)
+      return deleteFavoriteFlight(formatedData.userId, formatedData.flightId)
         .then(e.classList.remove("bg-mintGreen"))
         .catch(onError);
+    } else {
+      return addFavoriteFlight(formatedData)
+        .then(e.classList.add("bg-mintGreen"))
+        .catch(onError);
     }
-    addFavoriteFlight(formatedData)
-      .then(e.classList.add("bg-mintGreen"))
-      .catch(onError);
   };
 
   const goToFlight = (slug, id) => {

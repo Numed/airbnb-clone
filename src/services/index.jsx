@@ -128,9 +128,17 @@ export const useRequestService = () => {
     return response;
   };
 
-  const deleteFavorite = async (id) => {
+  const deleteFavoriteHotel = async (userId, id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/favorites/${id}`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/${userId}/favoriteHotel/${id}`,
+      "DELETE"
+    );
+    return response;
+  };
+
+  const deleteFavoriteFlight = async (userId, id) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/${userId}/favoriteFlight/${id}`,
       "DELETE"
     );
     return response;
@@ -242,7 +250,8 @@ export const useRequestService = () => {
     updateFlight,
     addFavoriteHotel,
     addFavoriteFlight,
-    deleteFavorite,
+    deleteFavoriteHotel,
+    deleteFavoriteFlight,
     addReview,
     updateEmail,
     updatePassword,

@@ -22,11 +22,11 @@ const AppItem = ({ apps }) => {
 
     const formatedData = {
       hotelId: hotelId,
-      id: user.id,
+      userId: user.id,
     };
 
     if (e.classList.contains("bg-mintGreen")) {
-      return deleteFavorite(formatedData)
+      return deleteFavorite(formatedData.userId, formatedData.hotelId)
         .then(e.classList.remove("bg-mintGreen"))
         .catch(onError);
     }
