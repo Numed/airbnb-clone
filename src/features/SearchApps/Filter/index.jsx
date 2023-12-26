@@ -15,7 +15,7 @@ const Filter = () => {
   const [searchParams, setSearchParams] = useState({
     minPrice: 0,
     maxPrice: 500,
-    selectedAdvantages: [],
+    advantages: [],
     rating: 1,
   });
   const debounceValue = useDebounce(searchParams, 300);
@@ -45,15 +45,14 @@ const Filter = () => {
   };
 
   const setAdvantage = (e) => {
-    if (e.target.checked) {
-      setSearchParams((el) => [...el.selectedAdvantages, e.target.value]);
-    } else {
-      setSearchParams((el) =>
-        el.selectedAdvantages.filter(
-          (advantage) => advantage !== e.target.value
-        )
-      );
-    }
+    setSearchParams((prevParams) => ({
+      ...prevParams,
+      advantages: e.target.checked
+        ? [...prevParams.advantages, e.target.value]
+        : prevParams.advantages.filter(
+            (advantag) => advantag !== e.target.value
+          ),
+    }));
   };
 
   const updateSearchParams = (key, value) => {

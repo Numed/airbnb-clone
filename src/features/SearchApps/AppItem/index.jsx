@@ -11,7 +11,7 @@ import { notifyError } from "../../../utils/notifications";
 const AppItem = ({ apps }) => {
   const navigate = useNavigate();
   const { user } = useActiveUser();
-  const { addFavoriteApps, deleteFavorite } = useRequestService();
+  const { addFavoriteHotel, deleteFavoriteHotel } = useRequestService();
   const { isFetchingData } = useFetchingData();
 
   const onFavoriteHandler = (e, hotelId) => {
@@ -26,11 +26,11 @@ const AppItem = ({ apps }) => {
     };
 
     if (e.classList.contains("bg-mintGreen")) {
-      return deleteFavorite(formatedData.userId, formatedData.hotelId)
+      return deleteFavoriteHotel(formatedData.userId, formatedData.hotelId)
         .then(e.classList.remove("bg-mintGreen"))
         .catch(onError);
     }
-    addFavoriteApps(formatedData)
+    addFavoriteHotel(formatedData)
       .then(e.classList.add("bg-mintGreen"))
       .catch(onError);
   };
@@ -76,7 +76,7 @@ const AppItem = ({ apps }) => {
               <div className="flex items-start justify-start flex-col w-full">
                 <div className="flex items-start justify-start w-full h-full flex-wrap xl:flex-nowrap">
                   <div className="w-full flex items-start justify-start space-x-6">
-                    <div>
+                    <div className="w-full h-full">
                       <div className="w-full h-full">
                         <h3 className="text-xl font-bold text-blackishGreen mb-4 max-w-[19rem]">
                           {name}

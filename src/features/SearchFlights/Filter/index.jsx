@@ -55,7 +55,7 @@ const Filter = () => {
   const setSelectedAirline = (e) => {
     setSearchParams((prevParams) => ({
       ...prevParams,
-      selectedAirlines: e.target.checked
+      airLine: e.target.checked
         ? [...prevParams.selectedAirlines, e.target.value]
         : prevParams.selectedAirlines.filter(
             (airline) => airline !== e.target.value

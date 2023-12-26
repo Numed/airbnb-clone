@@ -24,7 +24,7 @@ const IntroReviews = () => {
               key={id}
             >
               <h3 className="text-2xl text-blackishGreen font-bold">
-                `{title}`
+                '{title}'
               </h3>
               <h4 className="text-sm text-blackishGreen/50 my-4">
                 {description.length > 100

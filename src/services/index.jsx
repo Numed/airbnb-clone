@@ -21,6 +21,13 @@ export const useRequestService = () => {
     return response;
   };
 
+  const getUser = async (id) => {
+    const response = await request(
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/${id}`
+    );
+    return response;
+  };
+
   const updateApps = async (data, id) => {
     const response = await request(
       `${process.env.REACT_APP_FETCH_TEMPLATE}/hotels/${id}`,
@@ -241,6 +248,7 @@ export const useRequestService = () => {
     getAllApps,
     signIn,
     signUp,
+    getUser,
     addApps,
     deleteApps,
     getAllFlights,

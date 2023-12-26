@@ -11,6 +11,9 @@ const SingleAppContainer = () => {
   const id = location.state.id;
   const { getAppsByID } = useRequestService();
   const [app, setApp] = useState({});
+  let median = Math.ceil(app?.advantages?.length / 2);
+  let firstHalf = app?.advantages?.slice(0, median);
+  let secondHalf = app?.advantages?.slice(median);
 
   useEffect(() => {
     getAppsByID(id)
@@ -78,7 +81,7 @@ const SingleAppContainer = () => {
           <h3 className="text-xl text-blackishGreen font-bold">Amenities</h3>
           <div className="flex items-start justify-between w-full flex-col sm:flex-row sm:w-1/2 mt-8 space-y-7">
             <ul className="space-y-7 list-disc">
-              {app?.advantages?.map((advantage, i) => (
+              {firstHalf?.map((advantage, i) => (
                 <li
                   key={i}
                   className="text-base text-blackishGreen font-medium"
@@ -87,23 +90,18 @@ const SingleAppContainer = () => {
                 </li>
               ))}
             </ul>
-            <ul className="space-y-7 list-disc">
-              <li className="text-base text-blackishGreen font-medium">
-                Fitness center
-              </li>
-              <li className="text-base text-blackishGreen font-medium">
-                Bar/Lounge
-              </li>
-              <li className="text-base text-blackishGreen font-medium">
-                Free Wi-Fi
-              </li>
-              <li className="text-base text-blackishGreen font-medium">
-                Tea/coffee machine
-              </li>
-              <li className="text-base text-blackishGreen font-medium">
-                +24 more
-              </li>
-            </ul>
+            {secondHalf?.length > 0 && (
+              <ul className="space-y-7 list-disc">
+                {secondHalf?.map((advantage, i) => (
+                  <li
+                    key={i}
+                    className="text-base text-blackishGreen font-medium"
+                  >
+                    {advantage}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </section>
