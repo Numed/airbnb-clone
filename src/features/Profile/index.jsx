@@ -28,7 +28,7 @@ const ProfileContainer = () => {
     <section className="p-8 xl:p-[6.5rem]">
       <div className="w-full h-[22rem] bg-profileBackground bg-center bg-no-repeat bg-cover rounded-xl"></div>
       <div className="flex flex-col items-center justify-center">
-        <div className="-translate-y-24 relative">
+        <div className="flex flex-col -translate-y-24 relative">
           <img src={ava} alt="Avatar Profile" />
           <button className="bg-red-400 w-10 h-10 rounded-full flex items-center justify-center absolute top-[55%] right-[10%]">
             <IoPencil size="1.5rem" />

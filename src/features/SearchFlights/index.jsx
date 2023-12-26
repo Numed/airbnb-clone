@@ -35,8 +35,16 @@ const SearchFlightsContainer = () => {
     getAllFlights().then(onSetFlights).catch(onError);
   };
 
-  const onFilter = (value) => {
-    const queryString = new URLSearchParams(value).toString();
+  const onFilter = (target, value) => {
+    const data = {
+      sort: value,
+    };
+    if (target.classList.contains("border-b-2 border-b-mintGreen")) {
+      target.classList.remove("border-b-2 border-b-mintGreen");
+    } else {
+      target.classList.add("border-b-2 border-b-mintGreen");
+    }
+    const queryString = new URLSearchParams(data).toString();
     filterFlights(queryString).then(onFiltered).catch(onError);
   };
 
@@ -69,16 +77,21 @@ const SearchFlightsContainer = () => {
           <div className="flex items-start justify-start flex-col sm:flex-row w-full bg-white space-y-6 sm:space-x-6 sm:space-y-0 rounded-xl">
             <button
               className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0"
-              onClick={(e) => onFilter(e.target.value)}
+              onClick={(e) =>
+                onFilter(e.target, e.target.textContent.split("$")[0])
+              }
             >
               Cheapest
               <span className="text-sm text-blackishGreen/40">
-                $99 | 2h 18m
+                ${flights.map((flight) => flight.price).sort()[0]} |{" "}
+                {flights.map((flight) => flight.duration).sort()[0]}
               </span>
             </button>
             <button
               className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4 border-gray-300 border-b sm:border-r sm:border-b-0"
-              onClick={(e) => onFilter(e.target.value)}
+              onClick={(e) =>
+                onFilter(e.target, e.target.textContent.split("$")[0])
+              }
             >
               Best
               <span className="text-sm text-blackishGreen/40">
@@ -87,11 +100,14 @@ const SearchFlightsContainer = () => {
             </button>
             <button
               className="w-full sm:w-1/3 flex flex-col items-start justify-start text-base text-blackishGreen font-semibold mb-2 bg-white px-6 py-4"
-              onClick={(e) => onFilter(e.target.value)}
+              onClick={(e) =>
+                onFilter(e.target, e.target.textContent.split("$")[0])
+              }
             >
               Quickest
               <span className="text-sm text-blackishGreen/40">
-                $99 | 1h 18m
+              ${flights.map((flight) => flight.price).sort()[0]} |{" "}
+                {flights.map((flight) => flight.duration).sort()[0]}
               </span>
             </button>
           </div>
