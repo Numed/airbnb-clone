@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const notifySuccess = () => {
-  return toast("Updated!", {
+export const notifySuccess = (message) => {
+  return toast(message.length > 0 ? message : "Updated", {
     position: "top-center",
     autoClose: 5000,
     hideProgressBar: false,

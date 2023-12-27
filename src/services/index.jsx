@@ -151,63 +151,63 @@ export const useRequestService = () => {
     return response;
   };
 
-  const updateEmail = async (data) => {
+  const updateEmail = async (data,id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/${id}`,
       "PATCH",
       JSON.stringify(data)
     );
     return response;
   };
 
-  const updatePassword = async (data) => {
+  const updatePassword = async (data,id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/${id}`,
       "PATCH",
       JSON.stringify(data)
     );
     return response;
   };
 
-  const updateName = async (data) => {
+  const updateName = async (data, id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/${id}`,
       "PATCH",
       JSON.stringify(data)
     );
     return response;
   };
 
-  const updateAvatar = async (data) => {
+  const updateAvatar = async (data,id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/${id}`,
       "PATCH",
       JSON.stringify(data)
     );
     return response;
   };
 
-  const updatePhone = async (data) => {
+  const updatePhone = async (data,id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/${id}`,
       "PATCH",
       JSON.stringify(data)
     );
     return response;
   };
 
-  const updateAddress = async (data) => {
+  const updateAddress = async (data,id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/${id}`,
       "PATCH",
       JSON.stringify(data)
     );
     return response;
   };
 
-  const updateDateOfBirth = async (data) => {
+  const updateDateOfBirth = async (data,id) => {
     const response = await request(
-      `${process.env.REACT_APP_FETCH_TEMPLATE}/user`,
+      `${process.env.REACT_APP_FETCH_TEMPLATE}/user/${id}`,
       "PATCH",
       JSON.stringify(data)
     );

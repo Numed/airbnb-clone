@@ -6,8 +6,9 @@ import { generateValidationSchema } from "./validationSchema";
 import { notifyError, notifySuccess } from "../../utils/notifications";
 import { useRequestService } from "../../services";
 import { getFieldLabel, getFieldType } from "../../utils/modal";
-import { useOpenModal } from "../../store";
+import { useOpenModal, useUserProfile } from "../../store";
 import { cn } from "../../utils";
+import { useActiveUser } from "../../store";
 
 const ModalContainer = ({ children }) => {
   const { setOpenedModal } = useOpenModal();
@@ -37,6 +38,9 @@ export const ModalProfile = ({ initial, type }) => {
     updateName,
     updatePhone,
   } = useRequestService();
+  const { user, setUser } = useActiveUser();
+  const { userProfile, setUserProfile } = useUserProfile();
+  const { setOpenedModal } = useOpenModal();
 
   const typeFunctionMap = {
     email: updateEmail,
@@ -48,12 +52,27 @@ export const ModalProfile = ({ initial, type }) => {
   };
 
   const onSubmitProfile = (values) => {
-    console.log(1, values);
     const updateFunction = typeFunctionMap[type] || typeFunctionMap.default;
 
-    updateFunction(values)
-      .then((el) => notifySuccess(el.message))
-      .catch(onError);
+    if (user.id !== null) {
+      updateFunction(values, user.id)
+        .then((el) => onUpdateProfile(el, values))
+        .catch(onError);
+    }
+  };
+
+  const onUpdateProfile = (data, values) => {
+    setOpenedModal(false);
+    if (values.birthday !== undefined) {
+      values.dataBirth = values.birthday;
+      delete values.birthday;
+    }
+    setUserProfile((user) => ({
+      ...user,
+      ...values,
+    }));
+    setUser(userProfile);
+    notifySuccess(data);
   };
 
   const onError = (error) => {

@@ -29,7 +29,6 @@ const Favorite = () => {
   }, [user]);
 
   const onSetUser = (data) => {
-    console.log(data);
     setFlights(data.favoritesFlights);
     setApps(data.favoritesHotels);
     setIsLoading(false);
@@ -41,6 +40,7 @@ const Favorite = () => {
       [isFlight ? "flightId" : "hotelId"]: id,
     };
 
+
     const deleteFavorite = isFlight
       ? deleteFavoriteFlight
       : deleteFavoriteHotel;
@@ -49,8 +49,19 @@ const Favorite = () => {
       formatedData.userId,
       formatedData[isFlight ? "flightId" : "hotelId"]
     )
-      .then(() => e.classList.remove("bg-mintGreen"))
+      .then(() =>
+        onRemoved(e, formatedData[isFlight ? "flightId" : "hotelId"], isFlight)
+      )
       .catch(onError);
+  };
+
+  const onRemoved = (e, data, isFlight) => {
+    e.classList.remove("bg-mintGreen");
+    if (isFlight) {
+      setFlights(flights.filter(el => el.id !== data));
+    } else {
+      setApps(apps.filter(el => el.id !== data));
+    }
   };
 
   const onError = (err) => {

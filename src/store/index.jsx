@@ -10,6 +10,15 @@ export const useActiveUser = create((set) => ({
   },
 }));
 
+export const useUserProfile = create((set) => ({
+  userProfile: null,
+  setUserProfile: (newUserProfile) => {
+    set(() => ({
+      userProfile: newUserProfile,
+    }));
+  },
+}));
+
 export const useOpenMenu = create((set) => ({
   isOpenMenu: false,
   setIsOpenMenu: (state) => {
