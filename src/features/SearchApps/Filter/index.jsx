@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from "../../../components/Accordion";
 import { useRequestService } from "../../../services";
-import { notifyError } from "../../../utils/notifications";
+import { notifyError, onError } from "../../../utils/notifications";
 import { useApps, useCountApps } from "../../../store";
 import { useDebounce } from "../../../hooks";
 
@@ -38,10 +38,6 @@ const Filter = () => {
   const onSetApps = (data) => {
     setApps(data);
     setCountApps(data?.length);
-  };
-
-  const onError = (err) => {
-    notifyError(err);
   };
 
   const setAdvantage = (e) => {

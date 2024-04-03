@@ -26,3 +26,7 @@ export const notifyError = (error) => {
     theme: "light",
   });
 };
+
+export const onError = (error) => {
+  return notifyError(error);
+}

@@ -6,7 +6,7 @@ import { ImLocation2 } from "react-icons/im";
 import { Skeleton } from "../../../components/Skeleton";
 import { useActiveUser, useFetchingData } from "../../../store";
 import { useRequestService } from "../../../services";
-import { notifyError } from "../../../utils/notifications";
+import { notifyError, onError } from "../../../utils/notifications";
 
 const AppItem = ({ apps }) => {
   const navigate = useNavigate();
@@ -33,10 +33,6 @@ const AppItem = ({ apps }) => {
     addFavoriteHotel(formatedData)
       .then(e.classList.add("bg-mintGreen"))
       .catch(onError);
-  };
-
-  const onError = (err) => {
-    notifyError(err);
   };
 
   const goToApp = (slug, id) => {

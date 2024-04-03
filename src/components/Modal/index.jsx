@@ -3,7 +3,7 @@ import { LuX } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 
 import { generateValidationSchema } from "./validationSchema";
-import { notifyError, notifySuccess } from "../../utils/notifications";
+import { notifyError, notifySuccess, onError } from "../../utils/notifications";
 import { useRequestService } from "../../services";
 import { getFieldLabel, getFieldType } from "../../utils/modal";
 import { useOpenModal, useUserProfile } from "../../store";
@@ -73,10 +73,6 @@ export const ModalProfile = ({ initial, type }) => {
     }));
     setUser(userProfile);
     notifySuccess(data);
-  };
-
-  const onError = (error) => {
-    notifyError(error);
   };
 
   return (
