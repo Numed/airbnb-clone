@@ -1,18 +1,19 @@
 import { MdFlight } from "react-icons/md";
 import { IoBed, IoChevronDownSharp, IoLogOut, IoMenu } from "react-icons/io5";
 import { AiFillHeart } from "react-icons/ai";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 
 import NavPopup from "../../NavPopup";
 import logo from "../../../img/logo/logo-white.png";
 import profile from "../../../img/profile.png";
 import { useActiveUser, useOpenMenu, useOpenSubmodal } from "../../../store";
-import { convertNameFormat } from "../../../utils";
+import { cn, convertNameFormat } from "../../../utils";
 
 const IntroHeader = () => {
   const { user, setUser } = useActiveUser();
   const { isOpenMenu, setIsOpenMenu } = useOpenMenu();
   const { isOpenSubmodal, setOpenedSubmodal } = useOpenSubmodal();
+  const location = useLocation();
 
   const onLogout = (e) => {
     e.preventDefault();
@@ -77,7 +78,7 @@ const IntroHeader = () => {
               {isOpenMenu && (
                 <div className="space-y-3 bg-white absolute z-10 top-12 left-0 p-4 border border-blackishGreen/40 rounded-lg">
                   <button
-                    className="flex items-center justify-center"
+                    className={cn("flex items-center justify-center", location.pathname === "/" && "text-blackishGreen")}
                     onClick={(e) => onLogout(e)}
                   >
                     <IoLogOut className="w-4 h-4 scale-105 mr-2" /> Logout

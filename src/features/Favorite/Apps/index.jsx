@@ -2,9 +2,9 @@ import { ImLocation2 } from "react-icons/im";
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 import { BsFillCupFill } from "react-icons/bs";
 
-import { Skeleton } from "../../components/Skeleton";
-import { useIsLoading } from "../../store";
-import { useFavorite } from "./useFavorite";
+import { Skeleton } from "../../../components/Skeleton";
+import { useIsLoading } from "../../../store";
+import { useFavorite } from "../useFavorite";
 
 const FavoriteAppContainer = () => {
   const { isLoading } = useIsLoading();

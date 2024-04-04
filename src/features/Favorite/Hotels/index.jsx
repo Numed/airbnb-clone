@@ -1,8 +1,8 @@
 import { AiOutlineHeart } from "react-icons/ai";
 
-import { Skeleton } from "../../components/Skeleton";
-import { useIsLoading } from "../../store";
-import { useFavorite } from "./useFavorite";
+import { Skeleton } from "../../../components/Skeleton";
+import { useIsLoading } from "../../../store";
+import { useFavorite } from "../useFavorite";
 
 const FavoriteHotelsApp = () => {
   const { isLoading } = useIsLoading();
