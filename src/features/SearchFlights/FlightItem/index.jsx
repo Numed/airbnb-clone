@@ -64,9 +64,9 @@ const FlightItem = ({ flights }) => {
             className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
           >
             <div className="flex w-full items-start justify-center xl:justify-start flex-wrap xl:flex-nowrap xl:space-x-6">
-              <div>
+              <div className="w-1/3 h-[150px] flex justify-center items-center">
                 {isFetchingData ? (
-                  <Skeleton className="h-[14rem] w-[14rem]" />
+                  <Skeleton className="h-[9.5rem] w-[12.5rem]" />
                 ) : (
                   <img
                     className="rounded-xl max-w-[14rem] max-h-[14rem] object-cover mb-4 xl:mb-0"
@@ -78,11 +78,12 @@ const FlightItem = ({ flights }) => {
               <div className="flex flex-col items-start justify-start w-full h-full">
                 <div className="flex items-start justify-start flex-wrap xl:flex-nowrap space-x-6 w-full sm:justify-between">
                   <div>
-                    <div className="flex items-start justify-start flex-wrap xl:flex-nowrap space-x-6">
+                    <div className="flex items-start justify-start flex-wrap xl:flex-nowrap flex-col">
                       <div>
                         <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
                           {rating}
                         </span>
+                        <span className="ml-2 font-semibold">Rating</span>
                       </div>
                       <div className="flex flex-col items-start justify-start space-y-3 pb-3">
                         <label className="mt-4 sl:mt-0 flex items-start justify-start">

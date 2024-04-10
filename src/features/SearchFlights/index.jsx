@@ -14,6 +14,7 @@ import {
 } from "../../store";
 import { onSortFlights } from "../../utils/sort";
 import FlightItem from "./FlightItem";
+import { Skeleton } from "../../components/Skeleton";
 
 const SearchFlightsContainer = () => {
   const [offset, setOffset] = useState(0);
@@ -83,8 +84,13 @@ const SearchFlightsContainer = () => {
             >
               Cheapest
               <span className="text-sm text-blackishGreen/40">
-                ${flights.map((flight) => flight.price).sort()[0]} |{" "}
-                {flights.map((flight) => flight.duration).sort()[0]}
+                {flights.length > 0 ? (
+                  `
+                  $ ${flights.map((flight) => flight.price).sort()[0]} |${" "}
+                   ${flights.map((flight) => flight.duration).sort()[0]}`
+                ) : (
+                  <Skeleton className="w-20 h-4 bg-gray-300" />
+                )}
               </span>
             </button>
             <button
@@ -95,7 +101,13 @@ const SearchFlightsContainer = () => {
             >
               Best
               <span className="text-sm text-blackishGreen/40">
-                $120 | 1h 30m
+                {flights.length > 0 ? (
+                  `
+                  $ ${flights.map((flight) => flight.price).sort()[0]} |${" "}
+                   ${flights.map((flight) => flight.duration).sort()[0]}`
+                ) : (
+                  <Skeleton className="w-20 h-4 bg-gray-300" />
+                )}
               </span>
             </button>
             <button
@@ -106,8 +118,13 @@ const SearchFlightsContainer = () => {
             >
               Quickest
               <span className="text-sm text-blackishGreen/40">
-              ${flights.map((flight) => flight.price).sort()[0]} |{" "}
-                {flights.map((flight) => flight.duration).sort()[0]}
+                {flights.length > 0 ? (
+                  `
+                  $ ${flights.map((flight) => flight.price).sort()[0]} |${" "}
+                   ${flights.map((flight) => flight.duration).sort()[0]}`
+                ) : (
+                  <Skeleton className="w-20 h-4 bg-gray-300" />
+                )}
               </span>
             </button>
           </div>

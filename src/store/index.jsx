@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { appsCards, flightCards } from "../features/Contants";
 
 export const useActiveUser = create((set) => ({
   user: null,
@@ -41,14 +40,14 @@ export const useOpenModal = create((set) => ({
 }));
 
 export const useFlights = create((set) => ({
-  flights: flightCards,
+  flights: [],
   setFlights: (state) => {
     set({ flights: state });
   },
 }));
 
 export const useApps = create((set) => ({
-  apps: appsCards,
+  apps: [],
   setApps: (state) => {
     set({ apps: state });
   },

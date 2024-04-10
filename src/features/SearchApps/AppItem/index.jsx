@@ -58,7 +58,7 @@ const AppItem = ({ apps }) => {
             className="px-4 py-6 bg-white w-full h-auto flex flex-col items-start justify-start rounded-xl mb-8"
           >
             <div className="flex w-full items-start justify-center xl:justify-start flex-wrap xl:flex-nowrap xl:space-x-6">
-              <div>
+              <div className="w-1/3 h-full flex justify-center items-center">
                 {isFetchingData ? (
                   <Skeleton className="h-[14rem] w-[14rem]" />
                 ) : (
@@ -104,6 +104,7 @@ const AppItem = ({ apps }) => {
                         <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
                           {rating}
                         </span>
+                        <span className="ml-2 font-semibold">Rating</span>
                       </div>
                     </div>
                   </div>
