@@ -7,7 +7,7 @@ import PaymentSection from "./Payment";
 import HotelDetails from "./HotelDetails";
 import FlightDetails from "./FlightDetails";
 
-import { useOpenModal } from "../../store";
+import { useModalType, useOpenModal } from "../../store";
 import { ModalSuccess } from "../../components/Modal";
 import { useRequestService } from "../../services";
 import { onError } from "../../utils/notifications";
@@ -15,6 +15,7 @@ import { onError } from "../../utils/notifications";
 const DetailsContent = () => {
   const [detailsInfo, setDetailsInfo] = useState();
   const { isOpenModal } = useOpenModal();
+  const { modalType, setModalType } = useModalType();
   const { getFlightById, getAppsByID } = useRequestService();
 
   let location = useLocation();
@@ -61,7 +62,7 @@ const DetailsContent = () => {
         </div>
         <AsideInfo detailsInfo={detailsInfo} />
       </div>
-      {isOpenModal && <ModalSuccess />}
+      {isOpenModal && modalType === "succsess" && <ModalSuccess />}
     </main>
   );
 };

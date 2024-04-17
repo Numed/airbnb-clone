@@ -3,22 +3,30 @@ import { LuX } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 
 import { generateValidationSchema } from "./validationSchema";
-import { notifyError, notifySuccess, onError } from "../../utils/notifications";
+import { notifySuccess, onError } from "../../utils/notifications";
 import { useRequestService } from "../../services";
 import { getFieldLabel, getFieldType } from "../../utils/modal";
-import { useOpenModal, useUserProfile } from "../../store";
+import { useModalType, useOpenModal, useUserProfile } from "../../store";
 import { cn } from "../../utils";
 import { useActiveUser } from "../../store";
 
 const ModalContainer = ({ children }) => {
   const { setOpenedModal } = useOpenModal();
+  const { setModalType } = useModalType();
+
+  const onCloseHandler = (event) => {
+    event.preventDefault();
+    setModalType("none");
+    setOpenedModal(false);
+  };
+
   return (
-    <div className="fixed inset-0 my-0 mx-auto z-100 bg-blackishGreen/30 w-full h-full">
+    <div className="fixed inset-0 my-0 mx-auto z-[99] bg-blackishGreen/30 w-full h-full">
       <div className="absolute inset-0 my-0 mx-auto w-[90%] sm:w-[50vw] h-screen flex items-center justify-center">
         <div className="bg-white h-1/2 w-full relative rounded-3xl">
           <button
             className="absolute top-1 right-1 p-4"
-            onClick={() => setOpenedModal(false)}
+            onClick={(e) => onCloseHandler(e)}
           >
             <LuX />
           </button>
@@ -41,6 +49,7 @@ export const ModalProfile = ({ initial, type }) => {
   const { user, setUser } = useActiveUser();
   const { userProfile, setUserProfile } = useUserProfile();
   const { setOpenedModal } = useOpenModal();
+  const { setModalType } = useModalType();
 
   const typeFunctionMap = {
     email: updateEmail,
@@ -63,6 +72,7 @@ export const ModalProfile = ({ initial, type }) => {
 
   const onUpdateProfile = (data, values) => {
     setOpenedModal(false);
+    setModalType("none");
     if (values.birthday !== undefined) {
       values.dataBirth = values.birthday;
       delete values.birthday;
@@ -123,13 +133,16 @@ export const ModalProfile = ({ initial, type }) => {
 
 export const ModalSuccess = () => {
   const { setOpenedModal } = useOpenModal();
+  const { setModalType } = useModalType();
   const navigate = useNavigate();
 
   const onCloseHandler = (event) => {
     event.preventDefault();
     setOpenedModal(false);
     navigate("/");
+    setModalType("none");
   };
+
   return (
     <ModalContainer>
       <div className="flex flex-col justify-center items-center w-full h-full">
@@ -142,6 +155,116 @@ export const ModalSuccess = () => {
         >
           Go to home page
         </Link>
+      </div>
+    </ModalContainer>
+  );
+};
+
+export const ModalCard = () => {
+  return (
+    <ModalContainer>
+      <div className="w-full h-full p-4">
+        <Formik
+          initialValues={{
+            number: "",
+            valid: "",
+            type: "",
+            cvc: "",
+            name: "",
+          }}
+          onSubmit={(values, actions) => {
+            console.log(values);
+            actions.resetForm();
+          }}
+          validationSchema={generateValidationSchema("card")}
+        >
+          {({ errors, touched }) => (
+            <Form className="flex flex-col justify-center items-baseline w-full h-full">
+              <label className="text-base text-colorText flex flex-col justify-center items-start mb-6 w-full font-bold">
+                Card Number
+                {errors.number && touched.number ? (
+                  <span className="text-sm text-red-500">{errors.number}</span>
+                ) : null}
+                <Field
+                  className={cn(
+                    "mt-4 text-base font-normal text-black w-full p-2 border",
+                    errors.number && touched.number
+                      ? "border-red-500"
+                      : "border-blackishGreen"
+                  )}
+                  type="text"
+                  name="number"
+                  required
+                />
+              </label>
+              <div className="flex justify-between w-full">
+                <div className="flex flex-col justify-center items-start w-1/2 mr-2">
+                  <label className="text-base text-colorText font-bold">
+                    Exp. Date
+                    {errors.valid && touched.valid ? (
+                      <span className="text-sm text-red-500">
+                        {errors.valid}
+                      </span>
+                    ) : null}
+                    <Field
+                      className={cn(
+                        "mt-2 text-base font-normal text-black w-full p-2 border",
+                        errors.valid && touched.valid
+                          ? "border-red-500"
+                          : "border-blackishGreen"
+                      )}
+                      type="text"
+                      name="valid"
+                      required
+                    />
+                  </label>
+                </div>
+                <div className="flex flex-col justify-center items-start w-1/2 ml-2">
+                  <label className="text-base text-colorText font-bold">
+                    CVC
+                    {errors.cvc && touched.cvc ? (
+                      <span className="text-sm text-red-500">{errors.cvc}</span>
+                    ) : null}
+                    <Field
+                      className={cn(
+                        "mt-2 text-base font-normal text-black w-full p-2 border",
+                        errors.cvc && touched.cvc
+                          ? "border-red-500"
+                          : "border-blackishGreen"
+                      )}
+                      type="text"
+                      name="cvc"
+                      required
+                    />
+                  </label>
+                </div>
+              </div>
+              <label className="text-base text-colorText flex flex-col justify-center items-start mb-6 w-full font-bold">
+                Name on Card
+                {errors.name && touched.name ? (
+                  <span className="text-sm text-red-500">{errors.name}</span>
+                ) : null}
+                <Field
+                  className={cn(
+                    "mt-4 text-base font-normal text-black w-full p-2 border",
+                    errors.name && touched.name
+                      ? "border-red-500"
+                      : "border-blackishGreen"
+                  )}
+                  type="text"
+                  name="name"
+                  required
+                />
+              </label>
+              <button
+                className="p-3 bg-mintGreen text-white text-lg w-full mt-4"
+                type="submit"
+              >
+                Submit
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </ModalContainer>
   );

@@ -1,7 +1,16 @@
 import { create } from "zustand";
 
 export const useActiveUser = create((set) => ({
-  user: null,
+  user: {
+    id: "1",
+    username: "John Doe",
+    email: "john-doe@gmail.com",
+    password: "fdsafasd213412",
+    cards: [
+      { id: 1, number: "4111111111111535", valid: "12/25", type: "visa" },
+      { id: 2, number: "5111111111111636", valid: "12/25", type: "mastercard" },
+    ],
+  },
   setUser: (newUser) => {
     set(() => ({
       user: newUser,
@@ -36,6 +45,13 @@ export const useOpenModal = create((set) => ({
   isOpenModal: false,
   setOpenedModal: (state) => {
     set({ isOpenModal: state });
+  },
+}));
+
+export const useModalType = create((set) => ({
+  modalType: "none",
+  setModalType: (state) => {
+    set({ modalType: state });
   },
 }));
 

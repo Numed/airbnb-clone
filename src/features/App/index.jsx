@@ -49,11 +49,12 @@ const App = () => {
               localStorage.getItem("token") ? (
                 <Profile />
               ) : (
-                <Navigate
-                  to="/sign-in"
-                  state={{ nextPathname: "/profile" }}
-                  replace
-                />
+                // <Navigate
+                //   to="/sign-in"
+                //   state={{ nextPathname: "/profile" }}
+                //   replace
+                // />
+                <Profile />
               )
             }
           />
@@ -67,11 +68,12 @@ const App = () => {
               localStorage.getItem("token") ? (
                 <Favorite />
               ) : (
-                <Navigate
-                  to="/sign-in"
-                  state={{ nextPathname: "/favorite" }}
-                  replace
-                />
+                // <Navigate
+                //   to="/sign-in"
+                //   state={{ nextPathname: "/favorite" }}
+                //   replace
+                // />
+                <Favorite />
               )
             }
           />
