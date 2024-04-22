@@ -72,7 +72,7 @@ const Filter = () => {
                 <div className="flex items-center justify-between">
                   <label>
                     <input
-                      className="mt-2 p-3"
+                      className="mt-2 p-3 cursor-pointer"
                       type="number"
                       name="minPrice"
                       value={searchParams.minPrice}
@@ -85,7 +85,7 @@ const Filter = () => {
                   </label>
                   <label>
                     <input
-                      className="mt-2 p-3"
+                      className="mt-2 p-3 cursor-pointer"
                       type="number"
                       name="maxPrice"
                       value={searchParams.maxPrice}
@@ -144,7 +144,7 @@ const Filter = () => {
                 <label key={i}>
                   <input
                     type="checkbox"
-                    className="mr-2"
+                    className="mr-2 cursor-pointer"
                     value={advantage}
                     onChange={(e) => setAdvantage(e)}
                   />

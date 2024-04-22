@@ -1,8 +1,12 @@
 import { Field, Form, Formik } from "formik";
 import { LuX } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
+import { FaCcMastercard, FaCcVisa } from "react-icons/fa6";
 
-import { generateValidationSchema } from "./validationSchema";
+import {
+  generateValidationSchema,
+  validationSchemsCard,
+} from "./validationSchema";
 import { notifySuccess, onError } from "../../utils/notifications";
 import { useRequestService } from "../../services";
 import { getFieldLabel, getFieldType } from "../../utils/modal";
@@ -10,7 +14,7 @@ import { useModalType, useOpenModal, useUserProfile } from "../../store";
 import { cn } from "../../utils";
 import { useActiveUser } from "../../store";
 
-const ModalContainer = ({ children }) => {
+const ModalContainer = ({ children, styles }) => {
   const { setOpenedModal } = useOpenModal();
   const { setModalType } = useModalType();
 
@@ -23,7 +27,9 @@ const ModalContainer = ({ children }) => {
   return (
     <div className="fixed inset-0 my-0 mx-auto z-[99] bg-blackishGreen/30 w-full h-full">
       <div className="absolute inset-0 my-0 mx-auto w-[90%] sm:w-[50vw] h-screen flex items-center justify-center">
-        <div className="bg-white h-1/2 w-full relative rounded-3xl">
+        <div
+          className={cn("bg-white h-1/2 w-full relative rounded-3xl", styles)}
+        >
           <button
             className="absolute top-1 right-1 p-4"
             onClick={(e) => onCloseHandler(e)}
@@ -162,13 +168,12 @@ export const ModalSuccess = () => {
 
 export const ModalCard = () => {
   return (
-    <ModalContainer>
+    <ModalContainer styles={"h-[80%] sm:h-[85%] xl:h-[75%]"}>
       <div className="w-full h-full p-4">
         <Formik
           initialValues={{
             number: "",
             valid: "",
-            type: "",
             cvc: "",
             name: "",
           }}
@@ -176,73 +181,132 @@ export const ModalCard = () => {
             console.log(values);
             actions.resetForm();
           }}
-          validationSchema={generateValidationSchema("card")}
+          validationSchema={validationSchemsCard}
         >
-          {({ errors, touched }) => (
-            <Form className="flex flex-col justify-center items-baseline w-full h-full">
-              <label className="text-base text-colorText flex flex-col justify-center items-start mb-6 w-full font-bold">
+          {({ errors, touched, values }) => (
+            <Form className="flex flex-col justify-center sm:justify-start items-start w-full h-full sm:p-10 space-y-6">
+              <h3 className="font-bold text-2xl sm:text-4xl text-black">
+                Add New Card
+              </h3>
+              <label className="text-base text-blackishGreen flex flex-col justify-center items-start mb-6 w-full font-bold">
                 Card Number
                 {errors.number && touched.number ? (
-                  <span className="text-sm text-red-500">{errors.number}</span>
+                  <span className="block text-sm text-red-500">
+                    {errors.number}
+                  </span>
                 ) : null}
-                <Field
-                  className={cn(
-                    "mt-4 text-base font-normal text-black w-full p-2 border",
-                    errors.number && touched.number
-                      ? "border-red-500"
-                      : "border-blackishGreen"
+                <Field name="number">
+                  {({ field, form }) => (
+                    <div className="relative w-full flex items-center justify-between">
+                      <input
+                        minLength={19}
+                        maxLength={19}
+                        {...field}
+                        onChange={(e) => {
+                          const rawInput = e.target.value.replace(/\D/g, "");
+                          const formattedInput = rawInput
+                            .replace(/(\d{4})/g, "$1 ")
+                            .trim();
+                          form.setFieldValue("number", formattedInput);
+                        }}
+                        className={cn(
+                          "mt-4 text-base font-normal text-black w-full p-2 border",
+                          errors.number && touched.number
+                            ? "border-red-500"
+                            : "border-blackishGreen"
+                        )}
+                        type="text"
+                        required
+                      />
+                      <div className="absolute right-2 top-[60%] transform -translate-y-1/2">
+                        {values.number.startsWith("4") ? (
+                          <FaCcVisa className="w-6 h-6" />
+                        ) : values.number.startsWith("5") ? (
+                          <FaCcMastercard className="w-6 h-6" />
+                        ) : null}
+                      </div>
+                    </div>
                   )}
-                  type="text"
-                  name="number"
-                  required
-                />
+                </Field>
               </label>
               <div className="flex justify-between w-full">
                 <div className="flex flex-col justify-center items-start w-1/2 mr-2">
                   <label className="text-base text-colorText font-bold">
                     Exp. Date
                     {errors.valid && touched.valid ? (
-                      <span className="text-sm text-red-500">
+                      <span className="block text-sm text-red-500">
                         {errors.valid}
                       </span>
                     ) : null}
-                    <Field
-                      className={cn(
-                        "mt-2 text-base font-normal text-black w-full p-2 border",
-                        errors.valid && touched.valid
-                          ? "border-red-500"
-                          : "border-blackishGreen"
+                    <Field name="valid">
+                      {({ field, form }) => (
+                        <div className="relative w-full flex items-center justify-between">
+                          <input
+                            minLength={5}
+                            maxLength={5}
+                            {...field}
+                            onChange={(e) => {
+                              const rawInput = e.target.value.replace(
+                                /[^0-9/]/g,
+                                ""
+                              );
+                              const formattedInput = rawInput.replace(
+                                /(\d{2})(\d)/,
+                                "$1/$2"
+                              );
+                              form.setFieldValue("valid", formattedInput);
+                            }}
+                            className={cn(
+                              "mt-2 text-base font-normal text-black w-full p-2 border",
+                              errors.valid && touched.valid
+                                ? "border-red-500"
+                                : "border-blackishGreen"
+                            )}
+                            type="text"
+                            required
+                          />
+                        </div>
                       )}
-                      type="text"
-                      name="valid"
-                      required
-                    />
+                    </Field>
                   </label>
                 </div>
                 <div className="flex flex-col justify-center items-start w-1/2 ml-2">
                   <label className="text-base text-colorText font-bold">
                     CVC
                     {errors.cvc && touched.cvc ? (
-                      <span className="text-sm text-red-500">{errors.cvc}</span>
+                      <span className="block text-sm text-red-500">
+                        {errors.cvc}
+                      </span>
                     ) : null}
-                    <Field
-                      className={cn(
-                        "mt-2 text-base font-normal text-black w-full p-2 border",
-                        errors.cvc && touched.cvc
-                          ? "border-red-500"
-                          : "border-blackishGreen"
+                    <Field name="cvc">
+                      {({ field }) => (
+                        <div className="relative w-full flex items-center justify-between">
+                          <input
+                            minLength={3}
+                            maxLength={3}
+                            {...field}
+                            pattern="\d*"
+                            className={cn(
+                              "mt-2 text-base font-normal text-black w-full p-2 border",
+                              errors.cvc && touched.cvc
+                                ? "border-red-500"
+                                : "border-blackishGreen"
+                            )}
+                            type="text"
+                            required
+                          />
+                        </div>
                       )}
-                      type="text"
-                      name="cvc"
-                      required
-                    />
+                    </Field>
                   </label>
                 </div>
               </div>
               <label className="text-base text-colorText flex flex-col justify-center items-start mb-6 w-full font-bold">
                 Name on Card
                 {errors.name && touched.name ? (
-                  <span className="text-sm text-red-500">{errors.name}</span>
+                  <span className="block text-sm text-red-500">
+                    {errors.name}
+                  </span>
                 ) : null}
                 <Field
                   className={cn(
@@ -257,10 +321,10 @@ export const ModalCard = () => {
                 />
               </label>
               <button
-                className="p-3 bg-mintGreen text-white text-lg w-full mt-4"
+                className="p-3 bg-mintGreen/70 hover:bg-mintGreen transition-all text-white text-lg w-full mt-4"
                 type="submit"
               >
-                Submit
+                Add Card
               </button>
             </Form>
           )}

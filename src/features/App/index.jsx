@@ -34,6 +34,7 @@ const App = () => {
     }
   }, []);
 
+  
   return (
     <Router>
       <Suspense fallback={<Loader />}>

@@ -80,7 +80,7 @@ const Filter = () => {
                 <label className="flex flex-col items-start justify-start">
                   Min Price
                   <input
-                    className="p-3 mt-2"
+                    className="p-3 mt-2 cursor-pointer"
                     type="number"
                     name="minPrice"
                     value={searchParams.minPrice}
@@ -94,7 +94,7 @@ const Filter = () => {
                 <label className="flex flex-col items-start justify-start">
                   Max Price
                   <input
-                    className="p-3 mt-2"
+                    className="p-3 mt-2 cursor-pointer"
                     type="number"
                     name="maxPrice"
                     value={searchParams.maxPrice}
@@ -118,7 +118,7 @@ const Filter = () => {
               <label className="flex flex-col items-start justify-start">
                 Start Time
                 <input
-                  className="mt-2 p-3"
+                  className="mt-2 p-3 cursor-pointer"
                   name="startTime"
                   type="time"
                   value={searchParams.startTime}
@@ -130,7 +130,7 @@ const Filter = () => {
               <label className="flex flex-col items-start justify-start">
                 End Time
                 <input
-                  className="mt-2 p-3"
+                  className="mt-2 p-3 cursor-pointer"
                   name="endDeparture"
                   type="time"
                   value={searchParams.endTime}
@@ -186,7 +186,7 @@ const Filter = () => {
                 <input
                   name="airline"
                   type="checkbox"
-                  className="mr-2"
+                  className="mr-2 cursor-pointer"
                   value={airline}
                   onChange={(e) => setSelectedAirline(e)}
                 />

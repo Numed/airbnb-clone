@@ -29,4 +29,4 @@ export const notifyError = (error) => {
 
 export const onError = (error) => {
   return notifyError(error);
-}
+};

@@ -30,9 +30,10 @@ const ProfileContainer = () => {
   useEffect(() => {
     if (user?.id?.length > 0) {
       const id = user?.id;
-      getUser(id)
-        .then((data) => setUserProfile(data))
-        .catch((er) => notifyError(er.message));
+      return () =>
+        getUser(id)
+          .then((data) => setUserProfile(data))
+          .catch((er) => notifyError(er.message));
     }
   }, [user]);
 
@@ -47,7 +48,7 @@ const ProfileContainer = () => {
     <section className="p-8 xl:p-[6.5rem]">
       <div className="w-full h-[22rem] bg-profileBackground bg-center bg-no-repeat bg-cover rounded-xl"></div>
       <div className="flex flex-col items-center justify-center">
-        <div className="flex relative flex-col justify-center items-center">
+        <div className="flex relative flex-col justify-center items-center translate-y-16">
           <img className="w-3/4 h-3/4" src={ava} alt="Avatar Profile" />
           <button className="bg-red-400 w-10 h-10 rounded-full flex items-center justify-center absolute top-[55%] right-[25%]">
             <IoPencil size="1.5rem" />
@@ -61,7 +62,7 @@ const ProfileContainer = () => {
             </h4>
           </div>
         </div>
-        <div className="mt-8 w-full h-auto flex items-center justify-center">
+        <div className="w-full h-auto flex items-center justify-center">
           <button
             className={cn(
               activeSection === "Account" &&
