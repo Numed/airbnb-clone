@@ -1,5 +1,7 @@
-import { Form, Field, Formik } from "formik";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import logo from "../../img/logo/logo.png";
 import signInPicture from "../../img/sign-in/img.png";
@@ -12,6 +14,29 @@ const SigninContainer = () => {
   const { signIn } = useRequestService();
   const { setUser } = useActiveUser();
   const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: zodResolver(SigninSchema),
+  });
+
+  const handleFormSubmit = async (data) => {
+    try {
+      await SigninSchema.parseAsync(data);
+      await onSubmit(data);
+      reset();
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        console.error(error.errors);
+      } else {
+        throw error;
+      }
+    }
+  };
 
   const onSubmit = (data) => {
     signIn(data)
@@ -41,79 +66,65 @@ const SigninContainer = () => {
               Login to access your Golobe account
             </h3>
             <div>
-              <Formik
-                initialValues={{
-                  email: "",
-                  password: "",
-                }}
-                onSubmit={(values, { resetForm }) => {
-                  onSubmit(values);
-                  resetForm();
-                }}
-                validationSchema={SigninSchema}
-              >
-                {({ errors, touched }) => (
-                  <Form>
-                    <div>
-                      <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full ">
-                        Email
-                        {errors.email && touched.email && (
-                          <span className="text-red-400 text-sm">
-                            {errors.email}
-                          </span>
-                        )}
-                        <Field
-                          className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                          type="email"
-                          name="email"
-                          placeholder="Your email"
-                        />
-                      </label>
-                    </div>
-                    <div>
-                      <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full">
-                        Password
-                        {errors.password && touched.password && (
-                          <span className="text-red-400 text-sm">
-                            {errors.password}
-                          </span>
-                        )}
-                        <Field
-                          className="text-base text-black mt-2 w-full p-2"
-                          type="password"
-                          name="password"
-                          placeholder="Your password"
-                        />
-                      </label>
-                    </div>
-                    <div>
-                      <input
-                        className="accent-blackishGreen mr-1 mt-1"
-                        type="checkbox"
-                      />
-                      <span className="text-blackishGreen text-sm">
-                        Remember me
+              <form onSubmit={handleSubmit(handleFormSubmit)}>
+                <div>
+                  <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full">
+                    Email
+                    {errors.email && (
+                      <span className="text-red-400 text-sm">
+                        {errors.email.message}
                       </span>
-                    </div>
-                    <div>
-                      <button
-                        type="submit"
-                        className="bg-mintGreen/80 hover:bg-mintGreen transition-all text-blackishGreen flex flex-col mt-11 w-full p-4 items-center justify-center"
-                      >
-                        Login
-                      </button>
-                      <div className="flex justify-between mt-4">
-                        <h3 className="text-sm font-semibold text-blackishGreen w-full text-center">
-                          Don&apos;t have an account?{" "}
-                          <Link className="text-red-400" to="/sign-up">
-                            Sign up
-                          </Link>
-                        </h3>
-                      </div>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+                    )}
+                    <input
+                      className="text-base text-black mt-2 min-w-[18.5rem] p-2"
+                      type="email"
+                      {...register("email")}
+                      placeholder="Your email"
+                    />
+                  </label>
+                </div>
+                <div>
+                  <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full">
+                    Password
+                    {errors.password && (
+                      <span className="text-red-400 text-sm">
+                        {errors.password.message}
+                      </span>
+                    )}
+                    <input
+                      className="text-base text-black mt-2 w-full p-2"
+                      type="password"
+                      {...register("password")}
+                      placeholder="Your password"
+                    />
+                  </label>
+                </div>
+                <div>
+                  <input
+                    className="accent-blackishGreen mr-1 mt-1"
+                    type="checkbox"
+                  />
+                  <span className="text-blackishGreen text-sm">
+                    Remember me
+                  </span>
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    className="bg-mintGreen/80 hover:bg-mintGreen transition-all text-blackishGreen flex flex-col mt-11 w-full p-4 items-center justify-center"
+                  >
+                    Login
+                  </button>
+                  <div className="flex justify-between mt-4">
+                    <h3 className="text-sm font-semibold text-blackishGreen w-full text-center">
+                      Don&apos;t have an account?{" "}
+                      <Link className="text-red-400" to="/sign-up">
+                        Sign up
+                      </Link>
+                    </h3>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>

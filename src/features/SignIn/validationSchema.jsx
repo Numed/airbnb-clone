@@ -1,8 +1,6 @@
-import * as Yup from "yup";
+import { z } from "zod";
 
-export const SigninSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
-    .min(6, "Minimum 6 length")
-    .required("Password is required."),
+export const SigninSchema = z.object({
+  email: z.string().email("Invalid email address").min(1, "Email is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });

@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Field, Formik } from "formik";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useRequestService } from "../../services";
@@ -8,23 +8,31 @@ import { useActiveUser } from "../../store";
 import logo from "../../img/logo/logo.png";
 import signInPicture from "../../img/sign-in/img.png";
 import { SignupSchema } from "./validationSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const SignUpContainer = () => {
   const { signUp } = useRequestService();
   const { setUser } = useActiveUser();
   const navigate = useNavigate();
 
-  const handleSubmit = ({ firstName, lastName, email, phone, password }) => {
-    const validData = {
-      username: firstName + " " + lastName,
-      email,
-      password,
-      phone,
-    };
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(SignupSchema),
+  });
 
-    signUp(validData)
-      .then(onSuccess)
-      .catch((err) => notifyError(err));
+  const handleFormSubmit = async (data) => {
+    try {
+      await SignupSchema.parseAsync(data);
+      const validData = {
+        username: data.firstName + " " + data.lastName,
+        email: data.email,
+        password: data.password,
+        phone: data.phone,
+      };
+      const response = await signUp(validData);
+      onSuccess(response);
+    } catch (error) {
+      notifyError(error.errors);
+    }
   };
 
   const onSuccess = (data) => {
@@ -55,150 +63,132 @@ const SignUpContainer = () => {
               Let&apos;s get you all set up so you can access your personal
               account.
             </h3>
-            <Formik
-              initialValues={{
-                firstName: "",
-                lastName: "",
-                email: "",
-                phone: "",
-                password: "",
-                confirmPassword: "",
-              }}
-              onSubmit={(values, { resetForm }) => {
-                handleSubmit(values);
-                // resetForm();
-              }}
-              validationSchema={SignupSchema}
-            >
-              {({ errors, touched }) => (
-                <Form>
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center space-x-0 sm:space-x-2">
-                    <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
-                      First Name
-                      {errors.firstName && touched.firstName && (
-                        <span className="text-red-400 text-sm">
-                          {errors.firstName}
-                        </span>
-                      )}
-                      <Field
-                        className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                        type="text"
-                        name="firstName"
-                        placeholder="Your Name"
-                      />
-                    </label>
-                    <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
-                      Last Name
-                      {errors.lastName && touched.lastName && (
-                        <span className="text-red-400 text-sm">
-                          {errors.lastName}
-                        </span>
-                      )}
-                      <Field
-                        className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                        type="text"
-                        name="lastName"
-                        placeholder="Your Last Name"
-                      />
-                    </label>
-                  </div>
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center space-x-0 sm:space-x-2">
-                    <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
-                      Email
-                      {errors.email && touched.email && (
-                        <span className="text-red-400 text-sm">
-                          {errors.email}
-                        </span>
-                      )}
-                      <Field
-                        className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                        type="email"
-                        name="email"
-                        placeholder="Your email"
-                      />
-                    </label>
-                    <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
-                      Phone Number
-                      {errors.phone && touched.phone && (
-                        <span className="text-red-400 text-sm">
-                          {errors.phone}
-                        </span>
-                      )}
-                      <Field
-                        className="text-base text-black mt-2 min-w-[18.5rem] p-2"
-                        type="text"
-                        name="phone"
-                        placeholder="Your phone number"
-                      />
-                    </label>
-                  </div>
-                  <div className="w-full">
-                    <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full">
-                      Password
-                      {errors.password && touched.password && (
-                        <span className="text-red-400 text-sm">
-                          {errors.password}
-                        </span>
-                      )}
-                      <Field
-                        className="text-base text-black mt-2 p-2 w-full"
-                        type="password"
-                        name="password"
-                        placeholder="Your password"
-                      />
-                    </label>
-                  </div>
-                  <div>
-                    <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full">
-                      Confirm Password
-                      {errors.confirmPassword && touched.confirmPassword && (
-                        <span className="text-red-400 text-sm">
-                          {errors.confirmPassword}
-                        </span>
-                      )}
-                      <Field
-                        className="text-base text-black mt-2 w-full p-2"
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Enter your password again"
-                      />
-                    </label>
-                  </div>
-                  <div>
-                    <input
-                      className="accent-blackishGreen mr-1 mt-1"
-                      type="checkbox"
-                    />
-                    <span className="text-blackishGreen text-sm">
-                      I agree to all the{" "}
-                      <Link to="/" className="text-red-400">
-                        Terms
-                      </Link>{" "}
-                      and{" "}
-                      <Link to="/" className="text-red-400">
-                        Privacy Policies
-                      </Link>
+            <form onSubmit={handleSubmit(handleFormSubmit)}>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-x-0 sm:space-x-2">
+                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
+                  First Name
+                  {errors.firstName && (
+                    <span className="text-red-400 text-sm">
+                      {errors.firstName.message}
                     </span>
-                  </div>
-                  <div>
-                    <button
-                      type="submit"
-                      className="bg-mintGreen/80 hover:bg-mintGreen transition-all text-blackishGreen flex flex-col mt-11 w-full p-4 items-center justify-center"
-                    >
-                      Sign up
-                    </button>
-                    <div className="flex justify-between mt-4">
-                      <h3 className="text-sm font-semibold text-blackishGreen w-full text-center">
-                        Already have an account?{" "}
-                        <Link className="text-red-400" to="/sign-in">
-                          Sign in
-                        </Link>
-                      </h3>
-                    </div>
-                  </div>
-                </Form>
-              )}
-            </Formik>
+                  )}
+                  <input
+                    className="text-base text-black mt-2 min-w-[18.5rem] p-2"
+                    type="text"
+                    {...register("firstName")}
+                    placeholder="Your Name"
+                  />
+                </label>
+                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
+                  Last Name
+                  {errors.lastName && (
+                    <span className="text-red-400 text-sm">
+                      {errors.lastName.message}
+                    </span>
+                  )}
+                  <input
+                    className="text-base text-black mt-2 min-w-[18.5rem] p-2"
+                    type="text"
+                    {...register("lastName")}
+                    placeholder="Your Last Name"
+                  />
+                </label>
+              </div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-x-0 sm:space-x-2">
+                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
+                  Email
+                  {errors.email && (
+                    <span className="text-red-400 text-sm">
+                      {errors.email.message}
+                    </span>
+                  )}
+                  <input
+                    className="text-base text-black mt-2 min-w-[18.5rem] p-2"
+                    type="email"
+                    {...register("email")}
+                    placeholder="Your email"
+                  />
+                </label>
+                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full sm:w-1/2">
+                  Phone Number
+                  {errors.phone && (
+                    <span className="text-red-400 text-sm">
+                      {errors.phone.message}
+                    </span>
+                  )}
+                  <input
+                    className="text-base text-black mt-2 min-w-[18.5rem] p-2"
+                    type="text"
+                    {...register("phone")}
+                    placeholder="Your phone number"
+                  />
+                </label>
+              </div>
+              <div className="w-full">
+                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full">
+                  Password
+                  {errors.password && (
+                    <span className="text-red-400 text-sm">
+                      {errors.password.message}
+                    </span>
+                  )}
+                  <input
+                    className="text-base text-black mt-2 p-2 w-full"
+                    type="password"
+                    {...register("password")}
+                    placeholder="Your password"
+                  />
+                </label>
+              </div>
+              <div>
+                <label className="text-sm text-colorText flex flex-col justify-center items-start mb-6 w-full">
+                  Confirm Password
+                  {errors.confirmPassword && (
+                    <span className="text-red-400 text-sm">
+                      {errors.confirmPassword.message}
+                    </span>
+                  )}
+                  <input
+                    className="text-base text-black mt-2 w-full p-2"
+                    type="password"
+                    {...register("confirmPassword")}
+                    placeholder="Enter your password again"
+                  />
+                </label>
+              </div>
+              <div>
+                <input
+                  className="accent-blackishGreen mr-1 mt-1"
+                  type="checkbox"
+                />
+                <span className="text-blackishGreen text-sm">
+                  I agree to all the{" "}
+                  <Link to="/" className="text-red-400">
+                    Terms
+                  </Link>{" "}
+                  and{" "}
+                  <Link to="/" className="text-red-400">
+                    Privacy Policies
+                  </Link>
+                </span>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="bg-mintGreen/80 hover:bg-mintGreen transition-all text-blackishGreen flex flex-col mt-11 w-full p-4 items-center justify-center"
+                >
+                  Sign up
+                </button>
+                <div className="flex justify-between mt-4">
+                  <h3 className="text-sm font-semibold text-blackishGreen w-full text-center">
+                    Already have an account?{" "}
+                    <Link className="text-red-400" to="/sign-in">
+                      Sign in
+                    </Link>
+                  </h3>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

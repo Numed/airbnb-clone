@@ -1,15 +1,10 @@
-import * as Yup from "yup";
+import { z } from "zod";
 
-export const SignupSchema = Yup.object().shape({
-  firstName: Yup.string().required("First Name is required"),
-  lastName: Yup.string().required("Last Name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  phone: Yup.string().matches(
-    /^\+(?:[0-9] ?){6,14}[0-9]$/,
-    "Invalid phone number"
-  ),
-  password: Yup.string().min(6, "Minimum 6 length").required("Required"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required("Required"),
+export const SignupSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.string().email("Invalid email address").min(1, "Email is required"),
+  phone: z.string().regex(/^\+(?:[0-9] ?){6,14}[0-9]$/, "Invalid phone number"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  confirmPassword: z.string(),
 });
