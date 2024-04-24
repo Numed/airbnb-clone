@@ -4,16 +4,19 @@ import { PiTimerFill } from "react-icons/pi";
 
 import FlightDetails from "../../components/FlightDetails";
 import SingleFlightHeader from "./Header";
-import { useRequestService } from "../../services";
+import { FlightsService } from "../../services/flights";
 import { notifyError } from "../../utils/notifications";
+import { useFlights } from "../../store";
 
 const SingleFlightsContainer = () => {
   let location = useLocation();
   const id = location.state.id;
-  const { getFlightById } = useRequestService();
+  const { getFlightById } = FlightsService();
   const [flight, setFlight] = useState({});
+  const flights = useFlights((state) => state.flights);
 
   useEffect(() => {
+    console.log(flights);
     getFlightById(id)
       .then((res) => setFlight(res))
       .catch((err) => notifyError(err));

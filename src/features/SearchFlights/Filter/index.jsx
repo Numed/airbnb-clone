@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../../../components/Accordion";
-import { useRequestService } from "../../../services";
+import { FlightsService } from "../../../services/flights";
 import { notifyError, onError } from "../../../utils/notifications";
 import { useCountFlights, useFlights } from "../../../store";
 import { useDebounce } from "../../../hooks";
@@ -22,7 +22,7 @@ const Filter = () => {
   });
   const [airlines, setAirlines] = useState([]);
   const debounceValue = useDebounce(searchParams, 300);
-  const { filterFlights, getAirlines } = useRequestService();
+  const { filterFlights, getAirlines } = FlightsService();
   const { setFlights } = useFlights();
   const setCountFlights = useCountFlights((state) => state.setCountFlights);
 

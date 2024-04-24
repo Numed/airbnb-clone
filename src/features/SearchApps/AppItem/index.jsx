@@ -5,13 +5,13 @@ import { ImLocation2 } from "react-icons/im";
 
 import { Skeleton } from "../../../components/Skeleton";
 import { useActiveUser, useFetchingData } from "../../../store";
-import { useRequestService } from "../../../services";
+import { HotelsServices } from "../../../services/hotels";
 import { notifyError, onError } from "../../../utils/notifications";
 
 const AppItem = ({ apps }) => {
   const navigate = useNavigate();
   const { user } = useActiveUser();
-  const { addFavoriteHotel, deleteFavoriteHotel } = useRequestService();
+  const { addFavoriteHotel, deleteFavoriteHotel } = HotelsServices();
   const { isFetchingData } = useFetchingData();
 
   const onFavoriteHandler = (e, hotelId) => {

@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useRequestService } from "../../services";
+import { AuthServices } from "../../services/auth";
 import { notifyError, notifySuccess } from "../../utils/notifications";
 import { useActiveUser } from "../../store";
 import logo from "../../img/logo/logo.png";
@@ -11,11 +11,15 @@ import { SignupSchema } from "./validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const SignUpContainer = () => {
-  const { signUp } = useRequestService();
+  const { signUp } = AuthServices();
   const { setUser } = useActiveUser();
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(SignupSchema),
   });
 

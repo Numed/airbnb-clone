@@ -9,7 +9,7 @@ import {
   validationSchemsCard,
 } from "./validationSchema";
 import { notifySuccess, onError } from "../../utils/notifications";
-import { useRequestService } from "../../services";
+import { UserServices } from "../../services/user";
 import { getFieldLabel, getFieldType } from "../../utils/modal";
 import { useModalType, useOpenModal, useUserProfile } from "../../store";
 import { cn } from "../../utils";
@@ -59,7 +59,7 @@ export const ModalProfile = ({ initial, type }) => {
     updateEmail,
     updateName,
     updatePhone,
-  } = useRequestService();
+  } = UserServices();
   const { user, setUser } = useActiveUser();
   const { userProfile, setUserProfile } = useUserProfile();
   const { setOpenedModal } = useOpenModal();

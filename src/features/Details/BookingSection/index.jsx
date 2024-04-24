@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useActiveUser, useOpenModal } from "../../../store";
+import { useActiveUser } from "../../../store";
+import Cards from "../Cards";
 
 const BookingSection = () => {
-  const { setOpenedModal } = useOpenModal();
   const { user } = useActiveUser();
   return (
     <section className="w-full h-full">
@@ -28,12 +28,7 @@ const BookingSection = () => {
           </h4>
         </div>
       ) : (
-        <button
-          className="text-white text-xl bg-mintGreen hover:bg-mintGreen/70 text-center w-full py-4 transition-colors"
-          onClick={() => setOpenedModal(true)}
-        >
-          Book now
-        </button>
+        <Cards />
       )}
     </section>
   );

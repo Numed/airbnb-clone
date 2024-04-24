@@ -1,13 +1,13 @@
-import { AiOutlineHeart, AiOutlineShareAlt } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
 import { ImLocation2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 
-const SingleFlightHeader = ({flight}) => {
+const SingleFlightHeader = ({ flight }) => {
   const navigate = useNavigate();
 
   const goToDetails = () => {
-    navigate('/details', { state: { id: flight.id, type: 'flights' } });
-  }
+    navigate("/details", { state: { id: flight.id, type: "flights" } });
+  };
 
   return (
     <div className="flex items-center flex-col sm:flex-row justify-between py-12 w-full h-full ">
@@ -16,7 +16,8 @@ const SingleFlightHeader = ({flight}) => {
           <h3 className="mb-4 font-bold text-2xl">{flight.airlineName}</h3>
         </div>
         <h4 className="text-sm text-blackishGreen/75 mb-4 font-medium flex items-center justify-start w-4/5 lg:w-full">
-          <ImLocation2 className="mr-2 h-6 w-6 sm:h-auto sm:w-auto" /> {flight.geolocation}
+          <ImLocation2 className="mr-2 h-6 w-6 sm:h-auto sm:w-auto" />{" "}
+          {flight.geolocation}
         </h4>
         <div>
           <span className="p-2 border border-mintGreen rounded-md text-center text-blackishGreen font-medium">
@@ -25,13 +26,12 @@ const SingleFlightHeader = ({flight}) => {
         </div>
       </div>
       <div className="mt-4 sm:mt-0">
-        <h3 className="mb-4 text-4xl font-bold text-red-400 text-end">${flight.price}</h3>
+        <h3 className="mb-4 text-4xl font-bold text-red-400 text-end">
+          ${flight.price}
+        </h3>
         <div>
           <button className="p-3 border border-mintGreen hover:bg-mintGreen text-center text-blackishGreen font-medium mr-4 transition-colors">
             <AiOutlineHeart />
-          </button>
-          <button className="p-3 border border-mintGreen hover:bg-mintGreen text-center text-blackishGreen font-medium mr-4 transition-colors">
-            <AiOutlineShareAlt />
           </button>
           <button
             onClick={goToDetails}

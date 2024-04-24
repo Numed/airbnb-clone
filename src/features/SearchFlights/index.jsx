@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Search from "./Search";
 import Filter from "./Filter";
 import Loader from "../../components/Loader";
-import { useRequestService } from "../../services";
+import { FlightsService } from "../../services/flights";
 import { notifyError } from "../../utils/notifications";
 import { cn } from "../../utils";
 import {
@@ -20,20 +20,34 @@ const SearchFlightsContainer = () => {
   const [offset, setOffset] = useState(0);
   const { isLoading, setIsLoading } = useIsLoading();
   const { setIsFetchingData } = useFetchingData();
-  const { getAllFlights, filterFlights } = useRequestService();
+  const { getAllFlights, filterFlights } = FlightsService();
   const flights = useFlights((state) => state.flights);
   const setFlights = useFlights((state) => state.setFlights);
   const flightsCount = useCountFlights((state) => state.countFlights);
   const setCountFlights = useCountFlights((state) => state.setCountFlights);
 
   useEffect(() => {
-    getFlights();
+    onCheckFlights();
   }, []);
+
+  const onCheckFlights = () => {
+    if (!flights.length) {
+      getFlights();
+    }
+  };
 
   const getFlights = () => {
     setIsLoading(true);
     setIsFetchingData(true);
     getAllFlights().then(onSetFlights).catch(onError);
+  };
+
+  const onSetFlights = (data) => {
+    setCountFlights(data.length);
+    setOffset((prevOffset) => prevOffset + 4);
+    setFlights(data.slice(0, offset + 4));
+    setIsLoading(false);
+    setIsFetchingData(false);
   };
 
   const onFilter = (target, value) => {
@@ -55,18 +69,14 @@ const SearchFlightsContainer = () => {
     setIsFetchingData(false);
   };
 
-  const onSetFlights = (data) => {
-    setCountFlights(data.length);
-    setOffset((prevOffset) => prevOffset + 4);
-    setFlights(data.slice(0, offset + 4));
-    setIsLoading(false);
-    setIsFetchingData(false);
-  };
-
   const onError = (err) => {
     notifyError(err);
     setIsLoading(false);
     setIsFetchingData(false);
+  };
+
+  const onRefetch = () => {
+    getFlights();
   };
 
   return (
@@ -84,10 +94,10 @@ const SearchFlightsContainer = () => {
             >
               Cheapest
               <span className="text-sm text-blackishGreen/40">
-                {flights.length > 0 ? (
+                {flights?.length > 0 ? (
                   `
-                  $ ${flights.map((flight) => flight.price).sort()[0]} |${" "}
-                   ${flights.map((flight) => flight.duration).sort()[0]}`
+                  $ ${flights?.map((flight) => flight.price).sort()[0]} |${" "}
+                   ${flights?.map((flight) => flight.duration).sort()[0]}`
                 ) : (
                   <Skeleton className="w-20 h-4 bg-gray-300" />
                 )}
@@ -101,10 +111,10 @@ const SearchFlightsContainer = () => {
             >
               Best
               <span className="text-sm text-blackishGreen/40">
-                {flights.length > 0 ? (
+                {flights?.length > 0 ? (
                   `
-                  $ ${flights.map((flight) => flight.price).sort()[0]} |${" "}
-                   ${flights.map((flight) => flight.duration).sort()[0]}`
+                  $ ${flights?.map((flight) => flight.price).sort()[0]} |${" "}
+                   ${flights?.map((flight) => flight.duration).sort()[0]}`
                 ) : (
                   <Skeleton className="w-20 h-4 bg-gray-300" />
                 )}
@@ -118,10 +128,10 @@ const SearchFlightsContainer = () => {
             >
               Quickest
               <span className="text-sm text-blackishGreen/40">
-                {flights.length > 0 ? (
+                {flights?.length > 0 ? (
                   `
-                  $ ${flights.map((flight) => flight.price).sort()[0]} |${" "}
-                   ${flights.map((flight) => flight.duration).sort()[0]}`
+                  $ ${flights?.map((flight) => flight.price).sort()[0]} |${" "}
+                   ${flights?.map((flight) => flight.duration).sort()[0]}`
                 ) : (
                   <Skeleton className="w-20 h-4 bg-gray-300" />
                 )}
@@ -153,7 +163,7 @@ const SearchFlightsContainer = () => {
               "text-white bg-blackishGreen hover:bg-blackishGreen/90 text-center w-full py-4 transition-colors",
               offset === 12 && "hidden"
             )}
-            onClick={() => getFlights()}
+            onClick={onRefetch}
             disabled={isLoading}
           >
             {isLoading ? (

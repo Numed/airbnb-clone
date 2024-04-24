@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { BsStars } from "react-icons/bs";
 
-import { useRequestService } from "../../services";
+import { HotelsServices } from "../../services/hotels";
 import Header from "./Header";
 import { notifyError } from "../../utils/notifications";
 
 const SingleAppContainer = () => {
   let location = useLocation();
   const id = location.state.id;
-  const { getAppsByID } = useRequestService();
+  const { getAppsByID } = HotelsServices();
   const [app, setApp] = useState({});
   let median = Math.ceil(app?.advantages?.length / 2);
   let firstHalf = app?.advantages?.slice(0, median);

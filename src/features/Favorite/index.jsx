@@ -5,13 +5,13 @@ import FavoriteHotelsApp from "./Hotels";
 import { cn } from "../../utils";
 import { onError } from "../../utils/notifications";
 import { useActiveUser } from "../../store";
-import { useRequestService } from "../../services";
+import { UserServices } from "../../services/user";
 import { useFavorite } from "./useFavorite";
 
 const FavoriteContainer = () => {
   const [active, setActive] = useState("Flights");
   const { user } = useActiveUser();
-  const { getUser } = useRequestService();
+  const { getUser } = UserServices();
   const { onSetUser, apps, flights, setIsLoading } = useFavorite();
 
   useEffect(() => {

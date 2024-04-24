@@ -2,14 +2,16 @@ import { useState } from "react";
 
 import { onError } from "../../utils/notifications";
 import { useActiveUser } from "../../store";
-import { useRequestService } from "../../services";
+import { FlightsService } from "../../services/flights";
+import { HotelsServices } from "../../services/hotels";
 
 export const useFavorite = () => {
   const [flights, setFlights] = useState([]);
   const [apps, setApps] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useActiveUser();
-  const { deleteFavoriteHotel, deleteFavoriteFlight } = useRequestService();
+  const { deleteFavoriteFlight } = FlightsService();
+  const { deleteFavoriteHotel } = HotelsServices();
 
   const onSetUser = (data) => {
     setFlights(data.favoritesFlights);

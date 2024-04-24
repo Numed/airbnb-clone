@@ -2,8 +2,9 @@ import { useState } from "react";
 
 import { cn } from "../../../utils";
 
-const PaymentSection = () => {
+const PaymentSection = ({ price }) => {
   const [selectedPayment, setSelectedPayment] = useState("full-price");
+  const halfPrice = ((price + 25) / 2).toFixed(2);
   return (
     <section className="p-4 rounded-xl bg-white">
       <div className="space-y-4">
@@ -41,8 +42,8 @@ const PaymentSection = () => {
               Pay part now, part later
             </h3>
             <h4 className="text-sm text-blackishGreen w-4/5 lg:max-w-[40rem]">
-              Pay $207.43 now, and the rest ($207.43) will be automatically
-              charged. No extra fees.
+              Pay ${halfPrice} now, and the rest (${halfPrice}) will be
+              automatically charged. No extra fees.
             </h4>
           </div>
           <input

@@ -2,14 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineHeart } from "react-icons/ai";
 
 import { Skeleton } from "../../../components/Skeleton";
-import { useRequestService } from "../../../services";
+import { FlightsService } from "../../../services/flights";
 import { useActiveUser, useFetchingData, useIsLoading } from "../../../store";
 import { notifyError } from "../../../utils/notifications";
 
 const FlightItem = ({ flights }) => {
   const navigate = useNavigate();
   const { user } = useActiveUser();
-  const { addFavoriteFlight, deleteFavoriteFlight } = useRequestService();
+  const { addFavoriteFlight, deleteFavoriteFlight } = FlightsService();
   const { isFetchingData, setIsFetchingData } = useFetchingData();
   const { setIsLoading } = useIsLoading();
 
@@ -45,7 +45,7 @@ const FlightItem = ({ flights }) => {
   };
   return (
     <div className="mt-6 w-full h-full">
-      {flights.map(
+      {flights?.map(
         ({
           id,
           airlineLogo,

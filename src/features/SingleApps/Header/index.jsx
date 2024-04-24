@@ -1,4 +1,4 @@
-import { AiOutlineHeart, AiFillStar, AiOutlineShareAlt } from "react-icons/ai";
+import { AiOutlineHeart, AiFillStar } from "react-icons/ai";
 import { ImLocation2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 
@@ -40,9 +40,6 @@ const SingleAppHeader = ({ apps }) => {
         <div className="flex items-center justify-center">
           <button className="p-3 border border-mintGreen hover:bg-mintGreen text-center text-blackishGreen font-medium mr-4 transition-colors">
             <AiOutlineHeart />
-          </button>
-          <button className="p-3 border border-mintGreen hover:bg-mintGreen text-center text-blackishGreen font-medium mr-4 transition-colors">
-            <AiOutlineShareAlt />
           </button>
           <button
             onClick={goToDetails}

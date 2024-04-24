@@ -11,10 +11,10 @@ import {
   useModalType,
 } from "../../store";
 import { ModalProfile } from "../../components/Modal";
-import { useRequestService } from "../../services";
+import { UserServices } from "../../services/user";
 import { notifyError } from "../../utils/notifications";
 import HistorySection from "../HistorySection";
-import Payment from "./Payment";
+import PaymentCards from "./PaymentCards";
 
 const ProfileContainer = () => {
   const [activeSection, setActiveSection] = useState("Account");
@@ -24,7 +24,7 @@ const ProfileContainer = () => {
   const { isOpenModal, setOpenedModal } = useOpenModal();
   const { modalType, setModalType } = useModalType();
   const { userProfile, setUserProfile } = useUserProfile();
-  const { getUser } = useRequestService();
+  const { getUser } = UserServices();
   const { user } = useActiveUser();
 
   useEffect(() => {
@@ -173,7 +173,7 @@ const ProfileContainer = () => {
                     <h4 className="mb-2 text-xl font-bold text-black">
                       Payment methods
                     </h4>
-                    <Payment />
+                    <PaymentCards />
                   </div>
                 </div>
               </div>

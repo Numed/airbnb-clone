@@ -128,11 +128,11 @@ body {
 }
 
 ::-webkit-scrollbar {
-  background-color: rgba(17, 34, 17, 70);
-  height: 2px;
+  background-color: rgba(118, 179, 158, 0.3);
+  height: 1px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #76b39e;
+  background-color: rgb(118, 179, 158);
   border-radius: 6px;
 }

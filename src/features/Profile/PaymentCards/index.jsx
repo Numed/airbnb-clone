@@ -5,7 +5,7 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { useActiveUser, useModalType, useOpenModal } from "../../../store";
 import { ModalCard } from "../../../components/Modal";
 
-const Payment = () => {
+const PaymentCards = () => {
   const { user, setUser } = useActiveUser();
   const { modalType, setModalType } = useModalType();
   const { isOpenModal, setOpenedModal } = useOpenModal();
@@ -68,4 +68,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default PaymentCards;

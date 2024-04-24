@@ -9,14 +9,16 @@ import FlightDetails from "./FlightDetails";
 
 import { useModalType, useOpenModal } from "../../store";
 import { ModalSuccess } from "../../components/Modal";
-import { useRequestService } from "../../services";
+import { FlightsService } from "../../services/flights";
+import { HotelsServices } from "../../services/hotels";
 import { onError } from "../../utils/notifications";
 
 const DetailsContent = () => {
   const [detailsInfo, setDetailsInfo] = useState();
   const { isOpenModal } = useOpenModal();
-  const { modalType, setModalType } = useModalType();
-  const { getFlightById, getAppsByID } = useRequestService();
+  const { modalType } = useModalType();
+  const { getFlightById } = FlightsService();
+  const { getAppsByID } = HotelsServices();
 
   let location = useLocation();
   let { id, type } = location.state;
@@ -35,7 +37,7 @@ const DetailsContent = () => {
 
   return (
     <main className="flex items-center justify-center flex-col w-full h-full px-8 sm:px-[5rem] mt-12">
-      <div className="flex items-center lg:items-start justify-between flex-col-reverse px-8 xl:flex-row">
+      <div className="flex items-center lg:items-start justify-between flex-col-reverse px-0 sm:px-8 xl:flex-row">
         <div className="h-full space-y-10 w-full lg:w-[50rem]">
           <section className="bg-white py-0 px-2 sm:py-8 sm:px-6 rounded-xl space-y-6 w-full">
             <div className="flex items-center justify-between flex-wrap sm:flex-nowrap">
@@ -57,7 +59,7 @@ const DetailsContent = () => {
               )}
             </div>
           </section>
-          <PaymentSection />
+          <PaymentSection price={detailsInfo?.price} />
           <BookingSection />
         </div>
         <AsideInfo detailsInfo={detailsInfo} />

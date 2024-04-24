@@ -7,11 +7,11 @@ import logo from "../../img/logo/logo.png";
 import signInPicture from "../../img/sign-in/img.png";
 import { SigninSchema } from "./validationSchema";
 import { notifyError } from "../../utils/notifications";
-import { useRequestService } from "../../services";
+import { AuthServices } from "../../services/auth";
 import { useActiveUser } from "../../store";
 
 const SigninContainer = () => {
-  const { signIn } = useRequestService();
+  const { signIn } = AuthServices();
   const { setUser } = useActiveUser();
   const navigate = useNavigate();
 

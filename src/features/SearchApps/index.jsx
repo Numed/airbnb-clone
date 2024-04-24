@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import Search from "./Search";
 import Filter from "./Filter";
-import { useRequestService } from "../../services";
+import { HotelsServices } from "../../services/hotels";
 import { notifyError } from "../../utils/notifications";
 import Loader from "../../components/Loader";
 import { cn } from "../../utils";
@@ -22,12 +22,18 @@ const SearchAppsContainer = () => {
   const setAppsCounter = useCountApps((state) => state.setCountApps);
   const { isLoading, setIsLoading } = useIsLoading();
   const { setIsFetchingData } = useFetchingData();
-  const { getAllApps } = useRequestService();
+  const { getAllApps } = HotelsServices();
   const { apps, setApps } = useApps();
 
   useEffect(() => {
-    getApps();
+    onCheckApps();
   }, []);
+
+  const onCheckApps = () => {
+    if (!apps.length) {
+      getApps();
+    }
+  };
 
   const getApps = () => {
     setIsLoading(true);
@@ -47,6 +53,10 @@ const SearchAppsContainer = () => {
     setIsLoading(false);
     setIsFetchingData(false);
     return notifyError(err);
+  };
+
+  const onRefetch = () => {
+    getApps();
   };
 
   return (
@@ -78,7 +88,7 @@ const SearchAppsContainer = () => {
               "text-white bg-blackishGreen hover:bg-blackishGreen/90 text-center w-full py-4 transition-colors",
               offset === 12 && "hidden"
             )}
-            onClick={() => getApps()}
+            onClick={onRefetch}
             disabled={isLoading}
           >
             {isLoading ? (
