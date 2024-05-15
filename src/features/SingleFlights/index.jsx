@@ -16,7 +16,6 @@ const SingleFlightsContainer = () => {
   const flights = useFlights((state) => state.flights);
 
   useEffect(() => {
-    console.log(flights);
     getFlightById(id)
       .then((res) => setFlight(res))
       .catch((err) => notifyError(err));

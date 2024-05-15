@@ -30,7 +30,7 @@ const SearchAppsContainer = () => {
   }, []);
 
   const onCheckApps = () => {
-    if (!apps.length) {
+    if (apps.length === 0 && offset === 0) {
       getApps();
     }
   };

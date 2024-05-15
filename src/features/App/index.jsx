@@ -4,25 +4,27 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useEffect } from "react";
+import { lazy, useEffect } from "react";
 import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
 
 import Loader from "../../components/Loader";
-import Homepage from "../../pages/Home";
-import SigninIn from "../../pages/SignIn";
-import SignUp from "../../pages/SignUp";
-import Flights from "../../pages/Flights";
-import Appartaments from "../../pages/Apartments";
-import Profile from "../../pages/Profile";
-import SearchFlights from "../../pages/SearchFlights";
-import SinglePageFlights from "../../pages/SingleFlights";
-import SearchApps from "../../pages/SearchApps";
-import SinglePageApps from "../../pages/SingleApps";
-import Favorite from "../../pages/Favorite";
-import Details from "../../pages/Details";
 import { useActiveUser } from "../../store";
+
+const DashboardPage = lazy(() => import("../../pages/Dashboard"));
+const DetailsPage = lazy(() => import("../../pages/Details"));
+const FavoritePage = lazy(() => import("../../pages/Favorite"));
+const SinglePageFlights = lazy(() => import("../../pages/SingleFlights"));
+const SinglePageApps = lazy(() => import("../../pages/SingleApps"));
+const SearchFlights = lazy(() => import("../../pages/SearchFlights"));
+const SearchApps = lazy(() => import("../../pages/SearchApps"));
+const ProfilePage = lazy(() => import("../../pages/Profile"));
+const AppartamentsPage = lazy(() => import("../../pages/Apartments"));
+const FlightsPage = lazy(() => import("../../pages/Flights"));
+const SignInPage = lazy(() => import("../../pages/SignIn"));
+const SignUpPage = lazy(() => import("../../pages/SignUp"));
+const HomePage = lazy(() => import("../../pages/Home"));
 
 const App = () => {
   const { setUser } = useActiveUser();
@@ -35,32 +37,31 @@ const App = () => {
   }, []);
 
   //TODO: Створити сортування по даті
-  //TODO: Робити перевірку чи є дані в сторі для повторного фетча флайтів і апартаментів
+  //TODO: Додати фетч для заповнення даних про резервацію (detail page)
   //TODO: Створити адмінку
-  //TODO: Створити бронювання квитка
-  //TODO: Створити вибір кімнати
 
   return (
     <Router>
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/sign-in" element={<SigninIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/flights" element={<Flights />} />
-          <Route path="/appartaments" element={<Appartaments />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/flights" element={<FlightsPage />} />
+          <Route path="/appartaments" element={<AppartamentsPage />} />
           <Route
             path="/profile"
             element={
               localStorage.getItem("token") ? (
-                <Profile />
+                <ProfilePage />
               ) : (
                 // <Navigate
                 //   to="/sign-in"
                 //   state={{ nextPathname: "/profile" }}
                 //   replace
                 // />
-                <Profile />
+                <ProfilePage />
               )
             }
           />
@@ -72,18 +73,18 @@ const App = () => {
             path="/favorite"
             element={
               localStorage.getItem("token") ? (
-                <Favorite />
+                <FavoritePage />
               ) : (
                 // <Navigate
                 //   to="/sign-in"
                 //   state={{ nextPathname: "/favorite" }}
                 //   replace
                 // />
-                <Favorite />
+                <FavoritePage />
               )
             }
           />
-          <Route path="/details" element={<Details />} />
+          <Route path="/details" element={<DetailsPage />} />
         </Routes>
         <ToastContainer />
       </Suspense>

@@ -78,14 +78,17 @@ const IntroHeader = () => {
               {isOpenMenu && (
                 <div className="space-y-3 bg-white absolute z-10 top-12 left-0 p-4 border border-blackishGreen/40 rounded-lg">
                   <button
-                    className={cn("flex items-center justify-center", location.pathname === "/" && "text-blackishGreen")}
+                    className={cn(
+                      "flex items-center justify-center",
+                      location.pathname === "/" && "text-blackishGreen"
+                    )}
                     onClick={(e) => onLogout(e)}
                   >
                     <IoLogOut className="w-4 h-4 scale-105 mr-2" /> Logout
                   </button>
                 </div>
               )}
-              {convertNameFormat(user.username)}
+              {convertNameFormat(user?.username)}
             </NavLink>
           </div>
         ) : (

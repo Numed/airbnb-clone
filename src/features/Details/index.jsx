@@ -8,7 +8,7 @@ import HotelDetails from "./HotelDetails";
 import FlightDetails from "./FlightDetails";
 
 import { useModalType, useOpenModal } from "../../store";
-import { ModalSuccess } from "../../components/Modal";
+import { ModalCard, ModalSuccess } from "../../components/Modal";
 import { FlightsService } from "../../services/flights";
 import { HotelsServices } from "../../services/hotels";
 import { onError } from "../../utils/notifications";
@@ -21,7 +21,8 @@ const DetailsContent = () => {
   const { getAppsByID } = HotelsServices();
 
   let location = useLocation();
-  let { id, type } = location.state;
+  let { id, type, room } = location.state;
+  console.log("rooom", room);
 
   useEffect(() => {
     if (type === "flights") {
@@ -64,7 +65,13 @@ const DetailsContent = () => {
         </div>
         <AsideInfo detailsInfo={detailsInfo} />
       </div>
-      {isOpenModal && modalType === "succsess" && <ModalSuccess />}
+      {isOpenModal && modalType === "card" && <ModalCard />}
+      {isOpenModal && modalType === "succsess" && (
+        <ModalSuccess
+          {...(room !== null && { room: room.name })}
+          isFlight={false}
+        />
+      )}
     </main>
   );
 };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { BsStars } from "react-icons/bs";
 
 import { HotelsServices } from "../../services/hotels";
@@ -14,12 +14,17 @@ const SingleAppContainer = () => {
   let median = Math.ceil(app?.advantages?.length / 2);
   let firstHalf = app?.advantages?.slice(0, median);
   let secondHalf = app?.advantages?.slice(median);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAppsByID(id)
       .then((res) => setApp(res))
       .catch((err) => notifyError(err));
   }, []);
+
+ const goToDetails = (appId, roomName = null) => {
+  navigate("/details", { state: { id: appId, type: "apps", room: roomName } });
+};
 
   return (
     <main className="flex items-center justify-center flex-col w-full h-full px-12 lg:px-[6.5rem]">
@@ -47,6 +52,9 @@ const SingleAppContainer = () => {
             <h3 className="text-4xl text-colorText font-bold mb-8">
               {app?.rating}
             </h3>
+            <span className="flex text-xl text-blackishGreen font-bold">
+              Very good
+            </span>
           </div>
           <div className="border border-mintGreen rounded-lg p-4 w-[10rem] h-full flex items-start justify-between flex-col">
             <h3 className="text-4xl text-colorText font-bold mb-8">
@@ -73,6 +81,42 @@ const SingleAppContainer = () => {
               <BsStars />
             </h3>
             <h4 className="text-base text-colorText font-bold">Clean Hotel</h4>
+          </div>
+        </div>
+      </section>
+      <section className="border-t border-t-blackishGreen/25 py-12 w-full h-full">
+        <div className="flex flex-col items-start justify-start w-full h-full">
+          <h3 className="text-xl text-blackishGreen font-bold">
+            Available Rooms
+          </h3>
+          <div className="flex items-start justify-between w-full flex-col mt-8 space-y-7">
+            {app?.rooms?.map(({ name, price, photo }, i) => (
+              <div
+                key={i}
+                className="w-full flex items-start justify-start flex-col sm:flex-row border-t border-t-blackishGreen/25 py-6"
+              >
+                <div className="w-full flex items-baseline justify-start">
+                  <img
+                    className="w-[48px] h-[48px] object-contain mr-4"
+                    src={photo || "https://placehold.co/48"}
+                    alt={name}
+                  />
+
+                  <h3 className="mb-2 text-base text-blackishGreen font-normal">
+                    {name}
+                  </h3>
+                </div>
+                <div className="w-1/2">
+                  <span className="text-lg font-bold h-auto mr-4">
+                    ${price}/night
+                  </span>
+                  <button className="w-1/2 text-sm text-blackishGreen font-semibold p-4 bg-mintGreen/80 hover:bg-mintGreen transition-colors"
+                  onClick={() => goToDetails(app.id, {name})}>
+                    Book now
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -113,8 +157,13 @@ const SingleAppContainer = () => {
           </button>
         </div>
         <div className="flex items-start justify-start py-12">
-          <h4 className="text-5xl text-blackishGreen font-bold mr-4">
-            {app?.rating}
+          <h4 className="flex flex-col text-3xl text-blackishGreen font-bold mr-4">
+            {app?.rating} Very good
+            {app?.reviews?.length > 0 && (
+              <span className="mt-4 text-blackishGreen text-lg font-medium">
+                {app?.reviews?.length} reviews total
+              </span>
+            )}
           </h4>
         </div>
         <section className="border-t border-t-blackishGreen/25 w-full h-full">
@@ -122,10 +171,10 @@ const SingleAppContainer = () => {
             {app?.reviews?.map(({ photo, name, rating, comment }, i) => (
               <div
                 key={i}
-                className="flex items-center justify-start flex-col sm:flex-row border-t border-t-blackishGreen/25 py-6"
+                className="flex items-start justify-start flex-col sm:flex-row border-t border-t-blackishGreen/25 py-6"
               >
                 <img
-                  className="w-full h-full sm:w-10 sm:h-10 mr-2"
+                  className="w-full h-full sm:w-10 sm:h-10 mr-4"
                   src={photo}
                   alt={{ name } + " Avatar"}
                 />

@@ -10,6 +10,20 @@ export const useActiveUser = create((set) => ({
       { id: 1, number: "4111111111111535", valid: "12/25", type: "visa" },
       { id: 2, number: "5111111111111636", valid: "12/25", type: "mastercard" },
     ],
+    orderRooms: [
+    ],
+    orderFlights: [
+      {
+      userId: "1",
+      flightId: "1",
+      seat: "46B",
+      },
+      {
+      userId: "1",
+      flightId: "2",
+      seat: "1A",
+      },
+    ],
   },
   setUser: (newUser) => {
     set(() => ({

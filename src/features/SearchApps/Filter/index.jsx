@@ -6,8 +6,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../../../components/Accordion";
-import { FlightsService } from "../../../services/flights";
 import { HotelsServices } from "../../../services/hotels";
+import { FilterService } from "../../../services/filters";
 import { notifyError, onError } from "../../../utils/notifications";
 import { useApps, useCountApps } from "../../../store";
 import { useDebounce } from "../../../hooks";
@@ -21,8 +21,8 @@ const Filter = () => {
   });
   const debounceValue = useDebounce(searchParams, 300);
   const [advantages, setAdvantages] = useState([]);
-  const { filterApps } = FlightsService();
-  const {  getAdvantages } = HotelsServices();
+  const { filterApps } = FilterService();
+  const { getAdvantages } = HotelsServices();
   const { setApps } = useApps();
   const setCountApps = useCountApps((state) => state.setCountApps);
 

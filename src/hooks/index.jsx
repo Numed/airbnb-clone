@@ -9,6 +9,10 @@ export const useHttp = () => {
       headers = {
         "Content-Type": "application/json",
         accepts: "application/json",
+        Authorization:
+          localStorage.getItem("token") !== null
+            ? `Bearer ${localStorage.getItem("token")}`
+            : "",
       }
     ) => {
       try {

@@ -8,3 +8,4 @@ export const AuthServices = () => {
 
   return { signIn, signUp };
 };
+

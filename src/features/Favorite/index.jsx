@@ -11,14 +11,14 @@ import { useFavorite } from "./useFavorite";
 const FavoriteContainer = () => {
   const [active, setActive] = useState("Flights");
   const { user } = useActiveUser();
-  const { getUser } = UserServices();
+  const { getUserMe } = UserServices();
   const { onSetUser, apps, flights, setIsLoading } = useFavorite();
 
   useEffect(() => {
     if (user?.id?.length > 0) {
       const id = user?.id;
       setIsLoading(true);
-      getUser(id).then(onSetUser).catch(onError);
+      getUserMe(id).then(onSetUser).catch(onError);
     }
   }, [user]);
 

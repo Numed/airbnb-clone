@@ -24,14 +24,14 @@ const ProfileContainer = () => {
   const { isOpenModal, setOpenedModal } = useOpenModal();
   const { modalType, setModalType } = useModalType();
   const { userProfile, setUserProfile } = useUserProfile();
-  const { getUser } = UserServices();
+  const { getUserMe } = UserServices();
   const { user } = useActiveUser();
 
   useEffect(() => {
     if (user?.id?.length > 0) {
       const id = user?.id;
       return () =>
-        getUser(id)
+        getUserMe(id)
           .then((data) => setUserProfile(data))
           .catch((er) => notifyError(er.message));
     }

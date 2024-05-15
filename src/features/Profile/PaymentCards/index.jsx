@@ -1,18 +1,28 @@
 import { AiFillDelete } from "react-icons/ai";
 import { FaCcMastercard, FaCcVisa } from "react-icons/fa6";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { toast } from "react-toastify";
 
 import { useActiveUser, useModalType, useOpenModal } from "../../../store";
 import { ModalCard } from "../../../components/Modal";
+import { UserServices } from "../../../services/user";
 
 const PaymentCards = () => {
   const { user, setUser } = useActiveUser();
   const { modalType, setModalType } = useModalType();
   const { isOpenModal, setOpenedModal } = useOpenModal();
+  const { deleteUserCard } = UserServices();
 
   const onDelete = (id) => {
+    deleteUserCard(user.id, id)
+      .then((data) => onDeleted(data, id))
+      .catch((err) => toast.error(err.message));
+  };
+
+  const onDeleted = (data, id) => {
     const newCards = user.cards.filter((card) => card.id !== id);
     setUser({ ...user, cards: newCards });
+    toast.success(data);
   };
 
   const onSetModal = (type) => {

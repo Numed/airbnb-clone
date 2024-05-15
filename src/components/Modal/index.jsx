@@ -136,7 +136,7 @@ export const ModalProfile = ({ initial, type }) => {
   );
 };
 
-export const ModalSuccess = () => {
+export const ModalSuccess = ({ room = null, isFlight = true }) => {
   const { setOpenedModal } = useOpenModal();
   const { setModalType } = useModalType();
   const navigate = useNavigate();
@@ -151,12 +151,27 @@ export const ModalSuccess = () => {
   return (
     <ModalContainer>
       <div className="flex flex-col justify-center items-center w-full h-full">
-        <h2 className="text-2xl font-bold text-blackishGreen mb-4 text-center">
+        <h3 className="text-xl font-semibold text-blackishGreen mb-6 text-center">
           Your reservation has been confirmed!
-        </h2>
+        </h3>
+        {isFlight ? (
+          <h2 className="text-2xl font-semibold">
+            Your seat is:
+            <span className="text-3xl text-bold text-mintGreen block text-center">
+              46B
+            </span>
+          </h2>
+        ) : (
+          <h2 className="text-2xl font-semibold">
+            Your room is:{" "}
+            <span className="text-3xl text-bold text-mintGreen block text-center">
+              {room}
+            </span>
+          </h2>
+        )}
         <Link
           onClick={(event) => onCloseHandler(event)}
-          className="text-blackishGreen text-base py-2 px-4 rounded-md underline underline-offset-4 underline-blackishGreen"
+          className="mt-4 text-blackishGreen text-base py-2 px-4 rounded-md border border-mintGreen hover:bg-mintGreen hover:text-white transition"
         >
           Go to home page
         </Link>
@@ -188,117 +203,119 @@ export const ModalCard = () => {
     <ModalContainer styles={"h-[80%] sm:h-[85%] xl:h-[75%]"}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-center sm:justify-start items-start w-full h-full sm:p-10 space-y-6"
+        className="flex flex-col justify-around sm:justify-start items-start w-full h-full sm:p-10 space-y-6"
       >
-        <h3 className="font-bold text-2xl sm:text-4xl text-black">
-          Add New Card
-        </h3>
-        <label className="text-base text-blackishGreen flex flex-col justify-center items-start mb-6 w-full font-bold">
-          Card Number
-          {errors.number && (
-            <span className="block text-sm text-red-500">
-              {errors.number.message}
-            </span>
-          )}
-          <div className="relative w-full">
-            <input
-              minLength={19}
-              maxLength={19}
-              {...register("number", { required: "Card number is required" })}
-              onChange={(e) => {
-                const rawInput = e.target.value.replace(/\D/g, "");
-                const formattedInput = rawInput
-                  .replace(/(\d{4})/g, "$1 ")
-                  .trim();
-                setValue("number", formattedInput, { shouldValidate: true });
-              }}
-              className={cn(
-                "mt-4 text-base font-normal text-black w-full p-2 border pr-8",
-                errors.number ? "border-red-500" : "border-blackishGreen"
-              )}
-              type="text"
-              required
-            />
-            <div className="flex items-center justify-end">
-              {watch("number") && watch("number").startsWith("4") ? (
-                <FaCcVisa className="absolute right-2 top-[65%] transform -translate-y-1/2 w-6 h-6" />
-              ) : watch("number") && watch("number").startsWith("5") ? (
-                <FaCcMastercard className="absolute right-2 top-[65%] transform -translate-y-1/2 w-6 h-6" />
-              ) : null}
-            </div>
-          </div>
-        </label>
-        <div className="flex justify-between w-full">
-          <div className="flex flex-col justify-center items-start w-1/2 mr-2">
-            <label className="text-base text-colorText font-bold">
-              Exp. Date
-              {errors.valid && (
-                <span className="block text-sm text-red-500">
-                  {errors.valid.message}
-                </span>
-              )}
+        <div className="w-full space-y-6">
+          <h3 className="font-bold text-2xl sm:text-4xl text-black mb-4">
+            Add New Card
+          </h3>
+          <label className="text-base text-blackishGreen flex flex-col justify-center items-start mb-6 w-full font-bold">
+            Card Number
+            {errors.number && (
+              <span className="block text-sm text-red-500">
+                {errors.number.message}
+              </span>
+            )}
+            <div className="relative w-full">
               <input
-                minLength={5}
-                maxLength={5}
-                {...register("valid", { required: "Exp. Date is required" })}
+                minLength={19}
+                maxLength={19}
+                {...register("number", { required: "Card number is required" })}
                 onChange={(e) => {
-                  const rawInput = e.target.value.replace(/[^0-9/]/g, "");
-                  const formattedInput = rawInput.replace(
-                    /(\d{2})(\d)/,
-                    "$1/$2"
-                  );
-                  setValue("valid", formattedInput, { shouldValidate: true });
+                  const rawInput = e.target.value.replace(/\D/g, "");
+                  const formattedInput = rawInput
+                    .replace(/(\d{4})/g, "$1 ")
+                    .trim();
+                  setValue("number", formattedInput, { shouldValidate: true });
                 }}
                 className={cn(
-                  "mt-2 text-base font-normal text-black w-full p-2 border",
-                  errors.valid ? "border-red-500" : "border-blackishGreen"
+                  "mt-4 text-base font-normal text-black w-full p-2 border pr-8",
+                  errors.number ? "border-red-500" : "border-blackishGreen"
                 )}
                 type="text"
                 required
               />
-            </label>
-          </div>
-          <div className="flex flex-col justify-center items-start w-1/2 ml-2">
-            <label className="text-base text-colorText font-bold">
-              CVC
-              {errors.cvc && (
-                <span className="block text-sm text-red-500">
-                  {errors.cvc.message}
-                </span>
-              )}
-              <input
-                minLength={3}
-                maxLength={3}
-                {...register("cvc", { required: "CVC is required" })}
-                pattern="\d*"
-                className={cn(
-                  "mt-2 text-base font-normal text-black w-full p-2 border",
-                  errors.cvc ? "border-red-500" : "border-blackishGreen"
+              <div className="flex items-center justify-end">
+                {watch("number") && watch("number").startsWith("4") ? (
+                  <FaCcVisa className="absolute right-2 top-[65%] transform -translate-y-1/2 w-6 h-6" />
+                ) : watch("number") && watch("number").startsWith("5") ? (
+                  <FaCcMastercard className="absolute right-2 top-[65%] transform -translate-y-1/2 w-6 h-6" />
+                ) : null}
+              </div>
+            </div>
+          </label>
+          <div className="flex justify-between w-full">
+            <div className="flex flex-col justify-center items-start w-1/2 mr-2">
+              <label className="text-base text-colorText font-bold">
+                Exp. Date
+                {errors.valid && (
+                  <span className="block text-sm text-red-500">
+                    {errors.valid.message}
+                  </span>
                 )}
-                type="text"
-                required
-              />
-            </label>
+                <input
+                  minLength={5}
+                  maxLength={5}
+                  {...register("valid", { required: "Exp. Date is required" })}
+                  onChange={(e) => {
+                    const rawInput = e.target.value.replace(/[^0-9/]/g, "");
+                    const formattedInput = rawInput.replace(
+                      /(\d{2})(\d)/,
+                      "$1/$2"
+                    );
+                    setValue("valid", formattedInput, { shouldValidate: true });
+                  }}
+                  className={cn(
+                    "mt-2 text-base font-normal text-black w-full p-2 border",
+                    errors.valid ? "border-red-500" : "border-blackishGreen"
+                  )}
+                  type="text"
+                  required
+                />
+              </label>
+            </div>
+            <div className="flex flex-col justify-center items-start w-1/2 ml-2">
+              <label className="text-base text-colorText font-bold">
+                CVC
+                {errors.cvc && (
+                  <span className="block text-sm text-red-500">
+                    {errors.cvc.message}
+                  </span>
+                )}
+                <input
+                  minLength={3}
+                  maxLength={3}
+                  {...register("cvc", { required: "CVC is required" })}
+                  pattern="\d*"
+                  className={cn(
+                    "mt-2 text-base font-normal text-black w-full p-2 border",
+                    errors.cvc ? "border-red-500" : "border-blackishGreen"
+                  )}
+                  type="text"
+                  required
+                />
+              </label>
+            </div>
           </div>
-        </div>
-        <label className="text-base text-colorText flex flex-col justify-center items-start mb-6 w-full font-bold">
-          Name on Card
-          {errors.name && (
-            <span className="block text-sm text-red-500">
-              {errors.name.message}
-            </span>
-          )}
-          <input
-            className={cn(
-              "mt-4 text-base font-normal text-black w-full p-2 border",
-              errors.name ? "border-red-500" : "border-blackishGreen"
+          <label className="text-base text-colorText flex flex-col justify-center items-start mb-6 w-full font-bold">
+            Name on Card
+            {errors.name && (
+              <span className="block text-sm text-red-500">
+                {errors.name.message}
+              </span>
             )}
-            type="text"
-            name="name"
-            {...register("name", { required: "Name is required" })}
-            required
-          />
-        </label>
+            <input
+              className={cn(
+                "mt-4 text-base font-normal text-black w-full p-2 border",
+                errors.name ? "border-red-500" : "border-blackishGreen"
+              )}
+              type="text"
+              name="name"
+              {...register("name", { required: "Name is required" })}
+              required
+            />
+          </label>
+        </div>
         <button
           className="p-3 bg-mintGreen/70 hover:bg-mintGreen transition-all text-white text-lg w-full mt-4"
           type="submit"

@@ -80,7 +80,7 @@ const Cards = () => {
       </div>
       <button
         className="text-white text-lg sm:text-xl bg-mintGreen hover:bg-mintGreen/70 text-center w-full py-2 sm:py-4 transition-colors"
-        onClick={() => setOpenedModal(true)}
+        onClick={() => onSetModal("succsess")}
       >
         Book now
       </button>
