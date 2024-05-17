@@ -110,3 +110,10 @@ export const useCountFlights = create((set) => ({
     set({ countFlights: state });
   },
 }));
+
+export const useUsersData = create((set) => ({
+  usersData: [],
+  setUsersData: (state) => {
+    set({ usersData: state });
+  },
+}));

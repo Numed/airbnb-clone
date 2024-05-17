@@ -3,7 +3,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 import profile from "../../img/profile.png";
-import { MdFlight } from "react-icons/md";
+import { MdFlight, MdSpaceDashboard } from "react-icons/md";
 import { useActiveUser, useOpenMenu, useOpenSubmodal } from "../../store";
 import Link from "../../components/CustomLink";
 import { convertNameFormat } from "../../utils";
@@ -19,6 +19,13 @@ const NavPopup = () => {
     setUser(null);
     localStorage.removeItem("token");
     navigate("/");
+  };
+
+  const onAdmin = (e) => {
+    e.preventDefault();
+    setOpenedSubmodal(false);
+    setIsOpenMenu(false);
+    navigate("/dashboard");
   };
 
   return (
@@ -70,6 +77,15 @@ const NavPopup = () => {
               </div>
               {isOpenMenu && (
                 <div className="space-y-3 bg-white absolute z-10 top-12 left-0 p-4 border border-blackishGreen/40 rounded-lg">
+                  {user.role === "admin" && (
+                    <button
+                      className="flex items-center text-blackishGreen"
+                      onClick={(e) => onAdmin(e)}
+                    >
+                      <MdSpaceDashboard className="w-4 h-4 scale-105 mr-2" />
+                      Admin
+                    </button>
+                  )}
                   <button
                     className="flex items-center justify-center"
                     onClick={(e) => onLogout(e)}

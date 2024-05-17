@@ -4,6 +4,8 @@ export const AdminService = () => {
   const { makeRequest } = useRequestService();
 
   const getUser = (id) => makeRequest(`/user/${id}`);
+  const getAllUsers = () => makeRequest("/users");
+  const createHotels = (data) => makeRequest("/hotels", "POST", data);
   const updateUserName = (data, id) =>
     makeRequest(`/user/${id}`, "PATCH", data);
   const updateUserAvatar = (data, id) =>
@@ -17,6 +19,8 @@ export const AdminService = () => {
 
   return {
     getUser,
+    getAllUsers,
+    createHotels,
     updateUserName,
     updateUserAvatar,
     updateUserPhone,
