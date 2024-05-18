@@ -6,22 +6,22 @@ export const useActiveUser = create((set) => ({
     username: "John Doe",
     email: "john-doe@gmail.com",
     password: "fdsafasd213412",
+    role: "admin",
     cards: [
       { id: 1, number: "4111111111111535", valid: "12/25", type: "visa" },
       { id: 2, number: "5111111111111636", valid: "12/25", type: "mastercard" },
     ],
-    orderRooms: [
-    ],
+    orderRooms: [],
     orderFlights: [
       {
-      userId: "1",
-      flightId: "1",
-      seat: "46B",
+        userId: "1",
+        flightId: "1",
+        seat: "46B",
       },
       {
-      userId: "1",
-      flightId: "2",
-      seat: "1A",
+        userId: "1",
+        flightId: "2",
+        seat: "1A",
       },
     ],
   },
@@ -115,5 +115,12 @@ export const useUsersData = create((set) => ({
   usersData: [],
   setUsersData: (state) => {
     set({ usersData: state });
+  },
+}));
+
+export const useHotelsData = create((set) => ({
+  hotelsData: [],
+  setHotelsData: (state) => {
+    set({ hotelsData: state });
   },
 }));

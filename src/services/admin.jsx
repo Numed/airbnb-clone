@@ -16,6 +16,11 @@ export const AdminService = () => {
     makeRequest(`/user/${id}`, "PATCH", data);
   const updateUserDateOfBirth = (data, id) =>
     makeRequest(`/user/${id}`, "PATCH", data);
+  const getAllApps = () => makeRequest("/hotels");
+  const getAppsByID = (id) => makeRequest(`/hotels/${id}`);
+  const addApps = (data) => makeRequest("/hotels", "POST", data);
+  const updateApps = (data, id) => makeRequest(`/hotels/${id}`, "PATCH", data);
+  const deleteApps = (id) => makeRequest(`/hotels/${id}`, "DELETE");
 
   return {
     getUser,
@@ -26,5 +31,10 @@ export const AdminService = () => {
     updateUserPhone,
     updateUserAddress,
     updateUserDateOfBirth,
+    getAllApps,
+    getAppsByID,
+    addApps,
+    updateApps,
+    deleteApps,
   };
 };
