@@ -32,7 +32,7 @@ const PaymentCards = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-4 sm:gap-x-4 justify-between items-center w-full h-auto">
-      {user.cards.map(({ number, valid, type, id }) => {
+      {user?.cards?.map(({ number, valid, type, id }) => {
         return (
           <div
             className="w-full sm:w-[320px] lg:w-[350px] h-auto bg-mintGreen rounded-md p-4"

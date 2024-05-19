@@ -14,6 +14,8 @@ export const UserServices = () => {
   const updateEmail = (data, id) => makeRequest(`/user/${id}`, "PATCH", data);
   const updatePassword = (data, id) =>
     makeRequest(`/user/${id}`, "PATCH", data);
+  const updateUserAvatar = (data, id) =>
+    makeRequest(`/user/${id}`, "PATCH", data);
   const getUserMe = () => makeRequest("/user/me");
   const userMeUpdate = (data) => makeRequest("/user/me", "PATCH", data);
   const addUserCard = (userID, data) =>
@@ -30,6 +32,7 @@ export const UserServices = () => {
     addFavoriteFlight,
     deleteFavoriteHotel,
     deleteFavoriteFlight,
+    updateUserAvatar,
     addUserCard,
     deleteUserCard,
   };

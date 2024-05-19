@@ -1,18 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 import { IoPencil } from "react-icons/io5";
 import { RiEditBoxFill } from "react-icons/ri";
 
-import ava from "../../img/profile/ava.png";
 import { cn } from "../../utils";
-import {
-  useOpenModal,
-  useActiveUser,
-  useUserProfile,
-  useModalType,
-} from "../../store";
+import { useOpenModal, useActiveUser, useModalType } from "../../store";
 import { ModalProfile } from "../../components/Modal";
 import { UserServices } from "../../services/user";
-import { notifyError } from "../../utils/notifications";
+import { notifyError, notifySuccess } from "../../utils/notifications";
 import HistorySection from "../HistorySection";
 import PaymentCards from "./PaymentCards";
 
@@ -23,19 +18,18 @@ const ProfileContainer = () => {
 
   const { isOpenModal, setOpenedModal } = useOpenModal();
   const { modalType, setModalType } = useModalType();
-  const { userProfile, setUserProfile } = useUserProfile();
-  const { getUserMe } = UserServices();
-  const { user } = useActiveUser();
+  const { getUserMe, userMeUpdate } = UserServices();
+  const { user, setUser } = useActiveUser();
 
   useEffect(() => {
-    if (user?.id?.length > 0) {
-      const id = user?.id;
-      return () =>
-        getUserMe(id)
-          .then((data) => setUserProfile(data))
-          .catch((er) => notifyError(er.message));
-    }
-  }, [user]);
+    updateProfile();
+  }, []);
+
+  const updateProfile = () => {
+    getUserMe()
+      .then((data) => setUser(data))
+      .catch((er) => notifyError(er.message));
+  };
 
   const handleModal = (type, initial) => {
     setOpenedModal(true);
@@ -44,22 +38,53 @@ const ProfileContainer = () => {
     setType(type);
   };
 
+  const onDrop = useCallback((acceptedFiles) => {
+    const file = acceptedFiles[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64String = reader.result;
+      userMeUpdate({ avatar: base64String }, user.id)
+        .then((data) => {
+          updateProfile();
+          notifySuccess(data.message);
+        })
+        .catch((error) => {
+          notifyError("Error updating avatar: " + error.message);
+        });
+    };
+
+    reader.readAsDataURL(file);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: "image/*",
+    multiple: false,
+  });
+
   return (
     <section className="p-8 xl:p-[6.5rem]">
       <div className="w-full h-[22rem] bg-profileBackground bg-center bg-no-repeat bg-cover rounded-xl"></div>
       <div className="flex flex-col items-center justify-center">
-        <div className="flex relative flex-col justify-center items-center translate-y-16">
-          <img className="w-3/4 h-3/4" src={ava} alt="Avatar Profile" />
-          <button className="bg-red-400 w-10 h-10 rounded-full flex items-center justify-center absolute top-[55%] right-[25%]">
+        <div className="flex relative flex-col justify-center items-center -translate-y-16">
+          <img
+            className="w-[150px] h-[150px] rounded-full object-cover"
+            src={user?.avatar}
+            alt="Avatar Profile"
+          />
+          <div
+            {...getRootProps()}
+            className="bg-red-400 w-10 h-10 rounded-full flex items-center justify-center absolute top-[47%] right-[20%] cursor-pointer"
+          >
+            <input {...getInputProps()} />
             <IoPencil size="1.5rem" />
-          </button>
-          <div className="flex flex-col items-center justify-center">
+          </div>
+          <div className="flex flex-col items-center justify-center mt-10">
             <h3 className="font-bold mb-2 text-2xl text-blackishGreen">
-              {userProfile?.username}
+              {user?.username}
             </h3>
-            <h4 className="text-base text-blackishGreen/75">
-              {userProfile?.email}
-            </h4>
+            <h4 className="text-base text-blackishGreen/75">{user?.email}</h4>
           </div>
         </div>
         <div className="w-full h-auto flex items-center justify-center">
@@ -93,12 +118,12 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Name</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      {userProfile?.username}
+                      {user?.username}
                     </h3>
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() => handleModal("text", userProfile?.username)}
+                    onClick={() => handleModal("text", user?.username)}
                   >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
@@ -107,12 +132,12 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Email</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      {userProfile?.email}
+                      {user?.email}
                     </h3>
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() => handleModal("email", userProfile?.email)}
+                    onClick={() => handleModal("email", user?.email)}
                   >
                     <RiEditBoxFill className="mr-1" />
                     Change
@@ -122,12 +147,12 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Phone number</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      {userProfile?.phone}
+                      {user?.phone}
                     </h3>
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() => handleModal("phone", userProfile?.phone)}
+                    onClick={() => handleModal("phone", user?.phone)}
                   >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
@@ -136,14 +161,12 @@ const ProfileContainer = () => {
                   <div>
                     <h4 className="mb-2 text-blackishGreen/75">Address</h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      {userProfile?.address !== undefined
-                        ? userProfile.address
-                        : "Not specified"}
+                      {user?.address ? user.address : "Not specified"}
                     </h3>
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() => handleModal("address", userProfile?.address)}
+                    onClick={() => handleModal("address", user?.address)}
                   >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
@@ -154,16 +177,12 @@ const ProfileContainer = () => {
                       Date of birth
                     </h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
-                      {userProfile?.dataBirth !== undefined
-                        ? userProfile.dataBirth
-                        : "Not specified"}
+                      {user?.dataBirth ? user.dataBirth : "Not specified"}
                     </h3>
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() =>
-                      handleModal("birthday", userProfile?.dataBirth)
-                    }
+                    onClick={() => handleModal("birthday", user?.dataBirth)}
                   >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>

@@ -157,7 +157,14 @@ const SearchFlightsContainer = () => {
               </select>
             </h5>
           </div>
-          <FlightItem flights={flights} />
+          {isLoading ? (
+            <div className="flex items-start justify-start w-full my-4">
+              <Skeleton className="h-[14rem] w-[14rem] bg-gray-300" />
+              <Skeleton className="h-[14rem] w-[44rem] bg-gray-300 ml-4" />
+            </div>
+          ) : (
+            <FlightItem flights={flights} />
+          )}
           <button
             className={cn(
               "text-white bg-blackishGreen hover:bg-blackishGreen/90 text-center w-full py-4 transition-colors",

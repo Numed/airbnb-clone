@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { usersConstants } from "../features/Contants";
 
 export const useActiveUser = create((set) => ({
   user: {
@@ -28,15 +29,6 @@ export const useActiveUser = create((set) => ({
   setUser: (newUser) => {
     set(() => ({
       user: newUser,
-    }));
-  },
-}));
-
-export const useUserProfile = create((set) => ({
-  userProfile: null,
-  setUserProfile: (newUserProfile) => {
-    set(() => ({
-      userProfile: newUserProfile,
     }));
   },
 }));
@@ -112,7 +104,7 @@ export const useCountFlights = create((set) => ({
 }));
 
 export const useUsersData = create((set) => ({
-  usersData: [],
+  usersData: usersConstants,
   setUsersData: (state) => {
     set({ usersData: state });
   },

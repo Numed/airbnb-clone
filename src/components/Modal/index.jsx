@@ -11,7 +11,7 @@ import {
 import { notifySuccess, onError } from "../../utils/notifications";
 import { UserServices } from "../../services/user";
 import { getFieldLabel, getFieldType } from "../../utils/modal";
-import { useModalType, useOpenModal, useUserProfile } from "../../store";
+import { useModalType, useOpenModal } from "../../store";
 import { cn } from "../../utils";
 import { useActiveUser } from "../../store";
 
@@ -61,7 +61,6 @@ export const ModalProfile = ({ initial, type }) => {
     updatePhone,
   } = UserServices();
   const { user, setUser } = useActiveUser();
-  const { userProfile, setUserProfile } = useUserProfile();
   const { setOpenedModal } = useOpenModal();
   const { setModalType } = useModalType();
 
@@ -94,8 +93,7 @@ export const ModalProfile = ({ initial, type }) => {
       values.dataBirth = values.birthday;
       delete values.birthday;
     }
-    setUserProfile((user) => ({ ...user, ...values }));
-    setUser(userProfile);
+    setUser((user) => ({ ...user, ...values }));
     notifySuccess(data);
   };
 
@@ -139,6 +137,8 @@ export const ModalProfile = ({ initial, type }) => {
 export const ModalSuccess = ({ room = null, isFlight = true }) => {
   const { setOpenedModal } = useOpenModal();
   const { setModalType } = useModalType();
+  const user = useActiveUser((selector) => selector.user);
+  const setUser = useActiveUser((selector) => selector.setUser());
   const navigate = useNavigate();
 
   const onCloseHandler = (event) => {
@@ -147,6 +147,8 @@ export const ModalSuccess = ({ room = null, isFlight = true }) => {
     navigate("/");
     setModalType("none");
   };
+
+  console.log(user);
 
   return (
     <ModalContainer>

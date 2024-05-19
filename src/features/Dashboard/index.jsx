@@ -4,20 +4,21 @@ import { columns } from "../../utils/columns";
 import DashboardTable from "./Users/dashboard-table";
 import { AdminService } from "../../services/admin";
 import { notifyError } from "../../utils/notifications";
-import { usersConstants } from "../../features/Contants";
 import HotelsDashboard from "./Hotels";
 import { Hotel, Users } from "lucide-react";
+import { useUsersData } from "../../store";
 
 const DashboardContainer = () => {
-  const [users, setUsers] = useState(usersConstants);
+  const usersData = useUsersData((state) => state.usersData);
+  const setUsersData = useUsersData((state) => state.setUsersData);
   const [activeTab, setActiveTab] = useState("users");
   const { getAllUsers } = AdminService();
 
   useEffect(() => {
-    if (!users.length) {
+    if (!usersData.length) {
       getAllUsers()
         .then((response) => {
-          setUsers(response.data);
+          setUsersData(response.data);
         })
         .catch((error) => {
           notifyError(error);
@@ -57,7 +58,7 @@ const DashboardContainer = () => {
         </div>
       </div>
       {activeTab === "users" ? (
-        <DashboardTable columns={columns} data={users} />
+        <DashboardTable columns={columns} data={usersData} />
       ) : (
         <HotelsDashboard />
       )}

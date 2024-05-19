@@ -5,7 +5,6 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 
 import NavPopup from "../../NavPopup";
 import logo from "../../../img/logo/logo-white.png";
-import profile from "../../../img/profile.png";
 import { useActiveUser, useOpenMenu, useOpenSubmodal } from "../../../store";
 import { cn, convertNameFormat } from "../../../utils";
 
@@ -67,7 +66,11 @@ const IntroHeader = () => {
                 className="relative mr-1"
                 onClick={() => setIsOpenMenu(!isOpenMenu)}
               >
-                <img src={profile} alt="Profile Avatar" />
+                <img
+                  className="w-10 h-10 rounded-full object-cover"
+                  src={user?.avatar}
+                  alt="Profile Avatar"
+                />
                 <button
                   className="absolute bottom-0 right-0 flex items-center justify-center bg-red-400 w-3 h-3 rounded-full"
                   onClick={() => setIsOpenMenu(!isOpenMenu)}

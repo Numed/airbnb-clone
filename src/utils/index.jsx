@@ -6,7 +6,13 @@ export const cn = (...inputs) => {
 };
 
 export const convertNameFormat = (name) => {
-  const nameArr = name?.split(" ");
+  if (!name) {
+    return '';
+  }
+  const nameArr = name.split(" ");
+  if (nameArr.length === 1) {
+    return nameArr[0];
+  }
   const firstName = nameArr[0];
   const lastName = nameArr[nameArr.length - 1].slice(0, 1);
   return `${firstName} ${lastName[0]}.`;

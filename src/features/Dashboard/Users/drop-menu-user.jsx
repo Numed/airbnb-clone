@@ -1,5 +1,4 @@
 import { MoreHorizontal } from "lucide-react";
-
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -10,17 +9,17 @@ import {
 } from "../../../components/DropMenu";
 import Button from "../../../components/Button";
 import { ModalForUserFrom } from "./user-modal";
-import { useActiveUser } from "../../../store";
+import { useUsersData } from "../../../store";
 
 export const DropdownMenuUser = ({ user }) => {
-  const { users } = useActiveUser();
-  const handleDeleteCar = (id) => {
-    let usersLocalStorage = JSON.parse(localStorage.getItem("users") || "[]");
-    if (!usersLocalStorage.length) {
-      usersLocalStorage = users;
-    }
-    const newUsers = usersLocalStorage.filter((item) => item.id !== id);
-    localStorage.setItem("users", JSON.stringify(newUsers));
+  const { usersData, setUsersData } = useUsersData((state) => ({
+    usersData: state.usersData,
+    setUsersData: state.setUsersData,
+  }));
+
+  const handleDeleteUser = (id) => {
+    const newUsers = usersData.filter((item) => item.id !== id);
+    setUsersData(newUsers);
   };
 
   return (
@@ -48,7 +47,7 @@ export const DropdownMenuUser = ({ user }) => {
           id={user.id}
         />
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => handleDeleteCar(user.id)}>
+        <DropdownMenuItem onClick={() => handleDeleteUser(user.id)}>
           Delete user
         </DropdownMenuItem>
       </DropdownMenuContent>

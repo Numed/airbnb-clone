@@ -25,51 +25,50 @@ import Button from "../../../components/Button";
 import { notifySuccess } from "../../../utils/notifications";
 import { useUsersData } from "../../../store";
 
-const UserFormSchrma = z.object({
+const UserFormSchema = z.object({
   id: z.string(),
-  name: z.string(),
+  username: z.string(),
   email: z.string().email(),
   role: z.string(),
 });
+
 export function UserForm({ id }) {
-  const users = useUsersData((selectore) => selectore.usersData);
+  const { usersData, setUsersData } = useUsersData((state) => ({
+    usersData: state.usersData,
+    setUsersData: state.setUsersData,
+  }));
+  
   const form = useForm({
-    resolver: zodResolver(UserFormSchrma),
+    resolver: zodResolver(UserFormSchema),
     defaultValues: {
       id: id || "",
-      name: "",
+      username: "",
       email: "",
       role: "",
     },
   });
 
   useEffect(() => {
-    let usersLocalStorage = JSON.parse(localStorage.getItem("users") || "[]");
-    if (!usersLocalStorage.length) {
-      usersLocalStorage = [...users];
-    }
     if (id) {
-      const user = usersLocalStorage.find((item) => item.id === id);
+      const user = usersData.find((item) => item.id === id);
       if (user) {
         form.reset(user);
       }
     }
-  }, [id, form]);
+  }, [id, form, usersData]);
 
   const onSubmit = (data) => {
-    let usersLocalStorage = JSON.parse(localStorage.getItem("users") || "[]");
-    if (!usersLocalStorage.length) {
-      usersLocalStorage = users;
-    }
+    let updatedUsers = [...usersData];
 
     if (id) {
-      usersLocalStorage = usersLocalStorage.map((item) =>
+      updatedUsers = updatedUsers.map((item) =>
         item.id === id ? { ...item, ...data } : item
       );
     } else {
-      usersLocalStorage.push(data);
+      updatedUsers.push(data);
     }
-    localStorage.setItem("users", JSON.stringify(usersLocalStorage));
+
+    setUsersData(updatedUsers);
     notifySuccess("User's data has been updated");
     form.reset();
   };
@@ -80,16 +79,16 @@ export function UserForm({ id }) {
         <div className="grid gap-4 py-4">
           <FormField
             control={form.control}
-            name="name"
+            name="username"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Username</FormLabel>
                     <Input
                       onChange={field.onChange}
                       value={field.value}
-                      placeholder="Enter the name"
+                      placeholder="Enter the username"
                     />
                   </>
                 </FormControl>
@@ -130,7 +129,7 @@ export function UserForm({ id }) {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          {["Admin", "User"].map((role) => (
+                          {["admin", "user"].map((role) => (
                             <SelectItem key={role} value={role}>
                               {role}
                             </SelectItem>

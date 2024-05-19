@@ -46,7 +46,6 @@ export const columns = [
     enableHiding: false,
     cell: ({ row }) => {
       const user = row.original;
-
       return <DropdownMenuUser user={user} />;
     },
   },

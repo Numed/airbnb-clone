@@ -4,7 +4,6 @@ import { AiFillHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 import logo from "../../img/logo/logo.png";
-import profile from "../../img/profile.png";
 import { useActiveUser, useOpenSubmodal, useOpenMenu } from "../../store";
 import NavPopup from "../../features/NavPopup";
 import Link from "../CustomLink";
@@ -74,7 +73,11 @@ const Header = () => {
                 onClick={() => setIsOpenMenu(!isOpenMenu)}
               >
                 <Link to="/profile">
-                  <img src={profile} alt="Profile Avatar" />
+                  <img
+                    className="rounded-full w-10 h-10 object-cover"
+                    src={user?.avatar}
+                    alt="Profile Avatar"
+                  />
                 </Link>
                 <button
                   className="absolute bottom-0 right-0 flex items-center justify-center bg-red-400 w-3 h-3 rounded-full"
