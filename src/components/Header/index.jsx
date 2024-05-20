@@ -88,7 +88,7 @@ const Header = () => {
               </div>
               {isOpenMenu && (
                 <div className="space-y-3 bg-white absolute z-10 top-12 left-0 p-4 border border-blackishGreen/40 rounded-lg">
-                  {user.role === "admin" && (
+                  {user.isAdmin && (
                     <button
                       className="flex items-center text-blackishGreen"
                       onClick={(e) => onAdmin(e)}

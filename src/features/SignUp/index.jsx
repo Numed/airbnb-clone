@@ -47,7 +47,7 @@ const SignUpContainer = () => {
   };
 
   return (
-    <section className="mt-10 lg:mt-0 flex items-center justify-center py-4">
+    <section className="mt-10 flex items-center justify-center py-4">
       <img
         className="hidden xl:block xl:h-full xl:scale-100 lg:w-[40%] xl:w-[38.5rem] h-[51rem] mr-10 scale-75"
         src={signInPicture}

@@ -37,9 +37,6 @@ const SingleAppHeader = ({ apps }) => {
           ${apps.price}/night
         </h3>
         <div className="flex items-center justify-center">
-          <button className="p-3 border border-mintGreen hover:bg-mintGreen text-center text-blackishGreen font-medium mr-4 transition-colors">
-            <AiOutlineHeart />
-          </button>
           <button
             onClick={goToDetails}
             className="text-sm text-blackishGreen font-semibold bg-mintGreen/90 hover:bg-mintGreen p-4 xl:py-3 xl:px-10 text-center rounded-sm transition-colors"

@@ -6,9 +6,10 @@ import { useForm } from "react-hook-form";
 
 import {
   generateValidationSchema,
+  validationSchemas,
   validationSchemsCard,
 } from "./validationSchema";
-import { notifySuccess, onError } from "../../utils/notifications";
+import { notifyError, notifySuccess, onError } from "../../utils/notifications";
 import { UserServices } from "../../services/user";
 import { getFieldLabel, getFieldType } from "../../utils/modal";
 import { useModalType, useOpenModal } from "../../store";
@@ -45,56 +46,42 @@ const ModalContainer = ({ children, styles }) => {
 };
 
 export const ModalProfile = ({ initial, type }) => {
+  if (!validationSchemas.hasOwnProperty(type)) {
+    throw new Error(`No validation schema found for type "${type}"`);
+  }
+
+  const schema = generateValidationSchema(type);
+
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(generateValidationSchema[type]),
+    resolver: zodResolver(schema),
   });
-  const {
-    updatePassword,
-    updateAddress,
-    updateDateOfBirth,
-    updateEmail,
-    updateName,
-    updatePhone,
-  } = UserServices();
+
+  const { userMeUpdate } = UserServices();
   const { user, setUser } = useActiveUser();
-  const { setOpenedModal } = useOpenModal();
-  const { setModalType } = useModalType();
+  const { setOpenedModal, setModalType } = useOpenModal();
 
-  const typeFunctionMap = {
-    email: updateEmail,
-    text: updateName,
-    phone: updatePhone,
-    password: updatePassword,
-    address: updateAddress,
-    default: updateDateOfBirth,
+  const onSubmitProfile = (data) => {
+    console.log(data);
+    // userMeUpdate(data)
+    //   .then((updatedUser) => onUpdateProfile(updatedUser, data))
+    //   .catch(onError);
   };
 
-  const onSubmitProfile = async (data) => {
-    const updateFunction = typeFunctionMap[type] || typeFunctionMap.default;
-
-    if (user.id !== null) {
-      try {
-        const el = await updateFunction(data, user.id);
-        onUpdateProfile(el, data);
-      } catch (error) {
-        onError(error);
-      }
-    }
-  };
-
-  const onUpdateProfile = (data, values) => {
+  const onUpdateProfile = (updatedUser, values) => {
     setOpenedModal(false);
     setModalType("none");
+
     if (values.birthday !== undefined) {
-      values.dataBirth = values.birthday;
+      updatedUser.dataBirth = values.birthday;
       delete values.birthday;
     }
-    setUser((user) => ({ ...user, ...values }));
-    notifySuccess(data);
+
+    setUser(updatedUser);
+    notifySuccess("Profile updated successfully");
   };
 
   return (
@@ -138,7 +125,7 @@ export const ModalSuccess = ({ room = null, isFlight = true }) => {
   const { setOpenedModal } = useOpenModal();
   const { setModalType } = useModalType();
   const user = useActiveUser((selector) => selector.user);
-  const setUser = useActiveUser((selector) => selector.setUser());
+  const setUser = useActiveUser((selector) => selector.setUser);
   const navigate = useNavigate();
 
   const onCloseHandler = (event) => {
@@ -148,15 +135,13 @@ export const ModalSuccess = ({ room = null, isFlight = true }) => {
     setModalType("none");
   };
 
-  console.log(user);
-
   return (
     <ModalContainer>
       <div className="flex flex-col justify-center items-center w-full h-full">
         <h3 className="text-xl font-semibold text-blackishGreen mb-6 text-center">
           Your reservation has been confirmed!
         </h3>
-        {isFlight ? (
+        {isFlight && room === null ? (
           <h2 className="text-2xl font-semibold">
             Your seat is:
             <span className="text-3xl text-bold text-mintGreen block text-center">
@@ -183,6 +168,8 @@ export const ModalSuccess = ({ room = null, isFlight = true }) => {
 };
 
 export const ModalCard = () => {
+  const user = useActiveUser((selector) => selector.user);
+  const { addUserCard } = UserServices();
   const {
     handleSubmit,
     register,
@@ -194,7 +181,18 @@ export const ModalCard = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    const cardData = {
+      cardNumber: data.number,
+      expiryDate: data.valid,
+      cvc: data.cvc,
+      nameOnCard: data.name,
+      type: data.number.startsWith("4") ? "visa" : "mastercard",
+    };
+    addUserCard(user.id, cardData)
+      .then(() => {
+        notifySuccess("Card added successfully");
+      })
+      .catch((err) => notifyError(err.message));
     setValue("number", "");
     setValue("valid", "");
     setValue("cvc", "");

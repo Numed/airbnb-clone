@@ -36,11 +36,11 @@ export const columns = [
     header: "Email",
     cell: ({ row }) => <div>{row.getValue("email")}</div>,
   },
-  {
-    accessorKey: "role",
-    header: "Role",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("role")}</div>,
-  },
+{
+  accessorKey: "isAdmin",
+  header: "Role",
+  cell: ({ row }) => <div className="capitalize">{row.getValue("isAdmin") ? 'Admin' : 'User'}</div>,
+},
   {
     id: "actions",
     enableHiding: false,

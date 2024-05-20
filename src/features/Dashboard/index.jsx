@@ -18,7 +18,7 @@ const DashboardContainer = () => {
     if (!usersData.length) {
       getAllUsers()
         .then((response) => {
-          setUsersData(response.data);
+          setUsersData(response);
         })
         .catch((error) => {
           notifyError(error);

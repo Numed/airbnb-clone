@@ -4,17 +4,9 @@ export const AdminService = () => {
   const { makeRequest } = useRequestService();
 
   const getUser = (id) => makeRequest(`/user/${id}`);
-  const getAllUsers = () => makeRequest("/users");
+  const getAllUsers = () => makeRequest("/user/all");
   const createHotels = (data) => makeRequest("/hotels", "POST", data);
-  const updateUserName = (data, id) =>
-    makeRequest(`/user/${id}`, "PATCH", data);
-  const updateUserAvatar = (data, id) =>
-    makeRequest(`/user/${id}`, "PATCH", data);
-  const updateUserPhone = (data, id) =>
-    makeRequest(`/user/${id}`, "PATCH", data);
-  const updateUserAddress = (data, id) =>
-    makeRequest(`/user/${id}`, "PATCH", data);
-  const updateUserDateOfBirth = (data, id) =>
+  const updateUserById = (data, id) =>
     makeRequest(`/user/${id}`, "PATCH", data);
   const getAllApps = () => makeRequest("/hotels");
   const getAppsByID = (id) => makeRequest(`/hotels/${id}`);
@@ -26,11 +18,7 @@ export const AdminService = () => {
     getUser,
     getAllUsers,
     createHotels,
-    updateUserName,
-    updateUserAvatar,
-    updateUserPhone,
-    updateUserAddress,
-    updateUserDateOfBirth,
+    updateUserById,
     getAllApps,
     getAppsByID,
     addApps,

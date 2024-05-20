@@ -14,7 +14,7 @@ const PaymentCards = () => {
   const { deleteUserCard } = UserServices();
 
   const onDelete = (id) => {
-    deleteUserCard(user.id, id)
+    deleteUserCard(user.id)
       .then((data) => onDeleted(data, id))
       .catch((err) => toast.error(err.message));
   };

@@ -22,29 +22,31 @@ import {
 } from "../../../components/Select";
 import { DialogFooter } from "../../../components/Dialog";
 import Button from "../../../components/Button";
-import { notifySuccess } from "../../../utils/notifications";
+import { notifySuccess, onError } from "../../../utils/notifications";
 import { useUsersData } from "../../../store";
+import { AdminService } from "../../../services/admin";
 
 const UserFormSchema = z.object({
   id: z.string(),
   username: z.string(),
   email: z.string().email(),
-  role: z.string(),
+  isAdmin: z.boolean(),
 });
 
 export function UserForm({ id }) {
+  const { updateUserById } = AdminService();
   const { usersData, setUsersData } = useUsersData((state) => ({
     usersData: state.usersData,
     setUsersData: state.setUsersData,
   }));
-  
+
   const form = useForm({
     resolver: zodResolver(UserFormSchema),
     defaultValues: {
       id: id || "",
       username: "",
       email: "",
-      role: "",
+      isAdmin: false,
     },
   });
 
@@ -68,7 +70,11 @@ export function UserForm({ id }) {
       updatedUsers.push(data);
     }
 
-    setUsersData(updatedUsers);
+    updateUserById(data, data.id).then(onSuccsses).catch(onError);
+  };
+
+  const onSuccsses = (data) => {
+    setUsersData([...usersData, data]);
     notifySuccess("User's data has been updated");
     form.reset();
   };
@@ -117,13 +123,18 @@ export function UserForm({ id }) {
           />
           <FormField
             control={form.control}
-            name="role"
+            name="isAdmin"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
                   <>
                     <FormLabel>Role</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
+                    <Select
+                      onValueChange={(value) =>
+                        field.onChange(value === "admin")
+                      }
+                      value={field.value ? "admin" : "user"}
+                    >
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Choose role" />
                       </SelectTrigger>

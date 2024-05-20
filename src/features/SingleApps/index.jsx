@@ -22,9 +22,11 @@ const SingleAppContainer = () => {
       .catch((err) => notifyError(err));
   }, []);
 
- const goToDetails = (appId, roomName = null) => {
-  navigate("/details", { state: { id: appId, type: "apps", room: roomName } });
-};
+  const goToDetails = (appId, roomName = null) => {
+    navigate("/details", {
+      state: { id: appId, type: "apps", room: roomName },
+    });
+  };
 
   return (
     <main className="flex items-center justify-center flex-col w-full h-full px-12 lg:px-[6.5rem]">
@@ -33,7 +35,7 @@ const SingleAppContainer = () => {
       </section>
       <div className="w-full h-full my-5">
         <img
-          className="w-full sm:w-1/2 h-full rounded-3xl"
+          className="w-full object-cover h-full rounded-3xl"
           src={app?.photo}
           alt={app?.description}
         />
@@ -110,8 +112,10 @@ const SingleAppContainer = () => {
                   <span className="text-lg font-bold h-auto mr-4">
                     ${price}/night
                   </span>
-                  <button className="w-1/2 text-sm text-blackishGreen font-semibold p-4 bg-mintGreen/80 hover:bg-mintGreen transition-colors"
-                  onClick={() => goToDetails(app.id, {name})}>
+                  <button
+                    className="w-1/2 text-sm text-blackishGreen font-semibold p-4 bg-mintGreen/80 hover:bg-mintGreen transition-colors"
+                    onClick={() => goToDetails(app.id, { name })}
+                  >
                     Book now
                   </button>
                 </div>

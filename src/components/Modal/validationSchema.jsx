@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const validationSchemas = {
+export const validationSchemas = {
   email: z.string().email("Invalid email").min(1, "Email is required"),
   text: z.string().min(1, "Text is required"),
   phone: z

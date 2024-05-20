@@ -22,7 +22,6 @@ const DetailsContent = () => {
 
   let location = useLocation();
   let { id, type, room } = location.state;
-  console.log("rooom", room);
 
   useEffect(() => {
     if (type === "flights") {
@@ -67,10 +66,7 @@ const DetailsContent = () => {
       </div>
       {isOpenModal && modalType === "card" && <ModalCard />}
       {isOpenModal && modalType === "succsess" && (
-        <ModalSuccess
-          {...(room !== null && { room: room.name })}
-          isFlight={false}
-        />
+        <ModalSuccess room={null} isFlight={type === "flights"} />
       )}
     </main>
   );

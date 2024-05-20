@@ -30,9 +30,6 @@ const SingleFlightHeader = ({ flight }) => {
           ${flight.price}
         </h3>
         <div>
-          <button className="p-3 border border-mintGreen hover:bg-mintGreen text-center text-blackishGreen font-medium mr-4 transition-colors">
-            <AiOutlineHeart />
-          </button>
           <button
             onClick={goToDetails}
             className="text-sm text-blackishGreen font-semibold bg-mintGreen/90 hover:bg-mintGreen p-4 sm:py-3 sm:px-10 text-center rounded-sm transition-colors"

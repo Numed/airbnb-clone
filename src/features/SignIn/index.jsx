@@ -51,7 +51,7 @@ const SigninContainer = () => {
   };
 
   return (
-    <section className="mt-10 lg:mt-0 flex items-center justify-center">
+    <section className="mt-10 flex items-center justify-center">
       <div className="flex items-center justify-center space-x-28">
         <div>
           <Link

@@ -17,7 +17,7 @@ const Cards = () => {
   }, []);
 
   const onChooseCard = () => {
-    if (user !== undefined && user.cards.length > 0) {
+    if (user !== undefined && user?.cards?.length > 0) {
       const { number } = user.cards[0];
       setSelectedCard(number);
     }
@@ -31,7 +31,7 @@ const Cards = () => {
   return (
     <div className="flex flex-col items-start justify-center bg-white rounded-md p-4">
       <div className="flex flex-col justify-between items-start w-full h-auto space-y-2">
-        {user.cards.map(({ number, valid, type, id }) => {
+        {user?.cards?.map(({ number, valid, type, id }) => {
           return (
             <div
               className="w-full h-auto bg=white rounded-md p-2 sm:p-4"
