@@ -1,31 +1,7 @@
 import { create } from "zustand";
-import { usersConstants } from "../features/Contants";
 
 export const useActiveUser = create((set) => ({
-  user: {
-    id: "1",
-    username: "John Doe",
-    email: "john-doe@gmail.com",
-    password: "fdsafasd213412",
-    role: "admin",
-    cards: [
-      { id: 1, number: "4111111111111535", valid: "12/25", type: "visa" },
-      { id: 2, number: "5111111111111636", valid: "12/25", type: "mastercard" },
-    ],
-    orderRooms: [],
-    orderFlights: [
-      {
-        userId: "1",
-        flightId: "1",
-        seat: "46B",
-      },
-      {
-        userId: "1",
-        flightId: "2",
-        seat: "1A",
-      },
-    ],
-  },
+  user: {},
   setUser: (newUser) => {
     set(() => ({
       user: newUser,
@@ -103,6 +79,48 @@ export const useCountFlights = create((set) => ({
   },
 }));
 
+export const useOrderedFlights = create((set) => ({
+  orderedFlights: [],
+  setOrderedFlights: (state) => {
+    set({ orderedFlights: state });
+  },
+}));
+
+export const useOrderedRooms = create((set) => ({
+  orderedRooms: [],
+  setOrderedRooms: (state) => {
+    set({ orderedRooms: state });
+  },
+}));
+
+export const useDetailsInfo = create((set) => ({
+  detailsInfo: {},
+  setDetailsInfo: (state) => {
+    set({ detailsInfo: state });
+  },
+}));
+
+export const useOrderedDetails = create((set) => ({
+  orderedDetails: {},
+  setOrderedDetails: (state) => {
+    set(state);
+  },
+}));
+
+export const useSelectedHotelsDate = create((set) => ({
+  selectedHotelsDate: {},
+  setSelectedHotelsDate: (state) => {
+    set(state);
+  },
+}));
+
+export const useSelectedFlightsDate = create((set) => ({
+  selectedFlightsDate: {},
+  setSelectedFlightsDate: (state) => {
+    set(state);
+  },
+}));
+
 export const useUsersData = create((set) => ({
   usersData: [],
   setUsersData: (state) => {
@@ -114,5 +132,19 @@ export const useHotelsData = create((set) => ({
   hotelsData: [],
   setHotelsData: (state) => {
     set({ hotelsData: state });
+  },
+}));
+
+export const useFlightsCities = create((set) => ({
+  flightsCities: [],
+  setFlightsCities: (state) => {
+    set({ flightsCities: state });
+  },
+}));
+
+export const useHotelsCities = create((set) => ({
+  hotelsCities: [],
+  setHotelsCities: (state) => {
+    set({ hotelsCities: state });
   },
 }));

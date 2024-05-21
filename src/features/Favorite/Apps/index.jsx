@@ -6,9 +6,9 @@ import { Skeleton } from "../../../components/Skeleton";
 import { useIsLoading } from "../../../store";
 import { useFavorite } from "../useFavorite";
 
-const FavoriteAppContainer = () => {
+const FavoriteAppContainer = ({ apps }) => {
   const { isLoading } = useIsLoading();
-  const { onFavoriteHandler, apps } = useFavorite();
+  const { onFavoriteHandler } = useFavorite();
   return (
     <>
       {apps?.length === 0 ? (

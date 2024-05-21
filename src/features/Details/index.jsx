@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import AsideInfo from "./Aside";
@@ -7,14 +7,14 @@ import PaymentSection from "./Payment";
 import HotelDetails from "./HotelDetails";
 import FlightDetails from "./FlightDetails";
 
-import { useModalType, useOpenModal } from "../../store";
+import { useDetailsInfo, useModalType, useOpenModal } from "../../store";
 import { ModalCard, ModalSuccess } from "../../components/Modal";
 import { FlightsService } from "../../services/flights";
 import { HotelsServices } from "../../services/hotels";
 import { onError } from "../../utils/notifications";
 
 const DetailsContent = () => {
-  const [detailsInfo, setDetailsInfo] = useState();
+  const { detailsInfo, setDetailsInfo } = useDetailsInfo();
   const { isOpenModal } = useOpenModal();
   const { modalType } = useModalType();
   const { getFlightById } = FlightsService();
@@ -30,7 +30,7 @@ const DetailsContent = () => {
         .catch(onError);
     } else {
       getAppsByID(id)
-        .then((res) => setDetailsInfo(res))
+        .then((res) => setDetailsInfo({ ...res, room }))
         .catch(onError);
     }
   }, []);
@@ -65,9 +65,7 @@ const DetailsContent = () => {
         <AsideInfo detailsInfo={detailsInfo} />
       </div>
       {isOpenModal && modalType === "card" && <ModalCard />}
-      {isOpenModal && modalType === "succsess" && (
-        <ModalSuccess room={null} isFlight={type === "flights"} />
-      )}
+      {isOpenModal && modalType === "succsess" && <ModalSuccess />}
     </main>
   );
 };

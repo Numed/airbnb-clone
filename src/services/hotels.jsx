@@ -9,6 +9,7 @@ export const HotelsServices = () => {
   const updateApps = (data, id) => makeRequest(`/hotels/${id}`, "PATCH", data);
   const deleteApps = (id) => makeRequest(`/hotels/${id}`, "DELETE");
   const getAdvantages = () => makeRequest("/hotels/advantages");
+  const getAppCities = () => makeRequest("/hotels/cities");
 
   return {
     updateApps,
@@ -17,5 +18,6 @@ export const HotelsServices = () => {
     deleteApps,
     addApps,
     getAdvantages,
+    getAppCities,
   };
 };

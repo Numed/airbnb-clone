@@ -70,12 +70,13 @@ export function UserForm({ id }) {
       updatedUsers.push(data);
     }
 
-    updateUserById(data, data.id).then(onSuccsses).catch(onError);
+    updateUserById(data, data.id).then((response) => onSuccsses(response, data, data.id)).catch(onError);
   };
 
-  const onSuccsses = (data) => {
-    setUsersData([...usersData, data]);
-    notifySuccess("User's data has been updated");
+  const onSuccsses = (response, userUpdatedData, userId) => {
+    notifySuccess(response);
+    const updatedUser = usersData.filter((item) => item.id !== userId);
+    setUsersData([...updatedUser, userUpdatedData]);
     form.reset();
   };
 
@@ -157,7 +158,7 @@ export function UserForm({ id }) {
         </div>
         <DialogFooter>
           <Button type="submit" variant="secondary">
-            Add
+            Edit
           </Button>
         </DialogFooter>
       </form>

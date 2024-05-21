@@ -22,9 +22,9 @@ const SingleAppContainer = () => {
       .catch((err) => notifyError(err));
   }, []);
 
-  const goToDetails = (appId, roomName = null) => {
+  const goToDetails = (appId, roomId = null, roomName) => {
     navigate("/details", {
-      state: { id: appId, type: "apps", room: roomName },
+      state: { id: appId, type: "apps", room: { id: roomId, name: roomName } },
     });
   };
 
@@ -92,7 +92,7 @@ const SingleAppContainer = () => {
             Available Rooms
           </h3>
           <div className="flex items-start justify-between w-full flex-col mt-8 space-y-7">
-            {app?.rooms?.map(({ name, price, photo }, i) => (
+            {app?.rooms?.map(({ id, name, price, photo }, i) => (
               <div
                 key={i}
                 className="w-full flex items-start justify-start flex-col sm:flex-row border-t border-t-blackishGreen/25 py-6"
@@ -114,7 +114,7 @@ const SingleAppContainer = () => {
                   </span>
                   <button
                     className="w-1/2 text-sm text-blackishGreen font-semibold p-4 bg-mintGreen/80 hover:bg-mintGreen transition-colors"
-                    onClick={() => goToDetails(app.id, { name })}
+                    onClick={() => goToDetails(app.id, { id, name })}
                   >
                     Book now
                   </button>

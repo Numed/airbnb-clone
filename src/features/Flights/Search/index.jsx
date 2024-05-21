@@ -5,18 +5,15 @@ import { IoSwapHorizontal } from "react-icons/io5";
 import { cn } from "../../../utils";
 import DatePickerWithRange from "../../../components/DatePicker";
 import { Link } from "react-router-dom";
+import { useFlightsCities } from "../../../store";
 
 const FlightsSearch = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [count, setCount] = useState(1);
   const [classType, setClassType] = useState("Economy");
-  const [flights] = useState([
-    { id: 1, name: "Kiev" },
-    { id: 2, name: "Lviv" },
-    { id: 3, name: "Odesa" },
-  ]);
-  const [fromFlight, setFromFlight] = useState(flights[0].name);
-  const [toFlight, setToFlight] = useState("");
+  const { flightsCities } = useFlightsCities();
+  const [fromFlight, setFromFlight] = useState(flightsCities[0]);
+  const [toFlight, setToFlight] = useState(flightsCities[1]);
 
   const reverseFlights = () => {
     setFromFlight(toFlight);
@@ -38,9 +35,9 @@ const FlightsSearch = () => {
                 value={fromFlight}
                 onChange={(el) => setFromFlight(el.target.value)}
               >
-                {flights
+                {flightsCities
                   .filter((el) => el.name !== toFlight)
-                  .map(({ id, name }) => (
+                  .map((name, id) => (
                     <option key={id} value={name}>
                       {name}
                     </option>
@@ -54,9 +51,9 @@ const FlightsSearch = () => {
                 value={toFlight}
                 onChange={(el) => setToFlight(el.target.value)}
               >
-                {flights
+                {flightsCities
                   .filter((el) => el.name !== fromFlight)
-                  .map(({ id, name }) => (
+                  .map((name, id) => (
                     <option key={id} value={name}>
                       {name}
                     </option>

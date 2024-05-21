@@ -50,15 +50,23 @@ const SearchFlightsContainer = () => {
     setIsFetchingData(false);
   };
 
+  let previousTarget = null;
+
   const onFilter = (target, value) => {
     const data = {
       sort: value,
     };
-    if (target.classList.contains("border-b-2 border-b-mintGreen")) {
-      target.classList.remove("border-b-2 border-b-mintGreen");
-    } else {
-      target.classList.add("border-b-2 border-b-mintGreen");
+  
+    const classes = ["border-b-2", "border-b-mintGreen"];
+  
+    if (previousTarget && previousTarget !== target) {
+      classes.forEach((cls) => previousTarget.classList.remove(cls));
     }
+  
+    classes.forEach((cls) => target.classList.add(cls));
+
+    previousTarget = target;
+  
     const queryString = new URLSearchParams(data).toString();
     filterFlights(queryString).then(onFiltered).catch(onError);
   };
@@ -93,7 +101,7 @@ const SearchFlightsContainer = () => {
               }
             >
               Cheapest
-              <span className="text-sm text-blackishGreen/40">
+              <span className="text-sm text-blackishGreen/40 pointer-events-none">
                 {flights?.length > 0 ? (
                   `
                   $ ${flights?.map((flight) => flight.price).sort()[0]} |${" "}
@@ -110,7 +118,7 @@ const SearchFlightsContainer = () => {
               }
             >
               Best
-              <span className="text-sm text-blackishGreen/40">
+              <span className="text-sm text-blackishGreen/40 pointer-events-none">
                 {flights?.length > 0 ? (
                   `
                   $ ${flights?.map((flight) => flight.price).sort()[0]} |${" "}
@@ -127,7 +135,7 @@ const SearchFlightsContainer = () => {
               }
             >
               Quickest
-              <span className="text-sm text-blackishGreen/40">
+              <span className="text-sm text-blackishGreen/40 pointer-events-none">
                 {flights?.length > 0 ? (
                   `
                   $ ${flights?.map((flight) => flight.price).sort()[0]} |${" "}

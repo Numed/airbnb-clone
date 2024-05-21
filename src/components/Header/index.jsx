@@ -75,7 +75,7 @@ const Header = () => {
                 <Link to="/profile">
                   <img
                     className="rounded-full w-10 h-10 object-cover"
-                    src={user?.avatar}
+                    src={user?.avatar || "https://placehold.co/400"}
                     alt="Profile Avatar"
                   />
                 </Link>

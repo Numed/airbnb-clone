@@ -12,6 +12,7 @@ import {
 } from "../../../components/Popup";
 import Button from "../../../components/Button";
 import { cn } from "../../../utils";
+import { useHotelsCities } from "../../../store";
 
 const Search = () => {
   const [checkIn, setCheckIn] = useState(new Date());
@@ -19,11 +20,7 @@ const Search = () => {
   const [rooms, setRooms] = useState(1);
   const [isOpened, setIsOpened] = useState(false);
   const [guess, setGuess] = useState(1);
-  const [apps, setApps] = useState([
-    { id: 1, name: "Istanbul, Turkey" },
-    { id: 2, name: "Sydney, Australia" },
-    { id: 3, name: "Malé, Maldives" },
-  ]);
+  const {hotelsCities} = useHotelsCities();
 
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-full xl:w-[90%] h-auto mx-auto p-4 flex-col shadow-md my-12">
@@ -35,7 +32,7 @@ const Search = () => {
           <div className="flex items-center justify-start">
             <BiSolidBed className="mr-2" />
             <select className="appearance-none text-center">
-              {apps.map(({ id, name }) => (
+              {hotelsCities.map((name, id) => (
                 <option key={id} value={name}>
                   {name}
                 </option>

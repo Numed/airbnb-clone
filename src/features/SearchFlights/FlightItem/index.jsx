@@ -2,14 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineHeart } from "react-icons/ai";
 
 import { Skeleton } from "../../../components/Skeleton";
-import { FlightsService } from "../../../services/flights";
+import { UserServices } from "../../../services/user";
 import { useActiveUser, useFetchingData, useIsLoading } from "../../../store";
 import { notifyError } from "../../../utils/notifications";
 
 const FlightItem = ({ flights }) => {
   const navigate = useNavigate();
   const { user } = useActiveUser();
-  const { addFavoriteFlight, deleteFavoriteFlight } = FlightsService();
+  const { addFavoriteFlight, deleteFavoriteFlight } = UserServices();
   const { isFetchingData, setIsFetchingData } = useFetchingData();
   const { setIsLoading } = useIsLoading();
 
@@ -25,11 +25,11 @@ const FlightItem = ({ flights }) => {
 
     if (e.classList.contains("bg-mintGreen")) {
       return deleteFavoriteFlight(formatedData.userId, formatedData.flightId)
-        .then(e.classList.remove("bg-mintGreen"))
+        .then(e.parentElement.classList.remove("bg-mintGreen"))
         .catch(onError);
     } else {
       return addFavoriteFlight(formatedData)
-        .then(e.classList.add("bg-mintGreen"))
+        .then(e.parentElement.classList.add("bg-mintGreen"))
         .catch(onError);
     }
   };

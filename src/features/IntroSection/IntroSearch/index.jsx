@@ -16,6 +16,7 @@ import {
 } from "../../../components/Popup";
 import Button from "../../../components/Button";
 import { NavLink } from "react-router-dom";
+import { useFlightsCities, useHotelsCities } from "../../../store";
 
 const IntroSearch = () => {
   const [activeButton, setActiveButton] = useState("Flights");
@@ -26,18 +27,10 @@ const IntroSearch = () => {
   const [checkOut, setCheckOut] = useState(addDays(new Date(), 2));
   const [guess, setGuess] = useState(1);
   const [rooms, setRooms] = useState(1);
-  const [flights] = useState([
-    { id: 1, name: "Kiev" },
-    { id: 2, name: "Lviv" },
-    { id: 3, name: "Odesa" },
-  ]);
-  const [fromFlight, setFromFlight] = useState(flights[0].name);
+  const { flightsCities } = useFlightsCities();
   const [toFlight, setToFlight] = useState("");
-  const [apps] = useState([
-    { id: 1, name: "Istanbul, Turkey" },
-    { id: 2, name: "Sydney, Australia" },
-    { id: 3, name: "Malé, Maldives" },
-  ]);
+  const [fromFlight, setFromFlight] = useState(flightsCities[0]);
+  const { hotelsCities } = useHotelsCities();
 
   const reverseFlights = () => {
     setFromFlight(toFlight);
@@ -88,9 +81,9 @@ const IntroSearch = () => {
                       value={fromFlight}
                       onChange={(el) => setFromFlight(el.target.value)}
                     >
-                      {flights
-                        .filter((el) => el.name !== toFlight)
-                        .map(({ id, name }) => (
+                      {flightsCities
+                        .filter((el) => el !== toFlight)
+                        .map((name, id) => (
                           <option key={id} value={name}>
                             {name}
                           </option>
@@ -104,9 +97,9 @@ const IntroSearch = () => {
                       value={toFlight}
                       onChange={(el) => setToFlight(el.target.value)}
                     >
-                      {flights
-                        .filter((el) => el.name !== fromFlight)
-                        .map(({ id, name }) => (
+                      {flightsCities
+                        .filter((el) => el !== fromFlight)
+                        .map((name, id) => (
                           <option key={id} value={name}>
                             {name}
                           </option>
@@ -219,7 +212,7 @@ const IntroSearch = () => {
                 <div className="flex items-center justify-start">
                   <BiSolidBed className="mr-2" />
                   <select className="appearance-none text-center">
-                    {apps.map(({ id, name }) => (
+                    {hotelsCities.map((name, id) => (
                       <option key={id} value={name}>
                         {name}
                       </option>

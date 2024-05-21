@@ -27,8 +27,18 @@ const HotelFormSchema = z.object({
   name: z.string(),
   location: z.string(),
   description: z.string(),
-  rating: z.number().min(0).max(5),
-  price: z.number().min(0),
+  rating: z
+    .string()
+    .regex(/^\d+(\.\d{1})?$/)
+    .refine((value) => value >= 0 && value <= 5, {
+      message: "Rating must be between 0 and 5",
+    }),
+  price: z
+    .string()
+    .regex(/^\d+(\.\d+)?$/)
+    .refine((value) => value >= 0, {
+      message: "Price must be greater than or equal to 0",
+    }),
   photo: z.string(),
 });
 

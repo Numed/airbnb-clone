@@ -2,16 +2,14 @@ import { useState } from "react";
 
 import { onError } from "../../utils/notifications";
 import { useActiveUser } from "../../store";
-import { FlightsService } from "../../services/flights";
-import { HotelsServices } from "../../services/hotels";
+import { UserServices } from "../../services/user";
 
 export const useFavorite = () => {
   const [flights, setFlights] = useState([]);
   const [apps, setApps] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useActiveUser();
-  const { deleteFavoriteFlight } = FlightsService();
-  const { deleteFavoriteHotel } = HotelsServices();
+  const { deleteFavoriteFlight, deleteFavoriteHotel } = UserServices();
 
   const onSetUser = (data) => {
     setFlights(data.favoritesFlights);
@@ -19,7 +17,7 @@ export const useFavorite = () => {
     setIsLoading(false);
   };
 
-  const onFavoriteHandler = (e, id, isFlight, flights, apps) => {
+  const onFavoriteHandler = (e, id, isFlight) => {
     const formatedData = {
       userId: user.id,
       [isFlight ? "flightId" : "hotelId"]: id,
@@ -34,13 +32,7 @@ export const useFavorite = () => {
       formatedData[isFlight ? "flightId" : "hotelId"]
     )
       .then(() =>
-        onRemoved(
-          e,
-          formatedData[isFlight ? "flightId" : "hotelId"],
-          isFlight,
-          flights,
-          apps
-        )
+        onRemoved(e, formatedData[isFlight ? "flightId" : "hotelId"], isFlight)
       )
       .catch(onError);
   };

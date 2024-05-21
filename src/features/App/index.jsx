@@ -10,7 +10,10 @@ import { ToastContainer } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
 
 import Loader from "../../components/Loader";
-import { useActiveUser } from "../../store";
+import { useActiveUser, useFlightsCities, useHotelsCities } from "../../store";
+import { FlightsService } from "../../services/flights";
+import { HotelsServices } from "../../services/hotels";
+import { notifyError } from "../../utils/notifications";
 
 const DashboardPage = lazy(() => import("../../pages/Dashboard"));
 const DetailsPage = lazy(() => import("../../pages/Details"));
@@ -28,6 +31,10 @@ const HomePage = lazy(() => import("../../pages/Home"));
 
 const App = () => {
   const { setUser } = useActiveUser();
+  const { setHotelsCities } = useHotelsCities();
+  const { setFlightsCities } = useFlightsCities();
+  const { getFlightCities } = FlightsService();
+  const { getAppCities } = HotelsServices();
 
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
@@ -36,7 +43,16 @@ const App = () => {
     }
   }, []);
 
-  //TODO: Створити сортування по даті
+  useEffect(() => {
+    Promise.all([getAppCities(), getFlightCities()])
+      .then(([hotelsRes, flightsRes]) => {
+        setHotelsCities(hotelsRes);
+        setFlightsCities(flightsRes);
+      })
+      .catch((err) => {
+        notifyError(err);
+      });
+  }, []);
 
   return (
     <Router>
@@ -44,45 +60,57 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/sign-in" element={<SignInPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/flights" element={<FlightsPage />} />
           <Route path="/appartaments" element={<AppartamentsPage />} />
+          <Route path="/search-flights" element={<SearchFlights />} />
+          <Route path="/flights/:id" element={<SinglePageFlights />} />
+          <Route path="/search-appartaments" element={<SearchApps />} />
+          <Route path="/appartaments/:id" element={<SinglePageApps />} />
+          <Route path="/details" element={<DetailsPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              localStorage.getItem("token") ? (
+                <DashboardPage />
+              ) : (
+                <Navigate
+                  to="/sign-in"
+                  state={{ nextPathname: "/profile" }}
+                  replace
+                />
+              )
+            }
+          />
+
           <Route
             path="/profile"
             element={
               localStorage.getItem("token") ? (
                 <ProfilePage />
               ) : (
-                // <Navigate
-                //   to="/sign-in"
-                //   state={{ nextPathname: "/profile" }}
-                //   replace
-                // />
-                <ProfilePage />
+                <Navigate
+                  to="/sign-in"
+                  state={{ nextPathname: "/profile" }}
+                  replace
+                />
               )
             }
           />
-          <Route path="/search-flights" element={<SearchFlights />} />
-          <Route path="/flights/:id" element={<SinglePageFlights />} />
-          <Route path="/search-appartaments" element={<SearchApps />} />
-          <Route path="/appartaments/:id" element={<SinglePageApps />} />
           <Route
             path="/favorite"
             element={
               localStorage.getItem("token") ? (
                 <FavoritePage />
               ) : (
-                // <Navigate
-                //   to="/sign-in"
-                //   state={{ nextPathname: "/favorite" }}
-                //   replace
-                // />
-                <FavoritePage />
+                <Navigate
+                  to="/sign-in"
+                  state={{ nextPathname: "/favorite" }}
+                  replace
+                />
               )
             }
           />
-          <Route path="/details" element={<DetailsPage />} />
         </Routes>
         <ToastContainer />
       </Suspense>

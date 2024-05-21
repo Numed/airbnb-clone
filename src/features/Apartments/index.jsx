@@ -8,34 +8,6 @@ const ApartmentsContainer = () => {
     <section className="w-full h-full">
       <ApartmentsHeader />
       <ApartmentsSearch />
-      <div className="px-5 sm:px-20">
-        <h3 className="mb-4 text-black text-2xl lg:text-4xl font-bold">
-          Your recent searches
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 items-center gap-4">
-          {user?.recentSearch?.length > 0 ? (
-            user?.recentSearch?.map(({ id, title, places }) => (
-              <div
-                key={id}
-                className="bg-white shadow-md flex items-center space-x-4 rounded-xl p-4"
-              >
-                <div>
-                  <h5 className="text-blackishGreen/70 text-base font-semibold">
-                    {title}
-                  </h5>
-                  <span className="text-sm text-blackishGreen">
-                    {places} places
-                  </span>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-blackishGreen/50 text-2xl text-center my-4">
-              No recent searches
-            </p>
-          )}
-        </div>
-      </div>
       <section className="w-full h-full mt-4">
         <div className="w-full h-full mt-20">
           <div className="flex items-center justify-between w-full px-4 lg:px-[6.5rem]">

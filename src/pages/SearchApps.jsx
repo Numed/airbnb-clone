@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SearchAppsContainer from "../features/SearchApps";
 
-const SearchApps = () => {
+const SearchApps = memo(() => {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
@@ -14,6 +14,6 @@ const SearchApps = () => {
       <Footer />
     </>
   );
-};
+});
 
 export default SearchApps;

@@ -10,6 +10,7 @@ export const FlightsService = () => {
   const deleteFlight = (id) => makeRequest(`/flights/${id}`, "DELETE");
   const filterFlights = (params) => makeRequest(`/flights/filter?${params}`);
   const getAirlines = () => makeRequest("/flights/airlines");
+  const getFlightCities = () => makeRequest("/flights/cities");
 
   return {
     getAllFlights,
@@ -19,5 +20,6 @@ export const FlightsService = () => {
     updateFlight,
     filterFlights,
     getAirlines,
+    getFlightCities,
   };
 };

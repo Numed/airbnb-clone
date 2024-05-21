@@ -4,9 +4,9 @@ import { Skeleton } from "../../../components/Skeleton";
 import { useIsLoading } from "../../../store";
 import { useFavorite } from "../useFavorite";
 
-const FavoriteHotelsApp = () => {
+const FavoriteFlightsApp = ({flights}) => {
   const { isLoading } = useIsLoading();
-  const { onFavoriteHandler, flights } = useFavorite();
+  const { onFavoriteHandler } = useFavorite();
   return (
     <>
       {flights.length === 0 ? (
@@ -87,4 +87,4 @@ const FavoriteHotelsApp = () => {
   );
 };
 
-export default FavoriteHotelsApp;
+export default FavoriteFlightsApp;

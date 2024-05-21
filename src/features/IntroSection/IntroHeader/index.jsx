@@ -68,7 +68,7 @@ const IntroHeader = () => {
               >
                 <img
                   className="w-10 h-10 rounded-full object-cover"
-                  src={user?.avatar}
+                  src={user?.avatar || "https://placehold.co/400"}
                   alt="Profile Avatar"
                 />
                 <button

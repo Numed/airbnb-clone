@@ -12,9 +12,10 @@ import {
 import { notifyError, notifySuccess, onError } from "../../utils/notifications";
 import { UserServices } from "../../services/user";
 import { getFieldLabel, getFieldType } from "../../utils/modal";
-import { useModalType, useOpenModal } from "../../store";
+import { useDetailsInfo, useModalType, useOpenModal } from "../../store";
 import { cn } from "../../utils";
 import { useActiveUser } from "../../store";
+import { useEffect, useState } from "react";
 
 const ModalContainer = ({ children, styles }) => {
   const { setOpenedModal } = useOpenModal();
@@ -65,10 +66,9 @@ export const ModalProfile = ({ initial, type }) => {
   const { setOpenedModal, setModalType } = useOpenModal();
 
   const onSubmitProfile = (data) => {
-    console.log(data);
-    // userMeUpdate(data)
-    //   .then((updatedUser) => onUpdateProfile(updatedUser, data))
-    //   .catch(onError);
+    userMeUpdate(data)
+      .then((updatedUser) => onUpdateProfile(updatedUser, data))
+      .catch(onError);
   };
 
   const onUpdateProfile = (updatedUser, values) => {
@@ -121,12 +121,27 @@ export const ModalProfile = ({ initial, type }) => {
   );
 };
 
-export const ModalSuccess = ({ room = null, isFlight = true }) => {
+export const ModalSuccess = () => {
   const { setOpenedModal } = useOpenModal();
   const { setModalType } = useModalType();
-  const user = useActiveUser((selector) => selector.user);
-  const setUser = useActiveUser((selector) => selector.setUser);
+  const [seat, setSeat] = useState(null);
+  const { detailsInfo } = useDetailsInfo();
   const navigate = useNavigate();
+  const { createOrderedFlight, createOrderedRoom } = UserServices();
+
+  useEffect(() => {
+    const { type, ...details } = detailsInfo;
+
+    if (type === "room") {
+      createOrderedRoom(details)
+        .then((data) => notifySuccess(data))
+        .catch(onError);
+    } else {
+      createOrderedFlight(details)
+        .then((seat) => setSeat({ ...seat }))
+        .catch(onError);
+    }
+  }, [detailsInfo]);
 
   const onCloseHandler = (event) => {
     event.preventDefault();
@@ -141,18 +156,18 @@ export const ModalSuccess = ({ room = null, isFlight = true }) => {
         <h3 className="text-xl font-semibold text-blackishGreen mb-6 text-center">
           Your reservation has been confirmed!
         </h3>
-        {isFlight && room === null ? (
+        {detailsInfo.type === "flight" ? (
           <h2 className="text-2xl font-semibold">
             Your seat is:
             <span className="text-3xl text-bold text-mintGreen block text-center">
-              46B
+              {seat}
             </span>
           </h2>
         ) : (
           <h2 className="text-2xl font-semibold">
             Your room is:{" "}
             <span className="text-3xl text-bold text-mintGreen block text-center">
-              {room}
+              {detailsInfo?.name}
             </span>
           </h2>
         )}
@@ -183,12 +198,12 @@ export const ModalCard = () => {
   const onSubmit = (data) => {
     const cardData = {
       cardNumber: data.number,
-      expiryDate: data.valid,
-      cvc: data.cvc,
+      expiryDate: "20" + data.valid.split("/").reverse().join("-"),
+      cvc: +data.cvc,
       nameOnCard: data.name,
-      type: data.number.startsWith("4") ? "visa" : "mastercard",
+      typeCard: data.number.startsWith("4") ? "Visa" : "Mastercard",
     };
-    addUserCard(user.id, cardData)
+    addUserCard(cardData)
       .then(() => {
         notifySuccess("Card added successfully");
       })

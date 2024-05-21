@@ -7,7 +7,7 @@ export const cn = (...inputs) => {
 
 export const convertNameFormat = (name) => {
   if (!name) {
-    return '';
+    return "";
   }
   const nameArr = name.split(" ");
   if (nameArr.length === 1) {

@@ -9,8 +9,8 @@ const HotelDetails = ({detailsInfo}) =>{
                       <div className="flex items-center justify-between">
                         <div className="flex items-center justify-start flex-wrap sm:flex-nowrap bg-white border border-mintGreen rounded-md p-4 sm:px-8 sm:py-6 w-full">
                           <img
-                            className="w-16 h-11 object-contain mb-4 sm:mb-0"
-                            src={detailsInfo?.hotelLogo}
+                            className="w-[100px] h-[100px] object-contain mb-4 sm:mb-0"
+                            src={detailsInfo?.photo}
                             alt={detailsInfo?.alt}
                           />
                           <div className="sm:ml-6">

@@ -13,6 +13,7 @@ import {
 } from "../../../components/Popup";
 import Button from "../../../components/Button";
 import { cn } from "../../../utils";
+import { useHotelsCities } from "../../../store";
 
 const ApartmentsSearch = () => {
   const [checkIn, setCheckIn] = useState(new Date());
@@ -20,12 +21,8 @@ const ApartmentsSearch = () => {
   const [count, setCount] = useState(1);
   const [rooms, setRooms] = useState(1);
   const [isOpened, setIsOpened] = useState(false);
-  const [apps] = useState([
-    { id: 1, name: "Istanbul, Turkey" },
-    { id: 2, name: "Sydney, Australia" },
-    { id: 3, name: "Malé, Maldives" },
-  ]);
-  const [selectedApp, setSelectedApp] = useState(apps[0]);
+  const { hotelsCities } = useHotelsCities();
+  const [selectedApp, setSelectedApp] = useState(hotelsCities[0]);
 
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-[90%] h-auto mx-auto p-8 flex-col shadow-md -translate-y-16">
@@ -42,14 +39,14 @@ const ApartmentsSearch = () => {
               <BiSolidBed className="mr-2" />
               <select
                 className="appearance-none text-center"
-                value={selectedApp.name}
+                value={selectedApp}
                 onChange={(e) => {
                   setSelectedApp(
-                    apps.find(({ name }) => name === e.target.value)
+                    hotelsCities.find((name) => name === e.target.value)
                   );
                 }}
               >
-                {apps.map(({ id, name }) => (
+                {hotelsCities.map((name, id) => (
                   <option key={id} value={name}>
                     {name}
                   </option>

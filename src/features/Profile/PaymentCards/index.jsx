@@ -32,7 +32,7 @@ const PaymentCards = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-4 sm:gap-x-4 justify-between items-center w-full h-auto">
-      {user?.cards?.map(({ number, valid, type, id }) => {
+      {user?.cards?.map(({ cardNumber, expiryDate, typeCard, id }) => {
         return (
           <div
             className="w-full sm:w-[320px] lg:w-[350px] h-auto bg-mintGreen rounded-md p-4"
@@ -42,7 +42,7 @@ const PaymentCards = () => {
               <span className="text-2xl font-semibold">
                 **** **** ****
                 <h3 className="font-semibold text-white text-3xl">
-                  {number.slice(-4)}
+                  {cardNumber?.slice(-4)}
                 </h3>
               </span>
               <button onClick={() => onDelete(id)}>
@@ -52,10 +52,10 @@ const PaymentCards = () => {
             <div className="w-full h-auto flex justify-between items-center mt-8">
               <div>
                 <span className="text-xs font-semibold">Valid Thru</span>
-                <h3 className="text-xl font-semibold">{valid}</h3>
+                <h3 className="text-xl font-semibold">{expiryDate}</h3>
               </div>
               <div>
-                {type === "mastercard" ? (
+                {typeCard === "Mastercard" ? (
                   <FaCcMastercard className="w-12 h-12" />
                 ) : (
                   <FaCcVisa className="w-12 h-12" />

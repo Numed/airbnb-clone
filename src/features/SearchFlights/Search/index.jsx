@@ -4,16 +4,13 @@ import { FaSearch } from "react-icons/fa";
 import { cn } from "../../../utils";
 import DatePickerWithRange from "../../../components/DatePicker";
 import { IoSwapHorizontal } from "react-icons/io5";
+import { useFlightsCities } from "../../../store";
 
 const Search = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [count, setCount] = useState(1);
   const [classType, setClassType] = useState("Economy");
-  const [flights, setFlights] = useState([
-    { id: 1, name: "Kiev" },
-    { id: 2, name: "Lviv" },
-    { id: 3, name: "Odesa" },
-  ]);
+  const { flightsCities } = useFlightsCities();
 
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-full xl:w-[90%] h-auto mx-auto p-4 flex-col shadow-md my-12">
@@ -23,7 +20,7 @@ const Search = () => {
           <div className="flex items-center justify-between pr-4">
             <div>
               <select className="appearance-none text-center">
-                {flights.map(({ id, name }) => (
+                {flightsCities.map((name, id) => (
                   <option key={id} value={name}>
                     {name}
                   </option>
@@ -33,7 +30,7 @@ const Search = () => {
                 -
               </span>
               <select className="appearance-none text-center">
-                {flights.map(({ id, name }) => (
+                {flightsCities.map((name, id) => (
                   <option key={id} value={name}>
                     {name}
                   </option>

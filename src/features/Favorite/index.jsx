@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import FavoriteAppContainer from "./Apps";
-import FavoriteHotelsApp from "./Hotels";
+import FavoriteFlightsApp from "./Flights";
 import { cn } from "../../utils";
 import { onError } from "../../utils/notifications";
 import { useActiveUser } from "../../store";
@@ -20,7 +20,7 @@ const FavoriteContainer = () => {
       setIsLoading(true);
       getUserMe(id).then(onSetUser).catch(onError);
     }
-  }, [user]);
+  }, []);
 
   return (
     <section className="mt-12 px-8 xl:px-[6.5rem] w-full h-full flex flex-col items-center justify-center">
@@ -56,11 +56,11 @@ const FavoriteContainer = () => {
       <div className="w-full h-full">
         {active === "Flights" ? (
           <div className="mt-6 w-full h-full grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <FavoriteHotelsApp />
+            <FavoriteFlightsApp flights={flights} />
           </div>
         ) : (
           <div className="mt-6 w-full h-full grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <FavoriteAppContainer />
+            <FavoriteAppContainer apps={apps} />
           </div>
         )}
       </div>

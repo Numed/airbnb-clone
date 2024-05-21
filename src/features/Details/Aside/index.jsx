@@ -1,10 +1,10 @@
 const AsideInfo = ({ detailsInfo }) => {
   return (
     <aside className="bg-white rounded-xl p-4 sm:p-6 w-full mb-8 xl:ml-10 xl:mb-0">
-      <div className="flex items-start justify-start flex-col sm:flex-row">
+      <div className="flex items-start justify-start flex-col sm:flex-row mb-2">
         <img
           className="w-[3rem] h-[3rem] mb-2 sm:w-[7.5rem] sm:h-[7.5rem] sm:mr-6 sm:mb-0 object-contain"
-          src={detailsInfo?.partnerLogo || detailsInfo?.hotelLogo}
+          src={detailsInfo?.photo || detailsInfo?.photo}
           alt={detailsInfo?.partnerName || detailsInfo?.alt}
         />
         <div className="flex flex-col items-start justify-start">

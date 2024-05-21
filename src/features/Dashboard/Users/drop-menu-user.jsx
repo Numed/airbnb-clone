@@ -10,16 +10,26 @@ import {
 import Button from "../../../components/Button";
 import { ModalForUserFrom } from "./user-modal";
 import { useUsersData } from "../../../store";
+import { notifySuccess, onError } from "../../../utils/notifications";
+import { AdminService } from "../../../services/admin";
 
 export const DropdownMenuUser = ({ user }) => {
+  const { deleteUserById } = AdminService();
   const { usersData, setUsersData } = useUsersData((state) => ({
     usersData: state.usersData,
     setUsersData: state.setUsersData,
   }));
 
   const handleDeleteUser = (id) => {
+    deleteUserById(id)
+      .then(() => onSuccsses(id))
+      .catch(onError);
+  };
+
+  const onSuccsses = (id) => {
     const newUsers = usersData.filter((item) => item.id !== id);
     setUsersData(newUsers);
+    notifySuccess("User deleted successfully");
   };
 
   return (
