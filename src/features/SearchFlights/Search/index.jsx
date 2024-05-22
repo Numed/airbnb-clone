@@ -4,13 +4,44 @@ import { FaSearch } from "react-icons/fa";
 import { cn } from "../../../utils";
 import DatePickerWithRange from "../../../components/DatePicker";
 import { IoSwapHorizontal } from "react-icons/io5";
-import { useFlightsCities } from "../../../store";
+import { useFlightsCities, useSelectedFlightsDate } from "../../../store";
+import { FilterService } from "../../../services/filters";
 
 const Search = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [count, setCount] = useState(1);
   const [classType, setClassType] = useState("Economy");
   const { flightsCities } = useFlightsCities();
+  const { selectedFlightsDate } = useSelectedFlightsDate();
+
+  const { filterFlights } = FilterService();
+
+  const handleSearch = () => {
+    const searchParams = {
+      minPrice: 0,
+      maxPrice: 1000,
+      departureTime: selectedFlightsDate.departureTime,
+      arrivalTime: selectedFlightsDate.arrivalTime,
+      rating: 0,
+      selectedAirlines: [],
+    };
+
+    const validSearchParams = {
+      ...searchParams,
+    };
+
+    delete validSearchParams[0];
+
+    const queryString = new URLSearchParams(validSearchParams).toString();
+
+    filterFlights(queryString)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-full xl:w-[90%] h-auto mx-auto p-4 flex-col shadow-md my-12">
@@ -125,7 +156,10 @@ const Search = () => {
             </div>
           )}
         </div>
-        <button className="col-span-2 xl:col-auto bg-mintGreen p-4 hover:text-white transition-all flex items-center justify-center mt-4">
+        <button
+          className="col-span-2 xl:col-auto bg-mintGreen p-4 hover:text-white transition-all flex items-center justify-center mt-4"
+          onClick={handleSearch}
+        >
           <FaSearch />
         </button>
       </div>

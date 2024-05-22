@@ -27,6 +27,7 @@ const Filter = () => {
   const setCountFlights = useCountFlights((state) => state.setCountFlights);
 
   useEffect(() => {
+    if(airlines.length > 0) return;
     getAirlines()
       .then((res) => setAirlines(res))
       .catch((err) => notifyError(err));

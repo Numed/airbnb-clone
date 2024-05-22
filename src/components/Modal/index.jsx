@@ -47,11 +47,9 @@ const ModalContainer = ({ children, styles }) => {
 };
 
 export const ModalProfile = ({ initial, type }) => {
-  if (!validationSchemas.hasOwnProperty(type)) {
-    throw new Error(`No validation schema found for type "${type}"`);
-  }
-
+  console.log(type);
   const schema = generateValidationSchema(type);
+
 
   const {
     handleSubmit,
@@ -63,7 +61,8 @@ export const ModalProfile = ({ initial, type }) => {
 
   const { userMeUpdate } = UserServices();
   const { user, setUser } = useActiveUser();
-  const { setOpenedModal, setModalType } = useOpenModal();
+  const { setOpenedModal } = useOpenModal();
+  const { setModalType } = useModalType();
 
   const onSubmitProfile = (data) => {
     userMeUpdate(data)
@@ -76,7 +75,7 @@ export const ModalProfile = ({ initial, type }) => {
     setModalType("none");
 
     if (values.birthday !== undefined) {
-      updatedUser.dataBirth = values.birthday;
+      updatedUser.birthday = values.birthday;
       delete values.birthday;
     }
 
@@ -104,7 +103,6 @@ export const ModalProfile = ({ initial, type }) => {
                 errors[type] ? "border-red-500" : "border-blackishGreen"
               )}
               type={getFieldType(type)}
-              name={type}
               defaultValue={initial}
               {...register(type)}
             />
@@ -122,32 +120,48 @@ export const ModalProfile = ({ initial, type }) => {
 };
 
 export const ModalSuccess = () => {
+  const [seat, setSeat] = useState();
   const { setOpenedModal } = useOpenModal();
   const { setModalType } = useModalType();
-  const [seat, setSeat] = useState(null);
   const { detailsInfo } = useDetailsInfo();
-  const navigate = useNavigate();
   const { createOrderedFlight, createOrderedRoom } = UserServices();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const { type, ...details } = detailsInfo;
 
     if (type === "room") {
-      createOrderedRoom(details)
-        .then((data) => notifySuccess(data))
-        .catch(onError);
+      createOrderedRoom(details).then(onSuccessRoom).catch(onError);
     } else {
-      createOrderedFlight(details)
-        .then((seat) => setSeat({ ...seat }))
-        .catch(onError);
+      createOrderedFlight(details).then(onSuccessFlight).catch(onError);
     }
   }, [detailsInfo]);
+
+  const onSuccessRoom = () => {
+    setOpenedModal(false);
+    setModalType("none");
+    notifySuccess("Room ordered successfully");
+    navigate("/");
+  };
+
+  const onSuccessFlight = (data) => {
+    setSeat(data.seat);
+    setOpenedModal(false);
+    setModalType("none");
+    notifySuccess("Flight ordered successfully");
+    navigate("/");
+  };
+
+  const onError = (error) => {
+    notifyError(error);
+  };
 
   const onCloseHandler = (event) => {
     event.preventDefault();
     setOpenedModal(false);
-    navigate("/");
     setModalType("none");
+    navigate("/");
   };
 
   return (
@@ -165,14 +179,14 @@ export const ModalSuccess = () => {
           </h2>
         ) : (
           <h2 className="text-2xl font-semibold">
-            Your room is:{" "}
+            Your room is:
             <span className="text-3xl text-bold text-mintGreen block text-center">
               {detailsInfo?.name}
             </span>
           </h2>
         )}
         <Link
-          onClick={(event) => onCloseHandler(event)}
+          onClick={onCloseHandler}
           className="mt-4 text-blackishGreen text-base py-2 px-4 rounded-md border border-mintGreen hover:bg-mintGreen hover:text-white transition"
         >
           Go to home page

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import Search from "./Search";
 import Filter from "./Filter";
 import Loader from "../../components/Loader";
@@ -27,14 +26,10 @@ const SearchFlightsContainer = () => {
   const setCountFlights = useCountFlights((state) => state.setCountFlights);
 
   useEffect(() => {
-    onCheckFlights();
-  }, []);
-
-  const onCheckFlights = () => {
     if (!flights.length) {
       getFlights();
     }
-  };
+  }, [flights.length]); // Залежність лише від довжини flights
 
   const getFlights = () => {
     setIsLoading(true);
@@ -56,18 +51,20 @@ const SearchFlightsContainer = () => {
     const data = {
       sort: value,
     };
-  
+
     const classes = ["border-b-2", "border-b-mintGreen"];
-  
+
     if (previousTarget && previousTarget !== target) {
       classes.forEach((cls) => previousTarget.classList.remove(cls));
     }
-  
+
     classes.forEach((cls) => target.classList.add(cls));
 
     previousTarget = target;
-  
+
     const queryString = new URLSearchParams(data).toString();
+    setIsLoading(true);
+    setIsFetchingData(true);
     filterFlights(queryString).then(onFiltered).catch(onError);
   };
 
@@ -103,9 +100,9 @@ const SearchFlightsContainer = () => {
               Cheapest
               <span className="text-sm text-blackishGreen/40 pointer-events-none">
                 {flights?.length > 0 ? (
-                  `
-                  $ ${flights?.map((flight) => flight.price).sort()[0]} |${" "}
-                   ${flights?.map((flight) => flight.duration).sort()[0]}`
+                  `$ ${flights?.map((flight) => flight.price).sort()[0]} | ${
+                    flights?.map((flight) => flight.duration).sort()[0]
+                  }`
                 ) : (
                   <Skeleton className="w-20 h-4 bg-gray-300" />
                 )}
@@ -120,9 +117,9 @@ const SearchFlightsContainer = () => {
               Best
               <span className="text-sm text-blackishGreen/40 pointer-events-none">
                 {flights?.length > 0 ? (
-                  `
-                  $ ${flights?.map((flight) => flight.price).sort()[0]} |${" "}
-                   ${flights?.map((flight) => flight.duration).sort()[0]}`
+                  `$ ${flights?.map((flight) => flight.price).sort()[0]} | ${
+                    flights?.map((flight) => flight.duration).sort()[0]
+                  }`
                 ) : (
                   <Skeleton className="w-20 h-4 bg-gray-300" />
                 )}
@@ -137,9 +134,9 @@ const SearchFlightsContainer = () => {
               Quickest
               <span className="text-sm text-blackishGreen/40 pointer-events-none">
                 {flights?.length > 0 ? (
-                  `
-                  $ ${flights?.map((flight) => flight.price).sort()[0]} |${" "}
-                   ${flights?.map((flight) => flight.duration).sort()[0]}`
+                  `$ ${flights?.map((flight) => flight.price).sort()[0]} | ${
+                    flights?.map((flight) => flight.duration).sort()[0]
+                  }`
                 ) : (
                   <Skeleton className="w-20 h-4 bg-gray-300" />
                 )}

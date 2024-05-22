@@ -1,26 +1,14 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { AiOutlineCalendar } from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
-import { addDays, format } from "date-fns";
-
-import Calendar from "../../../components/Calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../../../components/Popup";
-import Button from "../../../components/Button";
-import { cn } from "../../../utils";
 import { useHotelsCities } from "../../../store";
+import HotelDatePicker from "../../../components/DatePicker/HotelDatePicker";
 
 const Search = () => {
-  const [checkIn, setCheckIn] = useState(new Date());
-  const [checkOut, setCheckOut] = useState(addDays(new Date(), 2));
   const [rooms, setRooms] = useState(1);
   const [isOpened, setIsOpened] = useState(false);
   const [guess, setGuess] = useState(1);
-  const {hotelsCities} = useHotelsCities();
+  const { hotelsCities } = useHotelsCities();
 
   return (
     <div className="bg-white rounded-xl flex justify-start items-start w-full xl:w-[90%] h-auto mx-auto p-4 flex-col shadow-md my-12">
@@ -40,64 +28,7 @@ const Search = () => {
             </select>
           </div>
         </fieldset>
-        <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
-          <legend className="bg-white p-2 text-sm ml-2">Check In</legend>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant={"solid"}
-                className={cn(
-                  "w-[240px] pl-3 text-left font-normal",
-                  !checkIn && "text-muted-foreground"
-                )}
-              >
-                {checkIn ? (
-                  format(checkIn, "PPP")
-                ) : (
-                  <span className="text-blackishGreen">Pick a date</span>
-                )}
-                <AiOutlineCalendar className="ml-auto h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={checkIn}
-                onSelect={setCheckIn}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </fieldset>
-        <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
-          <legend className="bg-white p-2 text-sm ml-2">Check Out</legend>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant={"solid"}
-                className={cn(
-                  "w-[240px] pl-3 text-left font-normal",
-                  !checkOut && "text-muted-foreground"
-                )}
-              >
-                {checkOut ? (
-                  format(checkOut, "PPP")
-                ) : (
-                  <span className="text-blackishGreen">Pick a date</span>
-                )}
-                <AiOutlineCalendar className="ml-auto h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={checkOut}
-                onSelect={setCheckOut}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </fieldset>
+          <HotelDatePicker />
         <div className="relative min-w-full sm:min-w-[20rem]">
           <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
             <legend className="bg-white p-2 text-sm ml-2">

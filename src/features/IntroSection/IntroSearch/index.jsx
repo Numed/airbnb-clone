@@ -2,29 +2,19 @@ import { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import { MdFlight } from "react-icons/md";
 import { IoBed, IoSwapHorizontal } from "react-icons/io5";
-import { AiOutlineCalendar } from "react-icons/ai";
 import { BiSolidBed } from "react-icons/bi";
-import { addDays, format } from "date-fns";
 
 import { cn } from "../../../utils";
 import DatePickerWithRange from "../../../components/DatePicker";
-import Calendar from "../../../components/Calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../../../components/Popup";
-import Button from "../../../components/Button";
 import { NavLink } from "react-router-dom";
 import { useFlightsCities, useHotelsCities } from "../../../store";
+import HotelDatePicker from "../../../components/DatePicker/HotelDatePicker";
 
 const IntroSearch = () => {
   const [activeButton, setActiveButton] = useState("Flights");
   const [isOpened, setIsOpened] = useState(false);
   const [count, setCount] = useState(1);
   const [classType, setClassType] = useState("Economy");
-  const [checkIn, setCheckIn] = useState(new Date());
-  const [checkOut, setCheckOut] = useState(addDays(new Date(), 2));
   const [guess, setGuess] = useState(1);
   const [rooms, setRooms] = useState(1);
   const { flightsCities } = useFlightsCities();
@@ -220,64 +210,7 @@ const IntroSearch = () => {
                   </select>
                 </div>
               </fieldset>
-              <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
-                <legend className="bg-white p-2 text-sm ml-2">Check In</legend>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"solid"}
-                      className={cn(
-                        "w-full sm:w-[240px] pl-3 text-left font-normal",
-                        !checkIn && "text-muted-foreground"
-                      )}
-                    >
-                      {checkIn ? (
-                        format(checkIn, "PPP")
-                      ) : (
-                        <span className="text-blackishGreen">Pick a date</span>
-                      )}
-                      <AiOutlineCalendar className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={checkIn}
-                      onSelect={setCheckIn}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </fieldset>
-              <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
-                <legend className="bg-white p-2 text-sm ml-2">Check Out</legend>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"solid"}
-                      className={cn(
-                        "w-full sm:w-[240px] pl-3 text-left font-normal",
-                        !checkOut && "text-muted-foreground"
-                      )}
-                    >
-                      {checkOut ? (
-                        format(checkOut, "PPP")
-                      ) : (
-                        <span className="text-blackishGreen">Pick a date</span>
-                      )}
-                      <AiOutlineCalendar className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={checkOut}
-                      onSelect={setCheckOut}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </fieldset>
+              <HotelDatePicker />
               <div className="relative w-full sm:min-w-[20rem]">
                 <fieldset className="border border-black rounded-md p-2 min-h-[90px]">
                   <legend className="bg-white p-2 text-sm ml-2">

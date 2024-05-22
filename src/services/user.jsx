@@ -25,6 +25,7 @@ export const UserServices = () => {
     makeRequest("/user/orderRoom", "POST", data);
   const createOrderedFlight = (data) =>
     makeRequest("/user/orderFlight", "POST", data);
+  const getUserOrders = () => makeRequest("/user/orders");
 
   return {
     getUserMe,
@@ -40,5 +41,6 @@ export const UserServices = () => {
     deleteUserCard,
     createOrderedRoom,
     createOrderedFlight,
+    getUserOrders,
   };
 };

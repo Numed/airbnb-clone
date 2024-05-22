@@ -4,16 +4,12 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { lazy, useEffect } from "react";
-import { Suspense } from "react";
+import { lazy, useEffect, useState, Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
 
 import Loader from "../../components/Loader";
-import { useActiveUser, useFlightsCities, useHotelsCities } from "../../store";
-import { FlightsService } from "../../services/flights";
-import { HotelsServices } from "../../services/hotels";
-import { notifyError } from "../../utils/notifications";
+import { useActiveUser } from "../../store";
 
 const DashboardPage = lazy(() => import("../../pages/Dashboard"));
 const DetailsPage = lazy(() => import("../../pages/Details"));
@@ -31,28 +27,14 @@ const HomePage = lazy(() => import("../../pages/Home"));
 
 const App = () => {
   const { setUser } = useActiveUser();
-  const { setHotelsCities } = useHotelsCities();
-  const { setFlightsCities } = useFlightsCities();
-  const { getFlightCities } = FlightsService();
-  const { getAppCities } = HotelsServices();
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
-    if (localStorage.getItem("token") !== null) {
-      const decoded = jwtDecode(localStorage.getItem("token"));
+    if (token) {
+      const decoded = jwtDecode(token);
       setUser(decoded);
     }
-  }, []);
-
-  useEffect(() => {
-    Promise.all([getAppCities(), getFlightCities()])
-      .then(([hotelsRes, flightsRes]) => {
-        setHotelsCities(hotelsRes);
-        setFlightsCities(flightsRes);
-      })
-      .catch((err) => {
-        notifyError(err);
-      });
-  }, []);
+  }, [token, setUser]);
 
   return (
     <Router>
@@ -71,44 +53,19 @@ const App = () => {
           <Route
             path="/dashboard"
             element={
-              localStorage.getItem("token") ? (
-                <DashboardPage />
-              ) : (
-                <Navigate
-                  to="/sign-in"
-                  state={{ nextPathname: "/profile" }}
-                  replace
-                />
-              )
+              token ? <DashboardPage /> : <Navigate to="/sign-in" replace />
             }
           />
-
           <Route
             path="/profile"
             element={
-              localStorage.getItem("token") ? (
-                <ProfilePage />
-              ) : (
-                <Navigate
-                  to="/sign-in"
-                  state={{ nextPathname: "/profile" }}
-                  replace
-                />
-              )
+              token ? <ProfilePage /> : <Navigate to="/sign-in" replace />
             }
           />
           <Route
             path="/favorite"
             element={
-              localStorage.getItem("token") ? (
-                <FavoritePage />
-              ) : (
-                <Navigate
-                  to="/sign-in"
-                  state={{ nextPathname: "/favorite" }}
-                  replace
-                />
-              )
+              token ? <FavoritePage /> : <Navigate to="/sign-in" replace />
             }
           />
         </Routes>

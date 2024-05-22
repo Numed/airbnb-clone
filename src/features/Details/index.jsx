@@ -26,7 +26,7 @@ const DetailsContent = () => {
   useEffect(() => {
     if (type === "flights") {
       getFlightById(id)
-        .then((res) => setDetailsInfo(res))
+        .then((res) => setDetailsInfo({ ...res }))
         .catch(onError);
     } else {
       getAppsByID(id)

@@ -4,8 +4,40 @@ import IntroHeader from "./IntroHeader";
 import IntroSearch from "./IntroSearch";
 import IntroReviews from "./IntroReviews";
 import Footer from "../../components/Footer";
+import { useFlightsCities, useHotelsCities } from "../../store";
+import { FlightsService } from "../../services/flights";
+import { HotelsServices } from "../../services/hotels";
+import { useEffect } from "react";
+import { notifyError } from "../../utils/notifications";
 
 const IntroSection = () => {
+  const { hotelsCities, setHotelsCities } = useHotelsCities();
+  const { flightsCities, setFlightsCities } = useFlightsCities();
+  const { getFlightCities } = FlightsService();
+  const { getAppCities } = HotelsServices();
+  useEffect(() => {
+    if (hotelsCities.length === 0) {
+      getAppCities()
+        .then((hotelsRes) => {
+          setHotelsCities(hotelsRes);
+        })
+        .catch((err) => {
+          notifyError(err);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (flightsCities.length === 0) {
+      getFlightCities()
+        .then((flightsRes) => {
+          setFlightsCities(flightsRes);
+        })
+        .catch((err) => {
+          notifyError(err);
+        });
+    }
+  }, []);
   return (
     <section className="w-full h-full p-0 lg:p-5">
       <div className="h-screen bg-intro bg-center bg-no-repeat bg-cover rounded-xl ">

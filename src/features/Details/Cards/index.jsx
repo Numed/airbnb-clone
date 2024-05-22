@@ -57,8 +57,6 @@ const Cards = () => {
     setOpenedModal(true);
   };
 
-  console.log(user);
-
   return (
     <div className="flex flex-col items-start justify-center bg-white rounded-md p-4">
       <div className="flex flex-col justify-between items-start w-full h-auto space-y-2">
@@ -92,7 +90,7 @@ const Cards = () => {
                   type="radio"
                   name="card"
                   value={cardNumber}
-                  onChange={() => setSelectedCard(cardNumber)}
+                  onChange={() => setSelectedCard(id)}
                 />
               </label>
             </div>

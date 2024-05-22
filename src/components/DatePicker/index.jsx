@@ -1,17 +1,51 @@
-import { addDays, format } from "date-fns";
-import { useState } from "react";
+import { addDays, format, parseISO } from "date-fns";
+import { useState, useEffect } from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
 
 import { cn } from "../../utils";
 import { Popover, PopoverContent, PopoverTrigger } from "../Popup";
 import Button from "../Button";
 import Calendar from "../Calendar";
+import { useSelectedFlightsDate } from "../../store";
 
-const DatePickerWithRange = ({ className }) => {
+const FlightDatePicker = ({ className }) => {
+  const { selectedFlightsDate, setSelectedFlightsDate } =
+    useSelectedFlightsDate();
+
+  const initialFromDate = selectedFlightsDate.departureTime
+    ? parseISO(selectedFlightsDate.departureTime)
+    : new Date();
+  const initialToDate = selectedFlightsDate.arrivalTime
+    ? parseISO(selectedFlightsDate.arrivalTime)
+    : addDays(new Date(), 3);
+
   const [date, setDate] = useState({
-    from: new Date(2023, 11, 27),
-    to: addDays(new Date(2023, 11, 30), 3),
+    from: initialFromDate,
+    to: initialToDate,
   });
+
+  useEffect(() => {
+    // Завантажити вибрані дати зі стану
+    const { departureTime, arrivalTime } = selectedFlightsDate;
+    if (departureTime && arrivalTime) {
+      setDate({
+        from: parseISO(departureTime),
+        to: parseISO(arrivalTime),
+      });
+    }
+  }, [selectedFlightsDate]);
+
+  useEffect(() => {
+    // Update selectedFlightsDate state
+    setSelectedFlightsDate({
+      departureTime: format(date.from, "yyyy-MM-dd'T'HH:mm:ss"),
+      arrivalTime: format(date.to, "yyyy-MM-dd'T'HH:mm:ss"),
+    });
+  }, [date, setSelectedFlightsDate]);
+
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+  };
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -46,7 +80,7 @@ const DatePickerWithRange = ({ className }) => {
             mode="range"
             defaultMonth={date?.from}
             selected={date}
-            onSelect={setDate}
+            onSelect={handleDateChange}
             numberOfMonths={2}
           />
         </PopoverContent>
@@ -55,4 +89,4 @@ const DatePickerWithRange = ({ className }) => {
   );
 };
 
-export default DatePickerWithRange;
+export default FlightDatePicker;

@@ -27,24 +27,22 @@ const SearchAppsContainer = () => {
   const { apps, setApps } = useApps();
 
   useEffect(() => {
-    onCheckApps();
-  }, []);
-
-  const onCheckApps = () => {
     if (apps.length === 0 && offset === 0) {
       getApps();
     }
-  };
+  }, [apps.length, offset]); // Додаємо залежності
 
   const getApps = () => {
     setIsLoading(true);
     setIsFetchingData(true);
-    getAllApps().then(onSetApps).catch(onError);
+    getAllApps()
+      .then(onSetApps)
+      .catch(onError);
   };
 
   const onSetApps = (data) => {
     setAppsCounter(data?.length);
-    setOffset(offset + 4);
+    setOffset((prevOffset) => prevOffset + 4);
     setApps(data.slice(0, offset + 4));
     setIsLoading(false);
     setIsFetchingData(false);
@@ -53,7 +51,7 @@ const SearchAppsContainer = () => {
   const onError = (err) => {
     setIsLoading(false);
     setIsFetchingData(false);
-    return notifyError(err);
+    notifyError(err);
   };
 
   const onRefetch = () => {
@@ -94,7 +92,7 @@ const SearchAppsContainer = () => {
           <button
             className={cn(
               "text-white bg-blackishGreen hover:bg-blackishGreen/90 text-center w-full py-4 transition-colors",
-              offset === 12 && "hidden"
+              offset >= appsCounter && "hidden"
             )}
             onClick={onRefetch}
             disabled={isLoading}

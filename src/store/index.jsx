@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export const useActiveUser = create((set) => ({
   user: {},
@@ -107,19 +108,35 @@ export const useOrderedDetails = create((set) => ({
   },
 }));
 
-export const useSelectedHotelsDate = create((set) => ({
-  selectedHotelsDate: {},
-  setSelectedHotelsDate: (state) => {
-    set(state);
-  },
-}));
+export const useSelectedHotelsDate = create(
+  persist(
+    (set) => ({
+      selectedHotelsDate: {
+        checkIn: null,
+        checkOut: null,
+      },
+      setSelectedHotelsDate: (date) => set({ selectedHotelsDate: date }),
+    }),
+    {
+      name: "selectedHotelsDate-storage", // Ім'я ключа у локальному сховищі
+    }
+  )
+);
 
-export const useSelectedFlightsDate = create((set) => ({
-  selectedFlightsDate: {},
-  setSelectedFlightsDate: (state) => {
-    set(state);
-  },
-}));
+export const useSelectedFlightsDate = create(
+  persist(
+    (set) => ({
+      selectedFlightsDate: {
+        departureTime: null,
+        arrivalTime: null,
+      },
+      setSelectedFlightsDate: (date) => set({ selectedFlightsDate: date }),
+    }),
+    {
+      name: "selectedFlightsDate-storage",
+    }
+  )
+);
 
 export const useUsersData = create((set) => ({
   usersData: [],
@@ -146,5 +163,14 @@ export const useHotelsCities = create((set) => ({
   hotelsCities: [],
   setHotelsCities: (state) => {
     set({ hotelsCities: state });
+  },
+}));
+
+export const useFlightData = create((set) => ({
+  flightData: {},
+  setFlightData: (newData) => {
+    set((state) => ({
+      flightData: { ...state.flightData, ...newData },
+    }));
   },
 }));

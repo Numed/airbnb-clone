@@ -25,11 +25,11 @@ const FlightItem = ({ flights }) => {
 
     if (e.classList.contains("bg-mintGreen")) {
       return deleteFavoriteFlight(formatedData.userId, formatedData.flightId)
-        .then(e.parentElement.classList.remove("bg-mintGreen"))
+        .then(e.classList.remove("bg-mintGreen"))
         .catch(onError);
     } else {
       return addFavoriteFlight(formatedData)
-        .then(e.parentElement.classList.add("bg-mintGreen"))
+        .then(e.classList.add("bg-mintGreen"))
         .catch(onError);
     }
   };
