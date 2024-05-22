@@ -47,9 +47,8 @@ const ModalContainer = ({ children, styles }) => {
 };
 
 export const ModalProfile = ({ initial, type }) => {
-  console.log(type);
+  console.log(initial, type);
   const schema = generateValidationSchema(type);
-
 
   const {
     handleSubmit,

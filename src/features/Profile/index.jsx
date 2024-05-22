@@ -123,7 +123,7 @@ const ProfileContainer = () => {
                   </div>
                   <button
                     className="flex items-center justify-center p-4 border border-mintGreen hover:bg-mintGreen hover:text-white transition-all"
-                    onClick={() => handleModal("text", user?.username)}
+                    onClick={() => handleModal("username", user?.username)}
                   >
                     <RiEditBoxFill className="mr-1" /> Change
                   </button>
@@ -173,7 +173,9 @@ const ProfileContainer = () => {
                 </div>
                 <div className="flex flex-col space-y-2 sm:space-y-0 sm:flex-row items-baseline sm:items-center justify-between">
                   <div>
-                    <h4 className="mb-2 text-blackishGreen/75">Date of birth</h4>
+                    <h4 className="mb-2 text-blackishGreen/75">
+                      Date of birth
+                    </h4>
                     <h3 className="max-w-[25rem] text-lg sm:text-xl text-blackishGreen font-semibold">
                       {user?.birthday ? user.birthday : "Not specified"}
                     </h3>
