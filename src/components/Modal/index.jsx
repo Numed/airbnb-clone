@@ -119,7 +119,7 @@ export const ModalProfile = ({ initial, type }) => {
 };
 
 export const ModalSuccess = () => {
-  const [seat, setSeat] = useState();
+  const [seat, setSeat] = useState("3A");
   const { setOpenedModal } = useOpenModal();
   const { setModalType } = useModalType();
   const { detailsInfo } = useDetailsInfo();
@@ -146,8 +146,10 @@ export const ModalSuccess = () => {
 
   const onSuccessFlight = (data) => {
     setSeat(data.seat);
-    setOpenedModal(false);
-    setModalType("none");
+    setTimeout(() => {
+      setOpenedModal(false);
+      setModalType("none");
+    }, 5000);
     notifySuccess("Flight ordered successfully");
     navigate("/");
   };

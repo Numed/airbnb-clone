@@ -7,7 +7,7 @@ import DropdownMenuHotel from "./dropdown-menu";
 
 const HotelsDashboard = () => {
   const [hotels, setHotels] = useState([]);
-  const { getAllApps, updateApps, addApps, deleteApps } = AdminService();
+  const { getAllApps, updateApps, createHotels, deleteApps } = AdminService();
 
   useEffect(() => {
     fetchHotels();
@@ -31,9 +31,9 @@ const HotelsDashboard = () => {
         })
         .catch((error) => notifyError(error));
     } else {
-      addApps(data)
+      createHotels(data)
         .then((response) => {
-          setHotels((prevHotels) => [...prevHotels, response.data]);
+          setHotels((prevHotels) => [...prevHotels, response]);
         })
         .catch((error) => notifyError(error));
     }
@@ -47,26 +47,28 @@ const HotelsDashboard = () => {
     });
   };
 
+  console.log(hotels);
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Hotels Dashboard</h1>
       <ul>
         {hotels?.map((hotel) => (
           <li
-            key={hotel.id}
+            key={hotel?.id}
             className="border p-2 mb-2 flex items-end justify-between"
           >
             <div className="flex items-start justify-start">
               <img
-                src={hotel.photo}
-                alt={hotel.alt}
+                src={hotel?.photo}
+                alt={hotel?.id}
                 className="w-20 h-20 mr-2"
               />
               <div>
                 <h3 className="mb-1 text-blackishGreen font-medium text-lg">
-                  {hotel.name}
+                  {hotel?.name}
                 </h3>
-                <span className="text-gray-500 text-sm">{hotel.location}</span>
+                <span className="text-gray-500 text-sm">{hotel?.location}</span>
               </div>
             </div>
             <DropdownMenuHotel

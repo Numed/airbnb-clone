@@ -10,10 +10,15 @@ const HistorySection = () => {
   const { user, setUser } = useActiveUser();
   const { getUserOrders } = UserServices();
 
-  useEffect(() => {
-    if (user?.flightOrders?.length > 0 || user?.hotelOrders?.length > 0) return;
-    getUserOrders().then((data) => setUser({ ...user, ...data }));
-  }, []);
+useEffect(() => {
+  if (user?.flightOrders?.length > 0) return;
+  getUserOrders().then((data) => setUser({ ...user, ...data }));
+}, []);
+
+useEffect(() => {
+  if (user?.hotelOrders?.length > 0) return;
+  getUserOrders().then((data) => setUser({ ...user, ...data }));
+}, []);
 
   return (
     <div>
